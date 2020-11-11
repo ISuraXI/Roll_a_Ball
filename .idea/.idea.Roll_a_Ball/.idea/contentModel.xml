@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\I518121\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\I518121\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_Roll_a_Ball.-1631507591.00" t="ExcludeRecursive" />
-    <e p="C:\Users\I518121\Documents\GitHub\Roll_a_Ball" t="IncludeRecursive">
+    <e p="C:\Users\Tobi\AppData\local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Tobi\AppData\local\JetBrains\Rider2020.2\resharper-host\local\Transient\Rider\v202\SolutionCaches\_Roll_a_Ball.-1885337400.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Tobi\Documents\GitHub\Roll_a_Ball" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
@@ -131,17 +131,14 @@
             </e>
           </e>
         </e>
-        <e p="ra.cs" t="Include" />
-        <e p="ratation.cs" t="Include" />
-        <e p="Rotation.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="CameraController.cs" t="Include" />
           <e p="DeathZone.cs" t="Include" />
+          <e p="PickUpRotator.cs" t="Include" />
           <e p="PlayerController.cs" t="Include" />
           <e p="RestartButton.cs" t="Include" />
-          <e p="Rotator.cs" t="Include" />
+          <e p="Rotation.cs" t="Include" />
         </e>
-        <e p="sk.cs" t="Include" />
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />

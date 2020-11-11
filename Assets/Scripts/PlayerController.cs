@@ -8,19 +8,20 @@ public class PlayerController : MonoBehaviour
 	public Text countText;
 	public Text winText1;
 	public Text winText2;
-	public GameObject Wall1;
 	private Rigidbody rb;
 	private int count;
-	public GameObject Level_2;
-	public GameObject Wall2;
-	public GameObject Wall2_1;
-	public GameObject Level_3;
-	public GameObject Wall3;
-	public GameObject Ground3;
-	public GameObject Falle;
+	public GameObject level1;
+	public GameObject openWall1;
+	public GameObject level2;
+	public GameObject openWall2;
+	public GameObject bridge2;
+	public GameObject closeWall2;
+	public GameObject level3;
+	public GameObject bridge3;
+	public GameObject closeWall3;
 
 
-	private void Start()
+	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
 		count = 0;
@@ -29,55 +30,53 @@ public class PlayerController : MonoBehaviour
 		winText2.text = "";
 	}
 
-	public void FixedUpdate()
+	void FixedUpdate()
 	{
-		var moveHorizontal = Input.GetAxis("Horizontal");
-		var moveVertical = Input.GetAxis("Vertical");
+		float moveHorizontal = Input.GetAxis("Horizontal");
+		float moveVertical = Input.GetAxis("Vertical");
 
-		var movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+		Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
 		rb.AddForce(movement * speed);
 
 		if (count >= 8)
 		{
-			Wall1.SetActive(false);
-			Level_2.SetActive(true);
+			openWall1.SetActive(false);
+			level2.SetActive(true);
 		}
 
 		if (count >= 9)
 		{
-			Wall2_1.SetActive(false);
-			Level_3.SetActive(true);
-		}
-
-		if (count >= 13)
-		{
-			Ground3.SetActive(false);
-			Falle.SetActive(true);
+			openWall2.SetActive(false);
+			level3.SetActive(true);
 		}
 	}
 
-	public void OnTriggerEnter(Collider other)
+	void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.CompareTag("Pick Up"))
 		{
 			other.gameObject.SetActive(false);
-			count++;
+			count = count + 1;
 			SetCountText();
 		}
 
 		if (other.gameObject.CompareTag("Trigger2"))
 		{
-			Wall2.SetActive(true);
+			closeWall2.SetActive(true);
+			level1.SetActive(false);
+			bridge2.SetActive(false);
 		}
 
 		if (other.gameObject.CompareTag("Trigger3"))
 		{
-			Wall3.SetActive(true);
+			closeWall3.SetActive(true);
+			level2.SetActive(false);
+			bridge3.SetActive(false);
 		}
 	}
 
-	private void SetCountText()
+	void SetCountText()
 	{
 		countText.text = "Count: " + count.ToString();
 		if (count >= 8)
