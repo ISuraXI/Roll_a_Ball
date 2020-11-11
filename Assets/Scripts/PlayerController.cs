@@ -8,8 +8,10 @@ public class PlayerController : MonoBehaviour
 	public Text countText;
 	public Text winText1;
 	public Text winText2;
+	public GameObject playCanvas;
+	public GameObject gameOverCanvas;
 	private Rigidbody rb;
-	private int count;
+	public int count;
 	public GameObject level1;
 	public GameObject openWall1;
 	public GameObject level2;
@@ -23,11 +25,14 @@ public class PlayerController : MonoBehaviour
 
 	private void Start()
 	{
+
 		rb = GetComponent<Rigidbody>();
 		count = 0;
 		SetCountText();
 		winText1.text = "";
 		winText2.text = "";
+		playCanvas.SetActive(true);
+		gameOverCanvas.SetActive(false);
 	}
 
 	private void FixedUpdate()

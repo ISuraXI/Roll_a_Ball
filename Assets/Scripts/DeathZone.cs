@@ -5,17 +5,26 @@ using UnityEngine.UI;
 
 public class DeathZone : MonoBehaviour
 {
-	public Text deathText;
+	public GameObject gameOverCanvas;
+	public GameObject playCanvas;
+	public Text gameOverText;
+	public Text scoreText;
+	public PlayerController myplayerController;
 
 
 	private void Start()
 	{
-		deathText.text = "";
+		gameOverText.text = "";
+		scoreText.text = "";
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
 		Destroy(other.gameObject);
-		deathText.text = "YOU DIED BITCH";
+		playCanvas.SetActive(false);
+		gameOverCanvas.SetActive(true);
+		gameOverText.text = "Game Over";
+		var count = myplayerController.count;
+		scoreText.text = "Score: " + count;
 	}
 }
