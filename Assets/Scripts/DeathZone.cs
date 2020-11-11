@@ -5,18 +5,17 @@ using UnityEngine.UI;
 
 public class DeathZone : MonoBehaviour
 {
-    public Text deathText;
+	public Text deathText;
 
 
-    void Start()
-    {
-        deathText.text = "";
-    }
-    void OnTriggerEnter(Collider other)
-    {
-        Destroy(other.gameObject);
-        deathText.text = "YOU DIED BITCH";
-    }
+	private void Start()
+	{
+		deathText.text = "";
+	}
 
-    
+	private void OnTriggerEnter(Collider other)
+	{
+		Destroy(other.gameObject);
+		deathText.text = "YOU DIED BITCH";
+	}
 }

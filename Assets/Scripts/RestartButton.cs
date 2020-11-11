@@ -4,18 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class RestartButton : MonoBehaviour
 {
-
-    public void RestartGame()
-    {
-        SceneManager.LoadScene("MiniGame");
-    }
-
-
-
-
-
-
-
-
-
+	public void RestartGame()
+	{
+		SceneManager.LoadScene("MiniGame");
+	}
 }
