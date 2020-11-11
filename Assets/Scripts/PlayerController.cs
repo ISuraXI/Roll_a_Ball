@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
 
         rb.AddForce(movement * speed);
 
-        if (count >= 8)
+        if (count >= 1)
         {
             Wall1.SetActive(false);
             Level_2.SetActive(true);
