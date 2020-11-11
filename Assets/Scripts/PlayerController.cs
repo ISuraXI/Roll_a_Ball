@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 	public GameObject closeWall3;
 
 
-	void Start()
+	private void Start()
 	{
 		rb = GetComponent<Rigidbody>();
 		count = 0;
@@ -30,12 +30,12 @@ public class PlayerController : MonoBehaviour
 		winText2.text = "";
 	}
 
-	void FixedUpdate()
+	private void FixedUpdate()
 	{
-		float moveHorizontal = Input.GetAxis("Horizontal");
-		float moveVertical = Input.GetAxis("Vertical");
+		var moveHorizontal = Input.GetAxis("Horizontal");
+		var moveVertical = Input.GetAxis("Vertical");
 
-		Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+		var movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
 		rb.AddForce(movement * speed);
 
@@ -52,12 +52,12 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	void OnTriggerEnter(Collider other)
+	private void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.CompareTag("Pick Up"))
 		{
 			other.gameObject.SetActive(false);
-			count = count + 1;
+			count++;
 			SetCountText();
 		}
 
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	void SetCountText()
+	private void SetCountText()
 	{
 		countText.text = "Count: " + count.ToString();
 		if (count >= 8)
