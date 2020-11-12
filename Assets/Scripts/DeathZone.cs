@@ -10,12 +10,15 @@ public class DeathZone : MonoBehaviour
 	public Text gameOverText;
 	public Text scoreText;
 	public PlayerController myplayerController;
+	public Text counterText;
+	public string counter2;
 
 
 	private void Start()
 	{
 		gameOverText.text = "";
 		scoreText.text = "";
+		counterText.text = "";
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -26,5 +29,7 @@ public class DeathZone : MonoBehaviour
 		gameOverText.text = "Game Over";
 		var count = myplayerController.score;
 		scoreText.text = "Score: " + count;
+		counter2 = myplayerController.timePlayingStr;
+		counterText.text = counter2;
 	}
 }

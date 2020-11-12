@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
 	public GameObject bridge3;
 	public GameObject closeWall3;
 	public TimeSpan timePlaying;
+	public string timePlayingStr;
 
 
 	private void Start()
@@ -43,7 +44,7 @@ public class PlayerController : MonoBehaviour
 	{
 		counter += Time.deltaTime;
 		timePlaying = TimeSpan.FromSeconds(counter);
-		var timePlayingStr = "Time: " + timePlaying.ToString("mm':'ss'.'ff");
+		timePlayingStr = "Time: " + timePlaying.ToString("mm':'ss'.'ff");
 		counterText.text = timePlayingStr;
 	}
 
