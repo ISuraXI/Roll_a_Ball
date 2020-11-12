@@ -1,17 +1,19 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
-
 
 public class PlayerController : MonoBehaviour
 {
 	public float speed;
-	public Text countText;
-	public Text winText1;
-	public Text winText2;
+	public Text scoreText;
+	public Text level1Text;
+	public Text Level2Text;
+	public Text counterText;
 	public GameObject playCanvas;
 	public GameObject gameOverCanvas;
 	private Rigidbody rb;
-	public int count;
+	public int score;
+	public float counter;
 	public GameObject level1;
 	public GameObject openWall1;
 	public GameObject level2;
@@ -21,18 +23,28 @@ public class PlayerController : MonoBehaviour
 	public GameObject level3;
 	public GameObject bridge3;
 	public GameObject closeWall3;
+	public TimeSpan timePlaying;
 
 
 	private void Start()
 	{
-
 		rb = GetComponent<Rigidbody>();
-		count = 0;
-		SetCountText();
-		winText1.text = "";
-		winText2.text = "";
+		score = 0;
+		scoreText.text = "";
+		counterText.text = "Count: 0";
+		level1Text.text = "";
+		Level2Text.text = "";
 		playCanvas.SetActive(true);
 		gameOverCanvas.SetActive(false);
+		SetScoreText();
+	}
+
+	private void Update()
+	{
+		counter += Time.deltaTime;
+		timePlaying = TimeSpan.FromSeconds(counter);
+		var timePlayingStr = "Time: " + timePlaying.ToString("mm':'ss'.'ff");
+		counterText.text = timePlayingStr;
 	}
 
 	private void FixedUpdate()
@@ -44,13 +56,13 @@ public class PlayerController : MonoBehaviour
 
 		rb.AddForce(movement * speed);
 
-		if (count >= 8)
+		if (score >= 8)
 		{
 			openWall1.SetActive(false);
 			level2.SetActive(true);
 		}
 
-		if (count >= 9)
+		if (score >= 9)
 		{
 			openWall2.SetActive(false);
 			level3.SetActive(true);
@@ -62,8 +74,8 @@ public class PlayerController : MonoBehaviour
 		if (other.gameObject.CompareTag("Pick Up"))
 		{
 			other.gameObject.SetActive(false);
-			count++;
-			SetCountText();
+			score++;
+			SetScoreText();
 		}
 
 		if (other.gameObject.CompareTag("Trigger2"))
@@ -81,20 +93,20 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	private void SetCountText()
+	private void SetScoreText()
 	{
-		countText.text = "Count: " + count.ToString();
-		if (count >= 8)
+		scoreText.text = "Count: " + score.ToString();
+		if (score >= 8)
 		{
-			winText1.text = "Stage 1 clear!";
-			Destroy(winText1, 2);
+			level1Text.text = "Stage 1 clear!";
+			Destroy(level1Text, 2);
 		}
 
-		countText.text = "Count: " + count.ToString();
-		if (count >= 9)
+		scoreText.text = "Count: " + score.ToString();
+		if (score >= 9)
 		{
-			winText2.text = "Stage 2 clear!";
-			Destroy(winText2, 2);
+			Level2Text.text = "Stage 2 clear!";
+			Destroy(Level2Text, 2);
 		}
 	}
 }
