@@ -4,14 +4,18 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+	//Player
+	private Rigidbody rb;
 	public float speed;
-	public Text scoreText;
-	public Text level1Text;
-	public Text Level2Text;
-	public Text counterText;
+	public Player player;
+
+	//UI
 	public GameObject playCanvas;
 	public GameObject gameOverCanvas;
-	public float counter;
+
+	//Level
+	public Text level1Text;
+	public Text Level2Text;
 	public GameObject level1;
 	public GameObject openWall1;
 	public GameObject level2;
@@ -21,10 +25,20 @@ public class PlayerController : MonoBehaviour
 	public GameObject level3;
 	public GameObject bridge3;
 	public GameObject closeWall3;
-	public Player player;
-	private Rigidbody rb;
+
+	//Score
+	public Text scoreText;
+
+
+	//Counter
+	public Text counterText;
+	public float counter;
 	public TimeSpan timePlaying;
 	public string timePlayingStr;
+
+	//Jump
+	public int forceConst = 4;
+	private bool canJump;
 
 
 	private void Start()
@@ -46,6 +60,10 @@ public class PlayerController : MonoBehaviour
 		timePlaying = TimeSpan.FromSeconds(counter);
 		timePlayingStr = "Time: " + timePlaying.ToString("mm':'ss'.'ff");
 		counterText.text = timePlayingStr;
+
+		if(Input.GetKeyDown(KeyCode.Space)){
+			canJump = true;
+		}
 	}
 
 	private void FixedUpdate()
@@ -56,6 +74,11 @@ public class PlayerController : MonoBehaviour
 		var movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
 		rb.AddForce(movement * speed);
+
+		if(canJump){
+			canJump = false;
+			rb.AddForce(0, forceConst, 0, ForceMode.Impulse);
+		}
 
 		if (player.Score == 8)
 		{
