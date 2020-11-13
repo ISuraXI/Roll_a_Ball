@@ -11,8 +11,6 @@ public class PlayerController : MonoBehaviour
 	public Text counterText;
 	public GameObject playCanvas;
 	public GameObject gameOverCanvas;
-	private Rigidbody rb;
-	public int score;
 	public float counter;
 	public GameObject level1;
 	public GameObject openWall1;
@@ -23,13 +21,15 @@ public class PlayerController : MonoBehaviour
 	public GameObject level3;
 	public GameObject bridge3;
 	public GameObject closeWall3;
+	public Player player;
+	private Rigidbody rb;
 	public TimeSpan timePlaying;
 
 
 	private void Start()
 	{
+		player = new Player();
 		rb = GetComponent<Rigidbody>();
-		score = 0;
 		scoreText.text = "";
 		counterText.text = "Count: 0";
 		level1Text.text = "";
@@ -56,13 +56,13 @@ public class PlayerController : MonoBehaviour
 
 		rb.AddForce(movement * speed);
 
-		if (score >= 8)
+		if (player.Score == 8)
 		{
 			openWall1.SetActive(false);
 			level2.SetActive(true);
 		}
 
-		if (score >= 9)
+		if (player.Score >= 9)
 		{
 			openWall2.SetActive(false);
 			level3.SetActive(true);
@@ -74,36 +74,44 @@ public class PlayerController : MonoBehaviour
 		if (other.gameObject.CompareTag("Pick Up"))
 		{
 			other.gameObject.SetActive(false);
-			score++;
+			player.IncreaseScore();
 			SetScoreText();
 		}
-
-		if (other.gameObject.CompareTag("Trigger2"))
+		else if (other.gameObject.CompareTag("LevelTrigger"))
 		{
-			closeWall2.SetActive(true);
-			level1.SetActive(false);
-			bridge2.SetActive(false);
-		}
+			other.gameObject.SetActive(false);
 
-		if (other.gameObject.CompareTag("Trigger3"))
-		{
-			closeWall3.SetActive(true);
-			level2.SetActive(false);
-			bridge3.SetActive(false);
+			switch (player.Level)
+			{
+				case 0:
+					closeWall2.SetActive(true);
+					level1.SetActive(false);
+					bridge2.SetActive(false);
+					break;
+				case 1:
+					closeWall3.SetActive(true);
+					level2.SetActive(false);
+					bridge3.SetActive(false);
+					break;
+				case 2:
+					break;
+			}
+
+			player.NextLevel();
 		}
 	}
 
 	private void SetScoreText()
 	{
-		scoreText.text = "Count: " + score.ToString();
-		if (score >= 8)
+		scoreText.text = "Count: " + player.Score;
+		if (player.Score >= 8)
 		{
 			level1Text.text = "Stage 1 clear!";
 			Destroy(level1Text, 2);
 		}
 
-		scoreText.text = "Count: " + score.ToString();
-		if (score >= 9)
+		scoreText.text = "Count: " + player.Score;
+		if (player.Score >= 9)
 		{
 			Level2Text.text = "Stage 2 clear!";
 			Destroy(Level2Text, 2);

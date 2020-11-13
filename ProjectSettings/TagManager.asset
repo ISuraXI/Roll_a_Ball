@@ -6,8 +6,7 @@ TagManager:
   tags:
   - Pick Up
   - Wall1
-  - Trigger2
-  - Trigger3
+  - LevelTrigger
   layers:
   - Default
   - TransparentFX
