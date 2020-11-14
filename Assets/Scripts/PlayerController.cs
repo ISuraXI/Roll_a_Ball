@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,7 +26,6 @@ public class PlayerController : MonoBehaviour
 	public GameObject level3;
 	public GameObject bridge3;
 	public GameObject closeWall3;
-
 	//Score
 	public Text scoreText;
 
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
 	//Jump
 	public int forceConst = 4;
-	private bool canJump;
+	private bool contactWithGround = true;
 
 
 	private void Start()
@@ -56,14 +56,18 @@ public class PlayerController : MonoBehaviour
 
 	private void Update()
 	{
+
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			if (contactWithGround)
+			{
+				rb.AddForce(0, forceConst, 0, ForceMode.Impulse);
+			}
+		}
 		counter += Time.deltaTime;
 		timePlaying = TimeSpan.FromSeconds(counter);
 		timePlayingStr = "Time: " + timePlaying.ToString("mm':'ss'.'ff");
 		counterText.text = timePlayingStr;
-
-		if(Input.GetKeyDown(KeyCode.Space)){
-			canJump = true;
-		}
 	}
 
 	private void FixedUpdate()
@@ -75,10 +79,7 @@ public class PlayerController : MonoBehaviour
 
 		rb.AddForce(movement * speed);
 
-		if(canJump){
-			canJump = false;
-			rb.AddForce(0, forceConst, 0, ForceMode.Impulse);
-		}
+
 
 		if (player.Score == 8)
 		{
@@ -90,6 +91,22 @@ public class PlayerController : MonoBehaviour
 		{
 			openWall2.SetActive(false);
 			level3.SetActive(true);
+		}
+	}
+
+	void OnCollisionEnter(Collision collision)
+	{
+		if (collision.gameObject.CompareTag("Ground"))
+		{
+			contactWithGround = true;
+		}
+	}
+
+	void OnCollisionExit(Collision collision)
+	{
+		if (collision.gameObject.CompareTag("Ground"))
+		{
+			contactWithGround = false;
 		}
 	}
 
