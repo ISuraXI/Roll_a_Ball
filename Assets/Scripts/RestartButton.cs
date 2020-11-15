@@ -6,6 +6,6 @@ public class RestartButton : MonoBehaviour
 {
 	public void RestartGame()
 	{
-		SceneManager.LoadScene("Roll a Ball");
+		SceneManager.LoadScene("RollABall");
 	}
 }
