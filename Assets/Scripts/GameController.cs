@@ -31,6 +31,10 @@ public class GameController : MonoBehaviour
 	public GameObject closeWall3;
 	private int level;
 
+	//GameOver
+	public Text gameOverScoreText;
+	public Text gameOverCounterText;
+
 	//Damage
 	public Transform greenHealthBar;
 	//public Transform redHealthBar;
@@ -39,7 +43,6 @@ public class GameController : MonoBehaviour
 	//Player
 	public Player player;
 
-	public string TimePlayingStr => timePlayingStr;
 	public int Level => level;
 
 
@@ -111,6 +114,17 @@ public class GameController : MonoBehaviour
 			case 2:
 				break;
 		}
+
 		level++;
+	}
+
+	public void SetGameOver()
+	{
+		player.gameObject.SetActive(false);
+		playCanvas.SetActive(false);
+		gameOverCanvas.SetActive(true);
+		var count = player.Score;
+		gameOverScoreText.text = "Score: " + count;
+		gameOverCounterText.text = timePlayingStr;
 	}
 }

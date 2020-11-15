@@ -17,8 +17,6 @@ public class Player : MonoBehaviour
 	private bool contactWithGround = true;
 
 	public int Score => score;
-	public int Health => health;
-
 
 	private void Start()
 	{
@@ -53,13 +51,8 @@ public class Player : MonoBehaviour
 		if (collision.gameObject.CompareTag("Damage50"))
 		{
 			var panelRectTransformGreenBar = gameController.greenHealthBar.GetComponent<RectTransform>();
-			TakeDamage(50);
 			panelRectTransformGreenBar.sizeDelta = new Vector2((health * 2), 15);
-			if (health == 0)
-			{
-				//TODO DIE
-				Debug.Log("Dead");
-			}
+			TakeDamage(50);
 		}
 		else if (collision.gameObject.CompareTag("Ground"))
 		{
@@ -105,7 +98,7 @@ public class Player : MonoBehaviour
 		}
 		else
 		{
-			health = 0;
+			gameController.SetGameOver();
 		}
 	}
 
