@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class DeathZone : MonoBehaviour
 {
+	public GameObject player;
 	public GameObject gameOverCanvas;
 	public GameObject playCanvas;
 	public Text gameOverText;
@@ -23,7 +24,7 @@ public class DeathZone : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		Destroy(other.gameObject);
+		player.SetActive(false);
 		playCanvas.SetActive(false);
 		gameOverCanvas.SetActive(true);
 		gameOverText.text = "Game Over";
