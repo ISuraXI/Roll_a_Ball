@@ -9,7 +9,7 @@ public class Player
 
 	public Player()
 	{
-		health = 50;
+		health = 100;
 	}
 
 	public int Level => level;
