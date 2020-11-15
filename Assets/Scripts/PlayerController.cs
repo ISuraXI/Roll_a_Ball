@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,9 +25,10 @@ public class PlayerController : MonoBehaviour
 	public GameObject level3;
 	public GameObject bridge3;
 	public GameObject closeWall3;
-	//Score
-	public Text scoreText;
 
+	//HUD
+	public Text scoreText;
+	public Text healthText;
 
 	//Counter
 	public Text counterText;
@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
 		player = new Player();
 		rb = GetComponent<Rigidbody>();
 		scoreText.text = "";
+		healthText.text = "Health: " + player.Health;
 		counterText.text = "Count: 0";
 		level1Text.text = "";
 		Level2Text.text = "";
@@ -79,8 +80,6 @@ public class PlayerController : MonoBehaviour
 
 		rb.AddForce(movement * speed);
 
-
-
 		if (player.Score == 8)
 		{
 			openWall1.SetActive(false);
@@ -94,15 +93,26 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	void OnCollisionEnter(Collision collision)
+	private void OnCollisionEnter(Collision collision)
 	{
-		if (collision.gameObject.CompareTag("Ground"))
+		if (collision.gameObject.CompareTag("Damage50"))
+		{
+			var health = player.TakeDamage(50);
+			healthText.text = "Health: " + player.Health;
+			if (health == 0)
+			{
+				//TODO DIE
+				healthText.text = "Health: 0";
+				Debug.Log("Dead");
+			}
+		}
+		else if (collision.gameObject.CompareTag("Ground"))
 		{
 			contactWithGround = true;
 		}
 	}
 
-	void OnCollisionExit(Collision collision)
+	private void OnCollisionExit(Collision collision)
 	{
 		if (collision.gameObject.CompareTag("Ground"))
 		{
