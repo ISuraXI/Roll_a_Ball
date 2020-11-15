@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
 
 	//HUD
 	public Text scoreText;
-	public Text healthText;
 
 	//Counter
 	public Text counterText;
@@ -52,7 +51,6 @@ public class PlayerController : MonoBehaviour
 		player = new Player();
 		rb = GetComponent<Rigidbody>();
 		scoreText.text = "";
-		healthText.text = "Health: " + player.Health;
 		counterText.text = "Count: 0";
 		level1Text.text = "";
 		Level2Text.text = "";
@@ -107,12 +105,10 @@ public class PlayerController : MonoBehaviour
 		{
 			var panelRectTransformGreenBar = greenHealthBar.GetComponent<RectTransform>();
 			var health = player.TakeDamage(50);
-			healthText.text = "Health: " + player.Health;
 			panelRectTransformGreenBar.sizeDelta = new Vector2((player.Health * 2), 15);
 			if (health == 0)
 			{
 				//TODO DIE
-				healthText.text = "Health: 0";
 				Debug.Log("Dead");
 			}
 		}
@@ -137,8 +133,6 @@ public class PlayerController : MonoBehaviour
 			var panelRectTransform = greenHealthBar.GetComponent<RectTransform>();
 			player.RegenerateHealth(10);
 			panelRectTransform.sizeDelta = new Vector2((player.Health * 2), 15);
-			healthText.text = "Health: " + player.Health;
-
 			other.gameObject.SetActive(false);
 			player.IncreaseScore();
 			SetScoreText();
