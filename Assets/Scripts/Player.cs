@@ -80,32 +80,19 @@ public class Player : MonoBehaviour
 		if (other.gameObject.CompareTag("Pick Up"))
 		{
 			var panelRectTransform = gameController.greenHealthBar.GetComponent<RectTransform>();
-			RegenerateHealth(other.GetComponent<PickUp>().HealthRegeneration);
 			panelRectTransform.sizeDelta = new Vector2((health * 2), 15);
 			other.gameObject.SetActive(false);
+
+			//Pick Ups regenerate health
+			RegenerateHealth(other.GetComponent<PickUp>().HealthRegeneration);
+
+			//Update score
 			score++;
 			gameController.SetScoreText();
 		}
 		else if (other.gameObject.CompareTag("LevelTrigger"))
 		{
 			other.gameObject.SetActive(false);
-
-			switch (gameController.Level)
-			{
-				case 0:
-					gameController.closeWall2.SetActive(true);
-					gameController.level1.SetActive(false);
-					gameController.bridge2.SetActive(false);
-					break;
-				case 1:
-					gameController.closeWall3.SetActive(true);
-					gameController.level2.SetActive(false);
-					gameController.bridge3.SetActive(false);
-					break;
-				case 2:
-					break;
-			}
-
 			gameController.IncreaseLevel();
 		}
 	}

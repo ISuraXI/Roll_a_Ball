@@ -97,5 +97,21 @@ public class GameController : MonoBehaviour
 	public void IncreaseLevel()
 	{
 		level++;
+
+		switch (Level)
+		{
+			case 0:
+				closeWall2.SetActive(true);
+				level1.SetActive(false);
+				bridge2.SetActive(false);
+				break;
+			case 1:
+				closeWall3.SetActive(true);
+				level2.SetActive(false);
+				bridge3.SetActive(false);
+				break;
+			case 2:
+				break;
+		}
 	}
 }
