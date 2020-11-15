@@ -57,9 +57,6 @@ public class PlayerController : MonoBehaviour
 		playCanvas.SetActive(true);
 		gameOverCanvas.SetActive(false);
 		SetScoreText();
-
-
-
 	}
 
 	private void Update()
@@ -131,7 +128,7 @@ public class PlayerController : MonoBehaviour
 		if (other.gameObject.CompareTag("Pick Up"))
 		{
 			var panelRectTransform = greenHealthBar.GetComponent<RectTransform>();
-			player.RegenerateHealth(10);
+			player.RegenerateHealth(other.GetComponent<PickUp>().HealthRegeneration);
 			panelRectTransform.sizeDelta = new Vector2((player.Health * 2), 15);
 			other.gameObject.SetActive(false);
 			player.IncreaseScore();
