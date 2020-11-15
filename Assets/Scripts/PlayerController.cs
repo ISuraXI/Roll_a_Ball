@@ -124,6 +124,9 @@ public class PlayerController : MonoBehaviour
 	{
 		if (other.gameObject.CompareTag("Pick Up"))
 		{
+			player.RegenerateHealth(10);
+			healthText.text = "Health: " + player.Health;
+
 			other.gameObject.SetActive(false);
 			player.IncreaseScore();
 			SetScoreText();

@@ -9,7 +9,7 @@ public class Player
 
 	public Player()
 	{
-		health = 100;
+		health = 50;
 	}
 
 	public int Level => level;
@@ -25,6 +25,20 @@ public class Player
 		else
 		{
 			health = 0;
+		}
+
+		return health;
+	}
+
+	public int RegenerateHealth(int amount)
+	{
+		if (health + amount <= 100)
+		{
+			health += amount;
+		}
+		else
+		{
+			health = 100;
 		}
 
 		return health;
