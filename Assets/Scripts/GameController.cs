@@ -123,8 +123,9 @@ public class GameController : MonoBehaviour
 		player.gameObject.SetActive(false);
 		playCanvas.SetActive(false);
 		gameOverCanvas.SetActive(true);
-		var count = player.Score;
-		gameOverScoreText.text = "Score: " + count;
+
+		//Set GameOver texts
+		gameOverScoreText.text = "Score: " + player.Score;
 		gameOverCounterText.text = timePlayingStr;
 	}
 }
