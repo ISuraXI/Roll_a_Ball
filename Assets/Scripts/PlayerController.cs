@@ -144,14 +144,14 @@ public class PlayerController : MonoBehaviour
 
 	private void SetScoreText()
 	{
-		scoreText.text = "Count: " + player.Score;
+		scoreText.text = "Score: " + player.Score;
 		if (player.Score >= 8)
 		{
 			level1Text.text = "Stage 1 clear!";
 			Destroy(level1Text, 2);
 		}
 
-		scoreText.text = "Count: " + player.Score;
+		scoreText.text = "Score: " + player.Score;
 		if (player.Score >= 9)
 		{
 			Level2Text.text = "Stage 2 clear!";
