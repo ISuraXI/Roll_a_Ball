@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class DeathZone : MonoBehaviour
 {
-	public GameObject playerObject;
 	public GameObject gameOverCanvas;
 	public GameObject playCanvas;
 	public Text scoreText;
@@ -21,7 +20,7 @@ public class DeathZone : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		playerObject.SetActive(false);
+		player.gameObject.SetActive(false);
 		playCanvas.SetActive(false);
 		gameOverCanvas.SetActive(true);
 		var count = player.Score;

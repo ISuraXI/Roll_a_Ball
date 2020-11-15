@@ -96,8 +96,6 @@ public class GameController : MonoBehaviour
 
 	public void IncreaseLevel()
 	{
-		level++;
-
 		switch (Level)
 		{
 			case 0:
@@ -113,5 +111,6 @@ public class GameController : MonoBehaviour
 			case 2:
 				break;
 		}
+		level++;
 	}
 }
