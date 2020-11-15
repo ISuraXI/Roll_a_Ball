@@ -9,16 +9,8 @@ public class PlayerController : MonoBehaviour
 
 	//Player
 	private Rigidbody rb;
-	public float speed;
+	private float speed;
 	public Player player;
-
-	//Level
-	// public GameObject level1;
-	// public GameObject level2;
-	// public GameObject bridge2;
-	// public GameObject closeWall2;
-	// public GameObject bridge3;
-	// public GameObject closeWall3;
 
 	//Jump
 	public int forceConst = 4;
@@ -28,6 +20,7 @@ public class PlayerController : MonoBehaviour
 	private void Start()
 	{
 		player = new Player();
+		speed = 10;
 		rb = GetComponent<Rigidbody>();
 	}
 
@@ -76,6 +69,41 @@ public class PlayerController : MonoBehaviour
 		if (collision.gameObject.CompareTag("Ground"))
 		{
 			contactWithGround = false;
+		}
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.CompareTag("Pick Up"))
+		{
+			var panelRectTransform = gameController.greenHealthBar.GetComponent<RectTransform>();
+			player.RegenerateHealth(other.GetComponent<PickUp>().HealthRegeneration);
+			panelRectTransform.sizeDelta = new Vector2((player.Health * 2), 15);
+			other.gameObject.SetActive(false);
+			player.IncreaseScore();
+			gameController.SetScoreText();
+		}
+		else if (other.gameObject.CompareTag("LevelTrigger"))
+		{
+			other.gameObject.SetActive(false);
+
+			switch (player.Level)
+			{
+				case 0:
+					gameController.closeWall2.SetActive(true);
+					gameController.level1.SetActive(false);
+					gameController.bridge2.SetActive(false);
+					break;
+				case 1:
+					gameController.closeWall3.SetActive(true);
+					gameController.level2.SetActive(false);
+					gameController.bridge3.SetActive(false);
+					break;
+				case 2:
+					break;
+			}
+
+			player.NextLevel();
 		}
 	}
 }

@@ -30,7 +30,7 @@ public class DeathZone : MonoBehaviour
 		gameOverCanvas.SetActive(true);
 		var count = playerController.player.Score;
 		scoreText.text = "Score: " + count;
-		counter2 = gameController.timePlayingStr;
+		counter2 = gameController.TimePlayingStr;
 		counterText.text = counter2;
 	}
 }
