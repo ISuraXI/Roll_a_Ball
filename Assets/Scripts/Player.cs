@@ -17,10 +17,12 @@ public class Player : MonoBehaviour
 	private bool contactWithGround = true;
 
 	public int Score => score;
+	public int Health => health;
 
 	private void Start()
 	{
-		health = 100;
+		GetComponent<ParticleSystem>().Stop();
+		health = 20;
 		speed = 10;
 		rb = GetComponent<Rigidbody>();
 	}
@@ -50,12 +52,10 @@ public class Player : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Damage50"))
 		{
-			var panelRectTransformGreenBar = gameController.greenHealthBar.GetComponent<RectTransform>();
-
-			TakeDamage(50);
+			TakeDamage(collision.gameObject.GetComponent<DamageDealer>().Damage);
 
 			//Adjust health bar
-			panelRectTransformGreenBar.sizeDelta = new Vector2((health * 2), 15);
+			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 2), 15);
 		}
 		else if (collision.gameObject.CompareTag("Ground"))
 		{
@@ -78,9 +78,9 @@ public class Player : MonoBehaviour
 			//Pick Ups regenerate health
 			RegenerateHealth(other.GetComponent<PickUp>().HealthRegeneration);
 
+
 			//Adjust health bar
-			var panelRectTransform = gameController.greenHealthBar.GetComponent<RectTransform>();
-			panelRectTransform.sizeDelta = new Vector2((health * 2), 15);
+			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 2), 15);
 			other.gameObject.SetActive(false);
 
 			//Update score
@@ -102,6 +102,9 @@ public class Player : MonoBehaviour
 		}
 		else
 		{
+			health = 0;
+			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 2), 15);
+			GetComponent<ParticleSystem>().Play(); //TODO add delay
 			gameController.SetGameOver();
 		}
 	}

@@ -37,6 +37,8 @@ public class GameController : MonoBehaviour
 
 	//Damage
 	public Transform greenHealthBar;
+
+	private RectTransform greenHealthBarRect;
 	//public Transform redHealthBar;
 	//public GameObject redHealt;
 
@@ -44,17 +46,20 @@ public class GameController : MonoBehaviour
 	public Player player;
 
 	public int Level => level;
+	public RectTransform GreenHealthBarRect => greenHealthBarRect;
 
 
 	// Start is called before the first frame update
 	private void Start()
 	{
-		scoreText.text = "Score: 0";
+		SetScoreText();
 		counterText.text = "";
 		level1Text.text = "";
 		Level2Text.text = "";
 		playCanvas.SetActive(true);
 		gameOverCanvas.SetActive(false);
+		greenHealthBarRect = greenHealthBar.GetComponent<RectTransform>();
+		greenHealthBarRect.sizeDelta = new Vector2((player.Health * 2), 15);
 	}
 
 	// Update is called once per frame
