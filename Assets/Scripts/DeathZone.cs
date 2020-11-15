@@ -17,7 +17,6 @@ public class DeathZone : MonoBehaviour
 
 	private void Start()
 	{
-		gameOverText.text = "";
 		scoreText.text = "";
 		counterText.text = "";
 	}
@@ -27,7 +26,6 @@ public class DeathZone : MonoBehaviour
 		player.SetActive(false);
 		playCanvas.SetActive(false);
 		gameOverCanvas.SetActive(true);
-		gameOverText.text = "Game Over";
 		var count = myplayerController.player.Score;
 		scoreText.text = "Score: " + count;
 		counter2 = myplayerController.timePlayingStr;
