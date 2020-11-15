@@ -8,12 +8,10 @@ public class Player : MonoBehaviour
 	private Rigidbody rb;
 
 	//Properties
-	private float speed;
+	private int speed;
+	private int jumpForce;
 	private int score;
 	private int health;
-
-	//Jump
-	public int forceConst = 4;
 	private bool contactWithGround = true;
 
 	public int Score => score;
@@ -24,6 +22,7 @@ public class Player : MonoBehaviour
 		GetComponent<ParticleSystem>().Stop();
 		health = 20;
 		speed = 10;
+		jumpForce = 4;
 		rb = GetComponent<Rigidbody>();
 	}
 
@@ -33,7 +32,7 @@ public class Player : MonoBehaviour
 		{
 			if (contactWithGround)
 			{
-				rb.AddForce(0, forceConst, 0, ForceMode.Impulse);
+				rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
 			}
 		}
 	}

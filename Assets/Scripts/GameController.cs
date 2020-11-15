@@ -45,11 +45,8 @@ public class GameController : MonoBehaviour
 	//Player
 	public Player player;
 
-	public int Level => level;
 	public RectTransform GreenHealthBarRect => greenHealthBarRect;
 
-
-	// Start is called before the first frame update
 	private void Start()
 	{
 		SetScoreText();
@@ -71,28 +68,46 @@ public class GameController : MonoBehaviour
 		counterText.text = timePlayingStr;
 	}
 
-	public void SetScoreText() //TODO implement in a generic way
+	public void SetScoreText() //TODO rename
 	{
 		scoreText.text = "Score: " + player.Score;
-		if (player.Score >= 8) //TODO check for visible amount
+
+		var pickUps = FindObjectsOfType<PickUp>();
+		var hasRemainingPickups = false;
+		var i = 0;
+
+		while (!hasRemainingPickups && i < pickUps.Length)
 		{
-			openWall1.SetActive(false);
-			level2.SetActive(true);
-			level1Text.text = "Stage 1 clear!";
-			Destroy(level1Text, 2);
+			if (pickUps[i].isActiveAndEnabled)
+			{
+				hasRemainingPickups = true;
+			}
+			i++;
 		}
-		else if (player.Score >= 9)
+
+		if (!hasRemainingPickups)
 		{
-			openWall2.SetActive(false);
-			level3.SetActive(true);
-			Level2Text.text = "Stage 2 clear!";
-			Destroy(Level2Text, 2);
+			switch (level)
+			{
+				case 0:
+					openWall1.SetActive(false);
+					level2.SetActive(true);
+					level1Text.text = "Stage 1 clear!";
+					Destroy(level1Text, 2);
+					break;
+				case 1:
+					openWall2.SetActive(false);
+					level3.SetActive(true);
+					Level2Text.text = "Stage 2 clear!";
+					Destroy(Level2Text, 2);
+					break;
+			}
 		}
 	}
 
-	public void IncreaseLevel()
+	public void IncreaseLevel() //TODO implement in a generic way
 	{
-		switch (level) //TODO implement in a generic way
+		switch (level)
 		{
 			case 0:
 				closeWall2.SetActive(true);
