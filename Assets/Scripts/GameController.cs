@@ -15,8 +15,8 @@ public class GameController : MonoBehaviour
 
 	//Counter
 	public Text counterText;
-	public float counter;
-	public TimeSpan timePlaying;
+	private float counter;
+	private TimeSpan timePlaying;
 	private string timePlayingStr;
 
 	//Level
@@ -29,6 +29,7 @@ public class GameController : MonoBehaviour
 	public GameObject level3;
 	public GameObject bridge3;
 	public GameObject closeWall3;
+	private int level;
 
 	//Damage
 	public Transform greenHealthBar;
@@ -36,9 +37,10 @@ public class GameController : MonoBehaviour
 	//public GameObject redHealt;
 
 	//Player
-	public PlayerController player;
+	public Player player;
 
 	public string TimePlayingStr => timePlayingStr;
+	public int Level => level;
 
 
 	// Start is called before the first frame update
@@ -63,13 +65,13 @@ public class GameController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (player.player.Score == 8)
+		if (player.Score == 8)
 		{
 			openWall1.SetActive(false);
 			level2.SetActive(true);
 		}
 
-		if (player.player.Score >= 9)
+		if (player.Score >= 9)
 		{
 			openWall2.SetActive(false);
 			level3.SetActive(true);
@@ -78,17 +80,22 @@ public class GameController : MonoBehaviour
 
 	public void SetScoreText()
 	{
-		scoreText.text = "Score: " + player.player.Score;
-		if (player.player.Score >= 8)
+		scoreText.text = "Score: " + player.Score;
+		if (player.Score >= 8)
 		{
 			level1Text.text = "Stage 1 clear!";
 			Destroy(level1Text, 2);
 		}
 
-		if (player.player.Score >= 9)
+		if (player.Score >= 9)
 		{
 			Level2Text.text = "Stage 2 clear!";
 			Destroy(Level2Text, 2);
 		}
+	}
+
+	public void IncreaseLevel()
+	{
+		level++;
 	}
 }

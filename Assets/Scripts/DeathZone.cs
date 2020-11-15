@@ -1,17 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class DeathZone : MonoBehaviour
 {
-	public GameObject player;
+	public GameObject playerObject;
 	public GameObject gameOverCanvas;
 	public GameObject playCanvas;
-	public Text gameOverText;
 	public Text scoreText;
-	public PlayerController playerController;
+	public Player player;
 	public GameController gameController;
 	public Text counterText;
 	public string counter2;
@@ -25,10 +21,10 @@ public class DeathZone : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		player.SetActive(false);
+		playerObject.SetActive(false);
 		playCanvas.SetActive(false);
 		gameOverCanvas.SetActive(true);
-		var count = playerController.player.Score;
+		var count = player.Score;
 		scoreText.text = "Score: " + count;
 		counter2 = gameController.TimePlayingStr;
 		counterText.text = counter2;

@@ -1,22 +1,116 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Player
+public class Player : MonoBehaviour
 {
-	private int level;
+	public GameController gameController;
+
+	//Player
+	private Rigidbody rb;
+
+	//Properties
+	private float speed;
 	private int score;
 	private int health;
 
-	public Player()
-	{
-		health = 100;
-	}
+	//Jump
+	public int forceConst = 4;
+	private bool contactWithGround = true;
 
-	public int Level => level;
 	public int Score => score;
 	public int Health => health;
 
-	public int TakeDamage(int damage)
+
+	private void Start()
+	{
+		health = 100;
+		speed = 10;
+		rb = GetComponent<Rigidbody>();
+	}
+
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			if (contactWithGround)
+			{
+				rb.AddForce(0, forceConst, 0, ForceMode.Impulse);
+			}
+		}
+	}
+
+	private void FixedUpdate()
+	{
+		var moveHorizontal = Input.GetAxis("Horizontal");
+		var moveVertical = Input.GetAxis("Vertical");
+
+		var movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+
+		rb.AddForce(movement * speed);
+	}
+
+	private void OnCollisionEnter(Collision collision)
+	{
+		if (collision.gameObject.CompareTag("Damage50"))
+		{
+			var panelRectTransformGreenBar = gameController.greenHealthBar.GetComponent<RectTransform>();
+			TakeDamage(50);
+			panelRectTransformGreenBar.sizeDelta = new Vector2((health * 2), 15);
+			if (health == 0)
+			{
+				//TODO DIE
+				Debug.Log("Dead");
+			}
+		}
+		else if (collision.gameObject.CompareTag("Ground"))
+		{
+			contactWithGround = true;
+		}
+	}
+
+	private void OnCollisionExit(Collision collision)
+	{
+		if (collision.gameObject.CompareTag("Ground"))
+		{
+			contactWithGround = false;
+		}
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.CompareTag("Pick Up"))
+		{
+			var panelRectTransform = gameController.greenHealthBar.GetComponent<RectTransform>();
+			RegenerateHealth(other.GetComponent<PickUp>().HealthRegeneration);
+			panelRectTransform.sizeDelta = new Vector2((health * 2), 15);
+			other.gameObject.SetActive(false);
+			score++;
+			gameController.SetScoreText();
+		}
+		else if (other.gameObject.CompareTag("LevelTrigger"))
+		{
+			other.gameObject.SetActive(false);
+
+			switch (gameController.Level)
+			{
+				case 0:
+					gameController.closeWall2.SetActive(true);
+					gameController.level1.SetActive(false);
+					gameController.bridge2.SetActive(false);
+					break;
+				case 1:
+					gameController.closeWall3.SetActive(true);
+					gameController.level2.SetActive(false);
+					gameController.bridge3.SetActive(false);
+					break;
+				case 2:
+					break;
+			}
+
+			gameController.IncreaseLevel();
+		}
+	}
+
+	private void TakeDamage(int damage)
 	{
 		if (health - damage > 0)
 		{
@@ -26,11 +120,9 @@ public class Player
 		{
 			health = 0;
 		}
-
-		return health;
 	}
 
-	public int RegenerateHealth(int amount)
+	private void RegenerateHealth(int amount)
 	{
 		if (health + amount <= 100)
 		{
@@ -40,17 +132,5 @@ public class Player
 		{
 			health = 100;
 		}
-
-		return health;
-	}
-
-	public void NextLevel()
-	{
-		level++;
-	}
-
-	public void IncreaseScore()
-	{
-		score++;
 	}
 }
