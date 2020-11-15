@@ -4,12 +4,12 @@ public class PickUp : MonoBehaviour
 {
 	private int healthRegeneration;
 
-	public PickUp()
+	public int HealthRegeneration => healthRegeneration;
+
+	private void Start()
 	{
 		healthRegeneration = 10;
 	}
-
-	public int HealthRegeneration => healthRegeneration;
 
 	private void Update()
 	{

@@ -1,34 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class DeathZone : MonoBehaviour
 {
-	public GameObject player;
-	public GameObject gameOverCanvas;
-	public GameObject playCanvas;
-	public Text gameOverText;
-	public Text scoreText;
-	public PlayerController myplayerController;
-	public Text counterText;
-	public string counter2;
+	public GameController gameController;
 
-
-	private void Start()
-	{
-		scoreText.text = "";
-		counterText.text = "";
-	}
 
 	private void OnTriggerEnter(Collider other)
 	{
-		player.SetActive(false);
-		playCanvas.SetActive(false);
-		gameOverCanvas.SetActive(true);
-		var count = myplayerController.player.Score;
-		scoreText.text = "Score: " + count;
-		counter2 = myplayerController.timePlayingStr;
-		counterText.text = counter2;
+		gameController.SetGameOver();
 	}
 }
