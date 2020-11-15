@@ -51,8 +51,11 @@ public class Player : MonoBehaviour
 		if (collision.gameObject.CompareTag("Damage50"))
 		{
 			var panelRectTransformGreenBar = gameController.greenHealthBar.GetComponent<RectTransform>();
-			panelRectTransformGreenBar.sizeDelta = new Vector2((health * 2), 15);
+
 			TakeDamage(50);
+
+			//Adjust health bar
+			panelRectTransformGreenBar.sizeDelta = new Vector2((health * 2), 15);
 		}
 		else if (collision.gameObject.CompareTag("Ground"))
 		{
@@ -72,12 +75,13 @@ public class Player : MonoBehaviour
 	{
 		if (other.gameObject.CompareTag("Pick Up"))
 		{
+			//Pick Ups regenerate health
+			RegenerateHealth(other.GetComponent<PickUp>().HealthRegeneration);
+
+			//Adjust health bar
 			var panelRectTransform = gameController.greenHealthBar.GetComponent<RectTransform>();
 			panelRectTransform.sizeDelta = new Vector2((health * 2), 15);
 			other.gameObject.SetActive(false);
-
-			//Pick Ups regenerate health
-			RegenerateHealth(other.GetComponent<PickUp>().HealthRegeneration);
 
 			//Update score
 			score++;

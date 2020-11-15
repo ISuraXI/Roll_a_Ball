@@ -66,32 +66,20 @@ public class GameController : MonoBehaviour
 		counterText.text = timePlayingStr;
 	}
 
-	private void FixedUpdate()
+	public void SetScoreText() //TODO implement in a generic way
 	{
-		if (player.Score == 8)
+		scoreText.text = "Score: " + player.Score;
+		if (player.Score >= 8) //TODO check for visible amount
 		{
 			openWall1.SetActive(false);
 			level2.SetActive(true);
-		}
-
-		if (player.Score >= 9)
-		{
-			openWall2.SetActive(false);
-			level3.SetActive(true);
-		}
-	}
-
-	public void SetScoreText()
-	{
-		scoreText.text = "Score: " + player.Score;
-		if (player.Score >= 8)
-		{
 			level1Text.text = "Stage 1 clear!";
 			Destroy(level1Text, 2);
 		}
-
-		if (player.Score >= 9)
+		else if (player.Score >= 9)
 		{
+			openWall2.SetActive(false);
+			level3.SetActive(true);
 			Level2Text.text = "Stage 2 clear!";
 			Destroy(Level2Text, 2);
 		}
@@ -99,7 +87,7 @@ public class GameController : MonoBehaviour
 
 	public void IncreaseLevel()
 	{
-		switch (Level)
+		switch (level) //TODO implement in a generic way
 		{
 			case 0:
 				closeWall2.SetActive(true);
@@ -110,8 +98,6 @@ public class GameController : MonoBehaviour
 				closeWall3.SetActive(true);
 				level2.SetActive(false);
 				bridge3.SetActive(false);
-				break;
-			case 2:
 				break;
 		}
 
