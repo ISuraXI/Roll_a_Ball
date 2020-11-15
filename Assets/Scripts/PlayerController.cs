@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,12 +16,12 @@ public class PlayerController : MonoBehaviour
 
 	//Level
 	public Text level1Text;
-	public Text Level2Text;
 	public GameObject level1;
 	public GameObject openWall1;
+	public Text Level2Text;
 	public GameObject level2;
-	public GameObject openWall2;
 	public GameObject bridge2;
+	public GameObject openWall2;
 	public GameObject closeWall2;
 	public GameObject level3;
 	public GameObject bridge3;
@@ -40,6 +41,11 @@ public class PlayerController : MonoBehaviour
 	public int forceConst = 4;
 	private bool contactWithGround = true;
 
+	//Damage
+	public Transform greenHealthBar;
+	//public Transform redHealthBar;
+	//public GameObject redHealt;
+
 
 	private void Start()
 	{
@@ -53,11 +59,13 @@ public class PlayerController : MonoBehaviour
 		playCanvas.SetActive(true);
 		gameOverCanvas.SetActive(false);
 		SetScoreText();
+
+
+
 	}
 
 	private void Update()
 	{
-
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			if (contactWithGround)
@@ -97,8 +105,10 @@ public class PlayerController : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Damage50"))
 		{
+			var panelRectTransformGreenBar = greenHealthBar.GetComponent<RectTransform>();
 			var health = player.TakeDamage(50);
 			healthText.text = "Health: " + player.Health;
+			panelRectTransformGreenBar.sizeDelta = new Vector2((player.Health * 2), 15);
 			if (health == 0)
 			{
 				//TODO DIE
@@ -124,7 +134,9 @@ public class PlayerController : MonoBehaviour
 	{
 		if (other.gameObject.CompareTag("Pick Up"))
 		{
+			var panelRectTransform = greenHealthBar.GetComponent<RectTransform>();
 			player.RegenerateHealth(10);
+			panelRectTransform.sizeDelta = new Vector2((player.Health * 2), 15);
 			healthText.text = "Health: " + player.Health;
 
 			other.gameObject.SetActive(false);
