@@ -24,8 +24,8 @@ public class GameController : MonoBehaviour
 	public GameObject openWall1;
 	public GameObject level2;
 	public GameObject bridge2;
-	public GameObject openWall2;
 	public GameObject closeWall2;
+	public GameObject openWall2;
 	public GameObject level3;
 	public GameObject bridge3;
 	public GameObject closeWall3;
@@ -82,6 +82,7 @@ public class GameController : MonoBehaviour
 			{
 				hasRemainingPickups = true;
 			}
+
 			i++;
 		}
 
@@ -97,6 +98,7 @@ public class GameController : MonoBehaviour
 					break;
 				case 1:
 					openWall2.SetActive(false);
+					bridge3.SetActive(true);
 					level3.SetActive(true);
 					Level2Text.text = "Stage 2 clear!";
 					Destroy(Level2Text, 2);
