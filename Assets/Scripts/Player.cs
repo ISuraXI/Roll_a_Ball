@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
 		}
 
 		//TODO make it better       Hint: that is the handy movement
-		/*var dir = Vector3.zero;
+		var dir = Vector3.zero;
 		// we assume that the device is held parallel to the ground
 		// and the Home button is in the right hand
 
@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
 		dir *= Time.deltaTime;
 
 		// Move object
-		rb.transform.Translate(dir * speed);*/
+		rb.transform.Translate(dir * speed);
 	}
 
 	private void FixedUpdate()
