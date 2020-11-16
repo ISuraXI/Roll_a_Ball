@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Player : MonoBehaviour
 {
@@ -8,7 +9,8 @@ public class Player : MonoBehaviour
 	private Rigidbody rb;
 
 	//Properties
-	private int speed;
+	private int speedPc;
+	private int speedMobile;
 	private int jumpForce;
 	private int score;
 	private int health;
@@ -21,9 +23,11 @@ public class Player : MonoBehaviour
 	{
 		GetComponent<ParticleSystem>().Stop();
 		health = 20;
-		speed = 10;
+		speedPc = 10;
+		speedMobile = 5;
 		jumpForce = 4;
 		rb = GetComponent<Rigidbody>();
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 	}
 
 	private void Update()
@@ -36,37 +40,30 @@ public class Player : MonoBehaviour
 			}
 		}
 
-		//TODO make it better       Hint: that is the handy movement
-		var dir = Vector3.zero;
-		// we assume that the device is held parallel to the ground
-		// and the Home button is in the right hand
-
-		// remap the device acceleration axis to game coordinates:
-		// 1) XY plane of the device is mapped onto XZ plane
-		// 2) rotated 90 degrees around Y axis
-
-		dir.x = Input.acceleration.x;
-		dir.z = Input.acceleration.y;
-
-		// clamp acceleration vector to the unit sphere
-		/*if (dir.sqrMagnitude > 1)
-			dir.Normalize();*/
-
-		// Make it move 10 meters per second instead of 10 meters per frame...
-		dir *= Time.deltaTime;
-
-		// Move object
-		rb.transform.Translate(dir * speed);
+		foreach (Touch touch in Input.touches)
+		{
+			if (touch.phase == TouchPhase.Began)
+			{
+				if (contactWithGround)
+				{
+					rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
+				}
+			}
+		}
 	}
 
 	private void FixedUpdate()
 	{
+		//For Pc only Test
 		var moveHorizontal = Input.GetAxis("Horizontal");
 		var moveVertical = Input.GetAxis("Vertical");
+		var movementPc = new Vector3(moveHorizontal, 0.0f, moveVertical);
+		rb.AddForce(movementPc * speedPc);
 
-		var movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-
-		rb.AddForce(movement * speed);
+		//For Mobile
+		Vector3 movementMobile =
+			new Vector3(Input.acceleration.x * speedMobile, 0.0f, Input.acceleration.y * speedMobile);
+		rb.AddForce(movementMobile * speedMobile);
 	}
 
 	private void OnCollisionEnter(Collision collision)
