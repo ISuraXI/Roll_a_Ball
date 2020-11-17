@@ -13,6 +13,18 @@ public class GameController : MonoBehaviour
 	public Text level1Text;
 	public Text Level2Text;
 
+	//HealthBar
+	public float timerRedHealth = 2;
+	public int timerRedHealthInt;
+	public bool startTimer = false;
+
+	//Damage
+	public Transform greenHealthBar;
+	public Transform redHealthBar;
+
+	private RectTransform greenHealthBarRect;
+	private RectTransform redHealthBarRect;
+
 	//Counter
 	public Text counterText;
 	private float counter;
@@ -35,20 +47,19 @@ public class GameController : MonoBehaviour
 	public Text gameOverScoreText;
 	public Text gameOverCounterText;
 
-	//Damage
-	public Transform greenHealthBar;
-
-	private RectTransform greenHealthBarRect;
-	//public Transform redHealthBar;
-	//public GameObject redHealt;
 
 	//Player
 	public Player player;
 
 	public RectTransform GreenHealthBarRect => greenHealthBarRect;
+	public RectTransform RedHealthBarRect => redHealthBarRect;
+	public float TimerRedHealth => timerRedHealth;
+	public int TimerRedHealthInt => timerRedHealthInt;
+	public bool StartTimer => startTimer;
 
 	private void Start()
 	{
+		SetUiSize();
 		SetScoreText();
 		counterText.text = "";
 		level1Text.text = "";
@@ -56,7 +67,9 @@ public class GameController : MonoBehaviour
 		playCanvas.SetActive(true);
 		gameOverCanvas.SetActive(false);
 		greenHealthBarRect = greenHealthBar.GetComponent<RectTransform>();
-		greenHealthBarRect.sizeDelta = new Vector2((player.Health * 2), 15);
+		greenHealthBarRect.sizeDelta = new Vector2((player.Health * 4), 30);
+		redHealthBarRect = redHealthBar.GetComponent<RectTransform>();
+		redHealthBarRect.sizeDelta = new Vector2((player.Health * 4), 30);
 	}
 
 	// Update is called once per frame
@@ -93,14 +106,14 @@ public class GameController : MonoBehaviour
 				case 0:
 					openWall1.SetActive(false);
 					level2.SetActive(true);
-					level1Text.text = "Stage 1 clear!";
+					level1Text.text = "Level 1";
 					Destroy(level1Text, 2);
 					break;
 				case 1:
 					openWall2.SetActive(false);
 					bridge3.SetActive(true);
 					level3.SetActive(true);
-					Level2Text.text = "Stage 2 clear!";
+					Level2Text.text = "Level 2";
 					Destroy(Level2Text, 2);
 					break;
 			}
@@ -135,5 +148,12 @@ public class GameController : MonoBehaviour
 		//Set GameOver texts
 		gameOverScoreText.text = "Score: " + player.Score;
 		gameOverCounterText.text = timePlayingStr;
+	}
+
+
+	private void SetUiSize()
+	{
+		var screenWidth = Screen.width;
+		var screenHeight = Screen.height;
 	}
 }

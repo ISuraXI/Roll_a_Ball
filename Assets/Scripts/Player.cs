@@ -32,6 +32,19 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
+		if (gameController.StartTimer)
+		{
+			gameController.timerRedHealth = gameController.timerRedHealth - Time.deltaTime;
+			gameController.timerRedHealthInt = (int) gameController.timerRedHealth;
+			if (gameController.timerRedHealthInt == 0)
+			{
+				gameController.RedHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
+				gameController.timerRedHealth = 2;
+				gameController.startTimer = false;
+			}
+		}
+
+
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			if (contactWithGround)
@@ -73,7 +86,8 @@ public class Player : MonoBehaviour
 			TakeDamage(collision.gameObject.GetComponent<DamageDealer>().Damage);
 
 			//Adjust health bar
-			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 2), 15);
+			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
+			gameController.startTimer = true;
 		}
 		else if (collision.gameObject.CompareTag("Ground"))
 		{
@@ -98,7 +112,8 @@ public class Player : MonoBehaviour
 
 
 			//Adjust health bar
-			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 2), 15);
+			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
+			gameController.RedHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
 			other.gameObject.SetActive(false);
 
 			//Update score
@@ -121,7 +136,8 @@ public class Player : MonoBehaviour
 		else
 		{
 			health = 0;
-			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 2), 15);
+			//gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
+			//Destroy(gameController.RedHealthBarRect, 2);
 			GetComponent<ParticleSystem>().Play(); //TODO add delay
 			gameController.SetGameOver();
 		}
