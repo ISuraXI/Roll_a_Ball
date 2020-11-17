@@ -150,7 +150,6 @@ public class GameController : MonoBehaviour
 		gameOverCounterText.text = timePlayingStr;
 	}
 
-
 	private void SetUiSize()
 	{
 		var screenWidth = Screen.width;
