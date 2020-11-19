@@ -6,7 +6,14 @@ public class GameController : MonoBehaviour
 {
 	//UI
 	public GameObject playCanvas;
+
 	public GameObject gameOverCanvas;
+
+	//Counter
+	public Text counterText;
+	private float counter;
+	private TimeSpan timePlaying;
+	private string timePlayingStr;
 
 	//HUD
 	public Text scoreText;
@@ -14,9 +21,9 @@ public class GameController : MonoBehaviour
 	public Text Level2Text;
 
 	//HealthBar
-	public float timerRedHealth = 2;
-	public int timerRedHealthInt;
-	public bool startTimer = false;
+	private float timerRedHealth = 2;
+	private int timerRedHealthInt;
+	private bool startTimer = false;
 
 	//Damage
 	public Transform greenHealthBar;
@@ -25,22 +32,19 @@ public class GameController : MonoBehaviour
 	private RectTransform greenHealthBarRect;
 	private RectTransform redHealthBarRect;
 
-	//Counter
-	public Text counterText;
-	private float counter;
-	private TimeSpan timePlaying;
-	private string timePlayingStr;
-
 	//Level
 	public GameObject level1;
 	public GameObject openWall1;
 	public GameObject level2;
 	public GameObject bridge2;
 	public GameObject closeWall2;
+
 	public GameObject openWall2;
-	public GameObject level3;
+
+	//public GameObject level3;
 	public GameObject bridge3;
-	public GameObject closeWall3;
+
+	//public GameObject closeWall3;
 	private int level;
 
 	//GameOver
@@ -53,9 +57,25 @@ public class GameController : MonoBehaviour
 
 	public RectTransform GreenHealthBarRect => greenHealthBarRect;
 	public RectTransform RedHealthBarRect => redHealthBarRect;
-	public float TimerRedHealth => timerRedHealth;
-	public int TimerRedHealthInt => timerRedHealthInt;
-	public bool StartTimer => startTimer;
+
+	public float TimerRedHealth
+	{
+		get => timerRedHealth;
+		set => timerRedHealth = value;
+	}
+
+	public int TimerRedHealthInt
+	{
+		get => timerRedHealthInt;
+		set => timerRedHealthInt = value;
+	}
+
+	public bool StartTimer
+	{
+		get => startTimer;
+		set => startTimer = value;
+	}
+
 
 	private void Start()
 	{
@@ -112,7 +132,7 @@ public class GameController : MonoBehaviour
 				case 1:
 					openWall2.SetActive(false);
 					bridge3.SetActive(true);
-					level3.SetActive(true);
+					//level3.SetActive(true);
 					Level2Text.text = "Level 2";
 					Destroy(Level2Text, 2);
 					break;
@@ -130,7 +150,7 @@ public class GameController : MonoBehaviour
 				bridge2.SetActive(false);
 				break;
 			case 1:
-				closeWall3.SetActive(true);
+				//closeWall3.SetActive(true);
 				level2.SetActive(false);
 				bridge3.SetActive(false);
 				break;
