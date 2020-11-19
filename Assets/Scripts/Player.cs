@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
 
 	private void Start()
 	{
-		//GetComponent<ParticleSystem>().Stop();
+		healthParticle.GetComponent<ParticleSystem>().playOnAwake = true;
 		health = 20;
 		speedPc = 10;
 		speedMobile = 5;
@@ -157,6 +157,7 @@ public class Player : MonoBehaviour
 		else
 		{
 			health = 0;
+			explosionParticle.GetComponent<ParticleSystem>().playOnAwake = true;
 			gameController.StartTimerGameOverExpolion = true;
 			explosionParticle.SetActive(true);
 			deathPlayerPosition = new Vector3(rb.position.x, rb.position.y, rb.position.z);
