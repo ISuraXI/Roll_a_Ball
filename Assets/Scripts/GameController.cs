@@ -21,16 +21,22 @@ public class GameController : MonoBehaviour
 	public Text Level2Text;
 
 	//HealthBar
+	private bool startTimerRedHealth = false;
 	private float timerRedHealth = 2;
 	private int timerRedHealthInt;
-	private bool startTimer = false;
 
 	//Damage
 	public Transform greenHealthBar;
 	public Transform redHealthBar;
 
 	private RectTransform greenHealthBarRect;
+
 	private RectTransform redHealthBarRect;
+
+	//Damage Timer
+	private bool startTimerGameOverExpolion = false;
+	private float timerGameOverExpolion = 2;
+	private int timerGameOverExpolionInt;
 
 	//Level
 	public GameObject level1;
@@ -58,6 +64,12 @@ public class GameController : MonoBehaviour
 	public RectTransform GreenHealthBarRect => greenHealthBarRect;
 	public RectTransform RedHealthBarRect => redHealthBarRect;
 
+	public bool StartTimerstartTimerRedHealth
+	{
+		get => startTimerRedHealth;
+		set => startTimerRedHealth = value;
+	}
+
 	public float TimerRedHealth
 	{
 		get => timerRedHealth;
@@ -70,10 +82,22 @@ public class GameController : MonoBehaviour
 		set => timerRedHealthInt = value;
 	}
 
-	public bool StartTimer
+	public bool StartTimerGameOverExpolion
 	{
-		get => startTimer;
-		set => startTimer = value;
+		get => startTimerGameOverExpolion;
+		set => startTimerGameOverExpolion = value;
+	}
+
+	public float TimerGameOverExpolion
+	{
+		get => timerGameOverExpolion;
+		set => timerGameOverExpolion = value;
+	}
+
+	public int TimerGameOverExpolionInt
+	{
+		get => timerGameOverExpolionInt;
+		set => timerGameOverExpolionInt = value;
 	}
 
 

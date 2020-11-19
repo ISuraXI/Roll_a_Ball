@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 
 	//Particle
 	public GameObject healthParticle;
-	public GameObject deathParticle;
+	public GameObject explosionParticle;
 
 	//Properties
 	private int speedPc;
@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
 	private int score;
 	private int health;
 	private bool contactWithGround = true;
+	private Vector3 deathPosition;
 	public int Score => score;
 	public int Health => health;
 
@@ -35,7 +36,22 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
-		if (gameController.StartTimer)
+		//For timer explosion particle
+		if (gameController.StartTimerGameOverExpolion)
+		{
+			rb.transform.position = deathPosition;
+			gameController.TimerGameOverExpolion = gameController.TimerGameOverExpolion - Time.deltaTime;
+			gameController.TimerGameOverExpolionInt = (int) gameController.TimerGameOverExpolion;
+			if (gameController.TimerGameOverExpolionInt == 0)
+			{
+				gameController.SetGameOver();
+				gameController.TimerGameOverExpolion = 2;
+				gameController.StartTimerGameOverExpolion = false;
+			}
+		}
+
+
+		if (gameController.StartTimerstartTimerRedHealth)
 		{
 			gameController.TimerRedHealth = gameController.TimerRedHealth - Time.deltaTime;
 			gameController.TimerRedHealthInt = (int) gameController.TimerRedHealth;
@@ -43,7 +59,7 @@ public class Player : MonoBehaviour
 			{
 				gameController.RedHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
 				gameController.TimerRedHealth = 2;
-				gameController.StartTimer = false;
+				gameController.StartTimerstartTimerRedHealth = false;
 			}
 		}
 
@@ -84,13 +100,13 @@ public class Player : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		if (collision.gameObject.CompareTag("Damage50"))
+		if (collision.gameObject.CompareTag("Damage"))
 		{
 			TakeDamage(collision.gameObject.GetComponent<DamageDealer>().Damage);
 
 			//Adjust health bar
 			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
-			gameController.StartTimer = true;
+			gameController.StartTimerstartTimerRedHealth = true;
 		}
 		else if (collision.gameObject.CompareTag("Ground"))
 		{
@@ -141,10 +157,10 @@ public class Player : MonoBehaviour
 		else
 		{
 			health = 0;
-			//gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
-			//Destroy(gameController.RedHealthBarRect, 2);
-			GetComponent<ParticleSystem>().Play(); //TODO add delay
-			gameController.SetGameOver();
+			gameController.StartTimerGameOverExpolion = true;
+			explosionParticle.SetActive(true);
+			deathPosition = new Vector3(rb.position.x, rb.position.y, rb.position.z);
+			rb.GetComponent<MeshRenderer>().enabled = false;
 		}
 	}
 
