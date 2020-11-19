@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 	private int score;
 	private int health;
 	private bool contactWithGround = true;
-	private Vector3 deathPosition;
+	private Vector3 deathPlayerPosition;
 	public int Score => score;
 	public int Health => health;
 
@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
 		//For timer explosion particle
 		if (gameController.StartTimerGameOverExpolion)
 		{
-			rb.transform.position = deathPosition;
+			rb.transform.position = deathPlayerPosition;
 			gameController.TimerGameOverExpolion = gameController.TimerGameOverExpolion - Time.deltaTime;
 			gameController.TimerGameOverExpolionInt = (int) gameController.TimerGameOverExpolion;
 			if (gameController.TimerGameOverExpolionInt == 0)
@@ -159,7 +159,7 @@ public class Player : MonoBehaviour
 			health = 0;
 			gameController.StartTimerGameOverExpolion = true;
 			explosionParticle.SetActive(true);
-			deathPosition = new Vector3(rb.position.x, rb.position.y, rb.position.z);
+			deathPlayerPosition = new Vector3(rb.position.x, rb.position.y, rb.position.z);
 			rb.GetComponent<MeshRenderer>().enabled = false;
 		}
 	}
