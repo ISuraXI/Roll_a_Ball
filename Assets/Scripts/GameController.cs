@@ -17,8 +17,7 @@ public class GameController : MonoBehaviour
 
 	//HUD
 	public Text scoreText;
-	public Text level1Text;
-	public Text Level2Text;
+	public Text levelText;
 
 	//HealthBar
 	private bool startTimerRedHealth = false;
@@ -41,16 +40,27 @@ public class GameController : MonoBehaviour
 	//Level
 	public GameObject level1;
 	public GameObject openWall1;
+
 	public GameObject level2;
 	public GameObject bridge2;
 	public GameObject closeWall2;
-
 	public GameObject openWall2;
 
-	//public GameObject level3;
+	public GameObject level3;
 	public GameObject bridge3;
+	public GameObject closeWall3;
+	public GameObject openWall3;
 
-	//public GameObject closeWall3;
+	public GameObject level4;
+	public GameObject bridge4;
+	public GameObject closeWall4;
+	public GameObject openWall4;
+
+	public GameObject level5;
+	public GameObject bridge5;
+	public GameObject closeWall5;
+	public GameObject openWall5;
+
 	private int level;
 
 	//GameOver
@@ -101,13 +111,17 @@ public class GameController : MonoBehaviour
 	}
 
 
+	private bool startTimerWinText = false;
+	private float timerWinText = 2;
+	private int timerWinTextInt;
+
+
 	private void Start()
 	{
 		SetUiSize();
 		SetScoreText();
 		counterText.text = "";
-		level1Text.text = "";
-		Level2Text.text = "";
+		levelText.text = "";
 		playCanvas.SetActive(true);
 		gameOverCanvas.SetActive(false);
 		greenHealthBarRect = greenHealthBar.GetComponent<RectTransform>();
@@ -119,6 +133,18 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
+		if (startTimerWinText)
+		{
+			timerWinText -= Time.deltaTime;
+			timerWinTextInt = (int) timerWinText;
+			if (timerWinTextInt == 0)
+			{
+				levelText.text = "";
+				timerWinText = 2;
+				startTimerWinText = false;
+			}
+		}
+
 		counter += Time.deltaTime;
 		timePlaying = TimeSpan.FromSeconds(counter);
 		timePlayingStr = "Time: " + timePlaying.ToString("mm':'ss'.'ff");
@@ -150,15 +176,33 @@ public class GameController : MonoBehaviour
 				case 0:
 					openWall1.SetActive(false);
 					level2.SetActive(true);
-					level1Text.text = "Level 1";
-					Destroy(level1Text, 2);
+					levelText.text = "Level 1";
+					startTimerWinText = true;
 					break;
 				case 1:
 					openWall2.SetActive(false);
 					bridge3.SetActive(true);
-					//level3.SetActive(true);
-					Level2Text.text = "Level 2";
-					Destroy(Level2Text, 2);
+					level3.SetActive(true);
+					levelText.text = "Level 2";
+					startTimerWinText = true;
+					break;
+				case 2:
+					openWall3.SetActive(false);
+					bridge4.SetActive(true);
+					level4.SetActive(true);
+					levelText.text = "Level 3";
+					break;
+				case 3:
+					openWall4.SetActive(false);
+					bridge5.SetActive(true);
+					level5.SetActive(true);
+					levelText.text = "Level 4";
+					break;
+				case 4:
+					openWall5.SetActive(false);
+					//bridge6.SetActive(true);
+					//level6.SetActive(true);
+					levelText.text = "Level 5";
 					break;
 			}
 		}
@@ -174,9 +218,19 @@ public class GameController : MonoBehaviour
 				bridge2.SetActive(false);
 				break;
 			case 1:
-				//closeWall3.SetActive(true);
+				closeWall3.SetActive(true);
 				level2.SetActive(false);
 				bridge3.SetActive(false);
+				break;
+			case 2:
+				closeWall4.SetActive(true);
+				level3.SetActive(false);
+				bridge4.SetActive(false);
+				break;
+			case 3:
+				closeWall5.SetActive(true);
+				level4.SetActive(false);
+				bridge5.SetActive(false);
 				break;
 		}
 

@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
 		if (gameController.StartTimerGameOverExpolion)
 		{
 			rb.transform.position = deathPlayerPosition;
-			gameController.TimerGameOverExpolion = gameController.TimerGameOverExpolion - Time.deltaTime;
+			gameController.TimerGameOverExpolion -= Time.deltaTime;
 			gameController.TimerGameOverExpolionInt = (int) gameController.TimerGameOverExpolion;
 			if (gameController.TimerGameOverExpolionInt == 0)
 			{
@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
 
 		if (gameController.StartTimerstartTimerRedHealth)
 		{
-			gameController.TimerRedHealth = gameController.TimerRedHealth - Time.deltaTime;
+			gameController.TimerRedHealth -= Time.deltaTime;
 			gameController.TimerRedHealthInt = (int) gameController.TimerRedHealth;
 			if (gameController.TimerRedHealthInt == 0)
 			{
@@ -64,22 +64,16 @@ public class Player : MonoBehaviour
 		}
 
 
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(KeyCode.Space) && contactWithGround)
 		{
-			if (contactWithGround)
-			{
-				rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
-			}
+			rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
 		}
 
 		foreach (Touch touch in Input.touches)
 		{
-			if (touch.phase == TouchPhase.Began)
+			if (touch.phase == TouchPhase.Began && contactWithGround)
 			{
-				if (contactWithGround)
-				{
-					rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
-				}
+				rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
 			}
 		}
 	}
@@ -128,9 +122,7 @@ public class Player : MonoBehaviour
 		{
 			healthParticle.SetActive(false);
 			healthParticle.SetActive(true);
-			//healthParticle.SetActive(true);
 			RegenerateHealth(other.GetComponent<PickUp>().HealthRegeneration);
-
 
 			//Adjust health bar
 			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
