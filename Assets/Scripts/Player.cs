@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Player : MonoBehaviour
 {
@@ -7,27 +8,62 @@ public class Player : MonoBehaviour
 	//Player
 	private Rigidbody rb;
 
+	//Particle
+	public GameObject healthParticle;
+	public GameObject explosionParticle;
+
 	//Properties
-	private int speed;
+	private int speedPc;
+	private int speedMobile;
 	private int jumpForce;
 	private int score;
 	private int health;
 	private bool contactWithGround = true;
-
+	private Vector3 deathPlayerPosition;
 	public int Score => score;
 	public int Health => health;
 
 	private void Start()
 	{
-		GetComponent<ParticleSystem>().Stop();
+		healthParticle.GetComponent<ParticleSystem>().playOnAwake = true;
 		health = 20;
-		speed = 10;
+		speedPc = 10;
+		speedMobile = 5;
 		jumpForce = 4;
 		rb = GetComponent<Rigidbody>();
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 	}
 
 	private void Update()
 	{
+		//For timer explosion particle
+		if (gameController.StartTimerGameOverExpolion)
+		{
+			rb.transform.position = deathPlayerPosition;
+			gameController.TimerGameOverExpolion = gameController.TimerGameOverExpolion - Time.deltaTime;
+			gameController.TimerGameOverExpolionInt = (int) gameController.TimerGameOverExpolion;
+			if (gameController.TimerGameOverExpolionInt == 0)
+			{
+				gameController.SetGameOver();
+				gameController.TimerGameOverExpolion = 2;
+				gameController.StartTimerGameOverExpolion = false;
+			}
+		}
+
+
+		if (gameController.StartTimerstartTimerRedHealth)
+		{
+			gameController.TimerRedHealth = gameController.TimerRedHealth - Time.deltaTime;
+			gameController.TimerRedHealthInt = (int) gameController.TimerRedHealth;
+			if (gameController.TimerRedHealthInt == 0)
+			{
+				gameController.RedHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
+				gameController.TimerRedHealth = 2;
+				gameController.StartTimerstartTimerRedHealth = false;
+			}
+		}
+
+
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			if (contactWithGround)
@@ -36,47 +72,41 @@ public class Player : MonoBehaviour
 			}
 		}
 
-		//TODO make it better       Hint: that is the handy movement
-		/*var dir = Vector3.zero;
-		// we assume that the device is held parallel to the ground
-		// and the Home button is in the right hand
-
-		// remap the device acceleration axis to game coordinates:
-		// 1) XY plane of the device is mapped onto XZ plane
-		// 2) rotated 90 degrees around Y axis
-
-		dir.x = -Input.acceleration.y;
-		dir.z = Input.acceleration.x;
-
-		// clamp acceleration vector to the unit sphere
-		if (dir.sqrMagnitude > 1)
-			dir.Normalize();
-
-		// Make it move 10 meters per second instead of 10 meters per frame...
-		dir *= Time.deltaTime;
-
-		// Move object
-		rb.transform.Translate(dir * speed);*/
+		foreach (Touch touch in Input.touches)
+		{
+			if (touch.phase == TouchPhase.Began)
+			{
+				if (contactWithGround)
+				{
+					rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
+				}
+			}
+		}
 	}
 
 	private void FixedUpdate()
 	{
+		//For Pc only Test
 		var moveHorizontal = Input.GetAxis("Horizontal");
 		var moveVertical = Input.GetAxis("Vertical");
+		var movementPc = new Vector3(moveHorizontal, 0.0f, moveVertical);
+		rb.AddForce(movementPc * speedPc);
 
-		var movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-
-		rb.AddForce(movement * speed);
+		//For Mobile
+		Vector3 movementMobile =
+			new Vector3(Input.acceleration.x * speedMobile, 0.0f, Input.acceleration.y * speedMobile);
+		rb.AddForce(movementMobile * speedMobile);
 	}
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		if (collision.gameObject.CompareTag("Damage50"))
+		if (collision.gameObject.CompareTag("Damage"))
 		{
 			TakeDamage(collision.gameObject.GetComponent<DamageDealer>().Damage);
 
 			//Adjust health bar
-			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 2), 15);
+			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
+			gameController.StartTimerstartTimerRedHealth = true;
 		}
 		else if (collision.gameObject.CompareTag("Ground"))
 		{
@@ -96,12 +126,15 @@ public class Player : MonoBehaviour
 	{
 		if (other.gameObject.CompareTag("Pick Up"))
 		{
-			//Pick Ups regenerate health
+			healthParticle.SetActive(false);
+			healthParticle.SetActive(true);
+			//healthParticle.SetActive(true);
 			RegenerateHealth(other.GetComponent<PickUp>().HealthRegeneration);
 
 
 			//Adjust health bar
-			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 2), 15);
+			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
+			gameController.RedHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
 			other.gameObject.SetActive(false);
 
 			//Update score
@@ -124,9 +157,11 @@ public class Player : MonoBehaviour
 		else
 		{
 			health = 0;
-			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 2), 15);
-			GetComponent<ParticleSystem>().Play(); //TODO add delay
-			gameController.SetGameOver();
+			explosionParticle.GetComponent<ParticleSystem>().playOnAwake = true;
+			gameController.StartTimerGameOverExpolion = true;
+			explosionParticle.SetActive(true);
+			deathPlayerPosition = new Vector3(rb.position.x, rb.position.y, rb.position.z);
+			rb.GetComponent<MeshRenderer>().enabled = false;
 		}
 	}
 

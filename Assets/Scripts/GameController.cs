@@ -6,12 +6,8 @@ public class GameController : MonoBehaviour
 {
 	//UI
 	public GameObject playCanvas;
-	public GameObject gameOverCanvas;
 
-	//HUD
-	public Text scoreText;
-	public Text level1Text;
-	public Text Level2Text;
+	public GameObject gameOverCanvas;
 
 	//Counter
 	public Text counterText;
@@ -19,36 +15,95 @@ public class GameController : MonoBehaviour
 	private TimeSpan timePlaying;
 	private string timePlayingStr;
 
+	//HUD
+	public Text scoreText;
+	public Text level1Text;
+	public Text Level2Text;
+
+	//HealthBar
+	private bool startTimerRedHealth = false;
+	private float timerRedHealth = 2;
+	private int timerRedHealthInt;
+
+	//Damage
+	public Transform greenHealthBar;
+	public Transform redHealthBar;
+
+	private RectTransform greenHealthBarRect;
+
+	private RectTransform redHealthBarRect;
+
+	//Damage Timer
+	private bool startTimerGameOverExpolion = false;
+	private float timerGameOverExpolion = 2;
+	private int timerGameOverExpolionInt;
+
 	//Level
 	public GameObject level1;
 	public GameObject openWall1;
 	public GameObject level2;
 	public GameObject bridge2;
 	public GameObject closeWall2;
+
 	public GameObject openWall2;
-	public GameObject level3;
+
+	//public GameObject level3;
 	public GameObject bridge3;
-	public GameObject closeWall3;
+
+	//public GameObject closeWall3;
 	private int level;
 
 	//GameOver
 	public Text gameOverScoreText;
 	public Text gameOverCounterText;
 
-	//Damage
-	public Transform greenHealthBar;
-
-	private RectTransform greenHealthBarRect;
-	//public Transform redHealthBar;
-	//public GameObject redHealt;
 
 	//Player
 	public Player player;
 
 	public RectTransform GreenHealthBarRect => greenHealthBarRect;
+	public RectTransform RedHealthBarRect => redHealthBarRect;
+
+	public bool StartTimerstartTimerRedHealth
+	{
+		get => startTimerRedHealth;
+		set => startTimerRedHealth = value;
+	}
+
+	public float TimerRedHealth
+	{
+		get => timerRedHealth;
+		set => timerRedHealth = value;
+	}
+
+	public int TimerRedHealthInt
+	{
+		get => timerRedHealthInt;
+		set => timerRedHealthInt = value;
+	}
+
+	public bool StartTimerGameOverExpolion
+	{
+		get => startTimerGameOverExpolion;
+		set => startTimerGameOverExpolion = value;
+	}
+
+	public float TimerGameOverExpolion
+	{
+		get => timerGameOverExpolion;
+		set => timerGameOverExpolion = value;
+	}
+
+	public int TimerGameOverExpolionInt
+	{
+		get => timerGameOverExpolionInt;
+		set => timerGameOverExpolionInt = value;
+	}
+
 
 	private void Start()
 	{
+		SetUiSize();
 		SetScoreText();
 		counterText.text = "";
 		level1Text.text = "";
@@ -56,7 +111,9 @@ public class GameController : MonoBehaviour
 		playCanvas.SetActive(true);
 		gameOverCanvas.SetActive(false);
 		greenHealthBarRect = greenHealthBar.GetComponent<RectTransform>();
-		greenHealthBarRect.sizeDelta = new Vector2((player.Health * 2), 15);
+		greenHealthBarRect.sizeDelta = new Vector2((player.Health * 4), 30);
+		redHealthBarRect = redHealthBar.GetComponent<RectTransform>();
+		redHealthBarRect.sizeDelta = new Vector2((player.Health * 4), 30);
 	}
 
 	// Update is called once per frame
@@ -93,14 +150,14 @@ public class GameController : MonoBehaviour
 				case 0:
 					openWall1.SetActive(false);
 					level2.SetActive(true);
-					level1Text.text = "Stage 1 clear!";
+					level1Text.text = "Level 1";
 					Destroy(level1Text, 2);
 					break;
 				case 1:
 					openWall2.SetActive(false);
 					bridge3.SetActive(true);
-					level3.SetActive(true);
-					Level2Text.text = "Stage 2 clear!";
+					//level3.SetActive(true);
+					Level2Text.text = "Level 2";
 					Destroy(Level2Text, 2);
 					break;
 			}
@@ -117,7 +174,7 @@ public class GameController : MonoBehaviour
 				bridge2.SetActive(false);
 				break;
 			case 1:
-				closeWall3.SetActive(true);
+				//closeWall3.SetActive(true);
 				level2.SetActive(false);
 				bridge3.SetActive(false);
 				break;
@@ -135,5 +192,11 @@ public class GameController : MonoBehaviour
 		//Set GameOver texts
 		gameOverScoreText.text = "Score: " + player.Score;
 		gameOverCounterText.text = timePlayingStr;
+	}
+
+	private void SetUiSize()
+	{
+		var screenWidth = Screen.width;
+		var screenHeight = Screen.height;
 	}
 }
