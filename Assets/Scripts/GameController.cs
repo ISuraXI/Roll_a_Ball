@@ -19,11 +19,6 @@ public class GameController : MonoBehaviour
 	public Text scoreText;
 	public Text levelText;
 
-	//HealthBar
-	private bool startTimerRedHealth = false;
-	private float timerRedHealth = 2;
-	private int timerRedHealthInt;
-
 	//Damage
 	public Transform greenHealthBar;
 	public Transform redHealthBar;
@@ -31,11 +26,6 @@ public class GameController : MonoBehaviour
 	private RectTransform greenHealthBarRect;
 
 	private RectTransform redHealthBarRect;
-
-	//Damage Timer
-	private bool startTimerGameOverExpolion = false;
-	private float timerGameOverExpolion = 2;
-	private int timerGameOverExpolionInt;
 
 	//Level
 	public GameObject level1;
@@ -74,44 +64,20 @@ public class GameController : MonoBehaviour
 	public RectTransform GreenHealthBarRect => greenHealthBarRect;
 	public RectTransform RedHealthBarRect => redHealthBarRect;
 
-	public bool StartTimerstartTimerRedHealth
-	{
-		get => startTimerRedHealth;
-		set => startTimerRedHealth = value;
-	}
+	public bool StartTimerRedHealth { get; set; }
 
-	public float TimerRedHealth
-	{
-		get => timerRedHealth;
-		set => timerRedHealth = value;
-	}
+	public float TimerRedHealth { get; set; } = 2;
 
-	public int TimerRedHealthInt
-	{
-		get => timerRedHealthInt;
-		set => timerRedHealthInt = value;
-	}
+	public int TimerRedHealthInt { get; set; }
 
-	public bool StartTimerGameOverExpolion
-	{
-		get => startTimerGameOverExpolion;
-		set => startTimerGameOverExpolion = value;
-	}
+	public bool StartTimerGameOverExplosion { get; set; }
 
-	public float TimerGameOverExpolion
-	{
-		get => timerGameOverExpolion;
-		set => timerGameOverExpolion = value;
-	}
+	public float TimerGameOverExplosion { get; set; } = 2;
 
-	public int TimerGameOverExpolionInt
-	{
-		get => timerGameOverExpolionInt;
-		set => timerGameOverExpolionInt = value;
-	}
+	public int TimerGameOverExplosionInt { get; set; }
 
 
-	private bool startTimerWinText = false;
+	private bool startTimerWinText;
 	private float timerWinText = 2;
 	private int timerWinTextInt;
 
