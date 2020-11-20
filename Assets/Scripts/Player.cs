@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Player : MonoBehaviour
 {
@@ -37,29 +36,29 @@ public class Player : MonoBehaviour
 	private void Update()
 	{
 		//For timer explosion particle
-		if (gameController.StartTimerGameOverExpolion)
+		if (gameController.StartTimerGameOverExplosion)
 		{
 			rb.transform.position = deathPlayerPosition;
-			gameController.TimerGameOverExpolion = gameController.TimerGameOverExpolion - Time.deltaTime;
-			gameController.TimerGameOverExpolionInt = (int) gameController.TimerGameOverExpolion;
-			if (gameController.TimerGameOverExpolionInt == 0)
+			gameController.TimerGameOverExplosion -= Time.deltaTime;
+			gameController.TimerGameOverExplosionInt = (int) gameController.TimerGameOverExplosion;
+			if (gameController.TimerGameOverExplosionInt == 0)
 			{
 				gameController.SetGameOver();
-				gameController.TimerGameOverExpolion = 2;
-				gameController.StartTimerGameOverExpolion = false;
+				gameController.TimerGameOverExplosion = 2;
+				gameController.StartTimerGameOverExplosion = false;
 			}
 		}
 
 
-		if (gameController.StartTimerstartTimerRedHealth)
+		if (gameController.StartTimerRedHealth)
 		{
-			gameController.TimerRedHealth = gameController.TimerRedHealth - Time.deltaTime;
+			gameController.TimerRedHealth -= Time.deltaTime;
 			gameController.TimerRedHealthInt = (int) gameController.TimerRedHealth;
 			if (gameController.TimerRedHealthInt == 0)
 			{
 				gameController.RedHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
 				gameController.TimerRedHealth = 2;
-				gameController.StartTimerstartTimerRedHealth = false;
+				gameController.StartTimerRedHealth = false;
 			}
 		}
 
@@ -106,7 +105,7 @@ public class Player : MonoBehaviour
 
 			//Adjust health bar
 			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
-			gameController.StartTimerstartTimerRedHealth = true;
+			gameController.StartTimerRedHealth = true;
 		}
 		else if (collision.gameObject.CompareTag("Ground"))
 		{
@@ -158,9 +157,11 @@ public class Player : MonoBehaviour
 		{
 			health = 0;
 			explosionParticle.GetComponent<ParticleSystem>().playOnAwake = true;
-			gameController.StartTimerGameOverExpolion = true;
+			gameController.StartTimerGameOverExplosion = true;
 			explosionParticle.SetActive(true);
-			deathPlayerPosition = new Vector3(rb.position.x, rb.position.y, rb.position.z);
+
+			var rbPosition = rb.position;
+			deathPlayerPosition = new Vector3(rbPosition.x, rbPosition.y, rbPosition.z);
 			rb.GetComponent<MeshRenderer>().enabled = false;
 		}
 	}
