@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Player : MonoBehaviour
 {
@@ -69,7 +68,7 @@ public class Player : MonoBehaviour
 			rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
 		}
 
-		foreach (Touch touch in Input.touches)
+		foreach (var touch in Input.touches)
 		{
 			if (touch.phase == TouchPhase.Began && contactWithGround)
 			{
@@ -152,7 +151,9 @@ public class Player : MonoBehaviour
 			explosionParticle.GetComponent<ParticleSystem>().playOnAwake = true;
 			gameController.StartTimerGameOverExpolion = true;
 			explosionParticle.SetActive(true);
-			deathPlayerPosition = new Vector3(rb.position.x, rb.position.y, rb.position.z);
+
+			var rbPosition = rb.position;
+			deathPlayerPosition = new Vector3(rbPosition.x, rbPosition.y, rbPosition.z);
 			rb.GetComponent<MeshRenderer>().enabled = false;
 		}
 	}
