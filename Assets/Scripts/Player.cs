@@ -63,22 +63,16 @@ public class Player : MonoBehaviour
 		}
 
 
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(KeyCode.Space) && contactWithGround)
 		{
-			if (contactWithGround)
-			{
-				rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
-			}
+			rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
 		}
 
-		foreach (Touch touch in Input.touches)
+		foreach (var touch in Input.touches)
 		{
-			if (touch.phase == TouchPhase.Began)
+			if (touch.phase == TouchPhase.Began && contactWithGround)
 			{
-				if (contactWithGround)
-				{
-					rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
-				}
+				rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
 			}
 		}
 	}
@@ -127,9 +121,7 @@ public class Player : MonoBehaviour
 		{
 			healthParticle.SetActive(false);
 			healthParticle.SetActive(true);
-			//healthParticle.SetActive(true);
 			RegenerateHealth(other.GetComponent<PickUp>().HealthRegeneration);
-
 
 			//Adjust health bar
 			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
