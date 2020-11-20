@@ -4,14 +4,12 @@ public class Player : MonoBehaviour
 {
 	public GameController gameController;
 
-	//Player
-	private Rigidbody rb;
-
 	//Particle
 	public GameObject healthParticle;
 	public GameObject explosionParticle;
 
 	//Properties
+	private Rigidbody rb; //Player body
 	private int speedPc;
 	private int speedMobile;
 	private int jumpForce;
@@ -19,6 +17,7 @@ public class Player : MonoBehaviour
 	private int health;
 	private bool contactWithGround = true;
 	private Vector3 deathPlayerPosition;
+
 	public int Score => score;
 	public int Health => health;
 

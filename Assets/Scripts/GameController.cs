@@ -4,28 +4,21 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+	//Player
+	public Player player;
+
 	//UI
 	public GameObject playCanvas;
-
 	public GameObject gameOverCanvas;
-
-	//Counter
-	public Text counterText;
-	private float counter;
-	private TimeSpan timePlaying;
-	private string timePlayingStr;
 
 	//HUD
 	public Text scoreText;
 	public Text levelText;
+	public Text counterText;
 
 	//Damage
 	public Transform greenHealthBar;
 	public Transform redHealthBar;
-
-	private RectTransform greenHealthBarRect;
-
-	private RectTransform redHealthBarRect;
 
 	//Level
 	public GameObject level1;
@@ -51,15 +44,27 @@ public class GameController : MonoBehaviour
 	public GameObject closeWall5;
 	public GameObject openWall5;
 
-	private int level;
-
 	//GameOver
 	public Text gameOverScoreText;
 	public Text gameOverCounterText;
 
 
-	//Player
-	public Player player;
+	//Timer
+	private bool startTimerWinText;
+	private float timerWinText = 2;
+	private int timerWinTextInt;
+
+	//Counter
+	private float counter;
+	private TimeSpan timePlaying;
+	private string timePlayingStr;
+
+	private int level;
+
+	//Health bar
+	private RectTransform greenHealthBarRect;
+	private RectTransform redHealthBarRect;
+
 
 	public RectTransform GreenHealthBarRect => greenHealthBarRect;
 	public RectTransform RedHealthBarRect => redHealthBarRect;
@@ -75,11 +80,6 @@ public class GameController : MonoBehaviour
 	public float TimerGameOverExplosion { get; set; } = 2;
 
 	public int TimerGameOverExplosionInt { get; set; }
-
-
-	private bool startTimerWinText;
-	private float timerWinText = 2;
-	private int timerWinTextInt;
 
 
 	private void Start()
