@@ -84,8 +84,7 @@ public class GameController : MonoBehaviour
 
 	private void Start()
 	{
-		SetUiSize();
-		SetScoreText();
+		UnlockNextLevel();
 		counterText.text = "";
 		levelText.text = "";
 		playCanvas.SetActive(true);
@@ -117,7 +116,7 @@ public class GameController : MonoBehaviour
 		counterText.text = timePlayingStr;
 	}
 
-	public void SetScoreText() //TODO rename
+	public void UnlockNextLevel()
 	{
 		scoreText.text = "Score: " + player.Score;
 
@@ -212,11 +211,5 @@ public class GameController : MonoBehaviour
 		//Set GameOver texts
 		gameOverScoreText.text = "Score: " + player.Score;
 		gameOverCounterText.text = timePlayingStr;
-	}
-
-	private void SetUiSize()
-	{
-		var screenWidth = Screen.width;
-		var screenHeight = Screen.height;
 	}
 }

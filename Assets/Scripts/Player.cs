@@ -85,8 +85,7 @@ public class Player : MonoBehaviour
 		rb.AddForce(movementPc * speedPc);
 
 		//For Mobile
-		Vector3 movementMobile =
-			new Vector3(Input.acceleration.x * speedMobile, 0.0f, Input.acceleration.y * speedMobile);
+		var movementMobile = new Vector3(Input.acceleration.x * speedMobile, 0.0f, Input.acceleration.y * speedMobile);
 		rb.AddForce(movementMobile * speedMobile);
 	}
 
@@ -129,7 +128,7 @@ public class Player : MonoBehaviour
 
 			//Update score
 			score++;
-			gameController.SetScoreText();
+			gameController.UnlockNextLevel();
 		}
 		else if (other.gameObject.CompareTag("LevelTrigger"))
 		{
