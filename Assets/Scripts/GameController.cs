@@ -73,14 +73,9 @@ public class GameController : MonoBehaviour
 
 	public float TimerRedHealth { get; set; } = 2;
 
-	public int TimerRedHealthInt { get; set; }
-
 	public bool StartTimerGameOverExplosion { get; set; }
 
 	public float TimerGameOverExplosion { get; set; } = 2;
-
-	public int TimerGameOverExplosionInt { get; set; }
-
 
 	private void Start()
 	{
@@ -156,18 +151,21 @@ public class GameController : MonoBehaviour
 					bridge4.SetActive(true);
 					level4.SetActive(true);
 					levelText.text = "Level 3";
+					startTimerWinText = true;
 					break;
 				case 3:
 					openWall4.SetActive(false);
 					bridge5.SetActive(true);
 					level5.SetActive(true);
 					levelText.text = "Level 4";
+					startTimerWinText = true;
 					break;
 				case 4:
 					openWall5.SetActive(false);
 					//bridge6.SetActive(true);
 					//level6.SetActive(true);
 					levelText.text = "Level 5";
+					startTimerWinText = true;
 					break;
 			}
 		}

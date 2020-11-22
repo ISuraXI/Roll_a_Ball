@@ -39,8 +39,8 @@ public class Player : MonoBehaviour
 		{
 			rb.transform.position = deathPlayerPosition;
 			gameController.TimerGameOverExplosion -= Time.deltaTime;
-			gameController.TimerGameOverExplosionInt = (int) gameController.TimerGameOverExplosion;
-			if (gameController.TimerGameOverExplosionInt == 0)
+			//gameController.TimerGameOverExplosionInt = (int) gameController.TimerGameOverExplosion;
+			if (gameController.TimerGameOverExplosion <= 0f)
 			{
 				gameController.SetGameOver();
 				gameController.TimerGameOverExplosion = 2;
@@ -52,8 +52,8 @@ public class Player : MonoBehaviour
 		if (gameController.StartTimerRedHealth)
 		{
 			gameController.TimerRedHealth -= Time.deltaTime;
-			gameController.TimerRedHealthInt = (int) gameController.TimerRedHealth;
-			if (gameController.TimerRedHealthInt == 0)
+			//gameController.TimerRedHealthInt = (int) gameController.TimerRedHealth;
+			if (gameController.TimerRedHealth <= 0f)
 			{
 				gameController.RedHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
 				gameController.TimerRedHealth = 2;
