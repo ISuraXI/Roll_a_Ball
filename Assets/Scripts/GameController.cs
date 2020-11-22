@@ -43,6 +43,7 @@ public class GameController : MonoBehaviour
 	public GameObject bridge5;
 	public GameObject closeWall5;
 	public GameObject openWall5;
+	public GameObject rotateObject;
 
 	//GameOver
 	public Text gameOverScoreText;
@@ -194,7 +195,7 @@ public class GameController : MonoBehaviour
 				closeWall5.SetActive(true);
 				level4.SetActive(false);
 				bridge5.SetActive(false);
-				GameObject.FindGameObjectWithTag("Level5Rotate").GetComponent<RotationLevel5>().enabled = true;
+				rotateObject.GetComponent<RotationLevel5>().enabled = true;
 				break;
 		}
 
