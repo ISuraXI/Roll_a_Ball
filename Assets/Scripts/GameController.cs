@@ -96,8 +96,8 @@ public class GameController : MonoBehaviour
 		if (startTimerWinText)
 		{
 			timerWinText -= Time.deltaTime;
-			timerWinTextInt = (int) timerWinText;
-			if (timerWinTextInt == 0)
+			//timerWinTextInt = (int) timerWinText;
+			if (timerWinText <= 0f)
 			{
 				levelText.text = "";
 				timerWinText = 2;
@@ -194,6 +194,7 @@ public class GameController : MonoBehaviour
 				closeWall5.SetActive(true);
 				level4.SetActive(false);
 				bridge5.SetActive(false);
+				GameObject.FindGameObjectWithTag("Level5Rotate").GetComponent<RotationLevel5>().enabled = true;
 				break;
 		}
 

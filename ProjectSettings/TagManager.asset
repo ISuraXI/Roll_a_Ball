@@ -10,6 +10,7 @@ TagManager:
   - Ground
   - Damage50
   - Damage
+  - Level5Rotate
   layers:
   - Default
   - TransparentFX
