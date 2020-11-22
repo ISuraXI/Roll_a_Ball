@@ -73,14 +73,9 @@ public class GameController : MonoBehaviour
 
 	public float TimerRedHealth { get; set; } = 2;
 
-	public int TimerRedHealthInt { get; set; }
-
 	public bool StartTimerGameOverExplosion { get; set; }
 
 	public float TimerGameOverExplosion { get; set; } = 2;
-
-	public int TimerGameOverExplosionInt { get; set; }
-
 
 	private void Start()
 	{
