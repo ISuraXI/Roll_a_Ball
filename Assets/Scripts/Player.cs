@@ -8,6 +8,10 @@ public class Player : MonoBehaviour
 	public GameObject healthParticle;
 	public GameObject explosionParticle;
 
+	//Mobile Movement
+	private float x = 0;
+	private float y = 0;
+
 	//Properties
 	private Rigidbody rb; //Player body
 	private int speedPc;
@@ -21,8 +25,12 @@ public class Player : MonoBehaviour
 	public int Score => score;
 	public int Health => health;
 
+
 	private void Start()
 	{
+		//TODO: makt it better for set x and y to 0 when you have the phone not horizontal when you start the game working but not good :(
+		//x = Input.acceleration.x;
+		//y = Input.acceleration.y;
 		healthParticle.GetComponent<ParticleSystem>().playOnAwake = true;
 		health = 20;
 		speedPc = 10;
@@ -85,7 +93,8 @@ public class Player : MonoBehaviour
 		rb.AddForce(movementPc * speedPc);
 
 		//For Mobile
-		var movementMobile = new Vector3(Input.acceleration.x * speedMobile, 0.0f, Input.acceleration.y * speedMobile);
+		var movementMobile = new Vector3((Input.acceleration.x - x) * speedMobile, 0.0f,
+			(Input.acceleration.y - y) * speedMobile);
 		rb.AddForce(movementMobile * speedMobile);
 	}
 
