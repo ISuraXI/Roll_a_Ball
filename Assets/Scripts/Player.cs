@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
 			//gameController.TimerRedHealthInt = (int) gameController.TimerRedHealth;
 			if (gameController.TimerRedHealth <= 0f)
 			{
-				gameController.RedHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
+				gameController.RedHealthBarRect.sizeDelta = new Vector2((health * 8), 40);
 				gameController.TimerRedHealth = 2;
 				gameController.StartTimerRedHealth = false;
 			}
@@ -105,7 +105,7 @@ public class Player : MonoBehaviour
 			TakeDamage(collision.gameObject.GetComponent<DamageDealer>().Damage);
 
 			//Adjust health bar
-			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
+			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 8), 40);
 			gameController.StartTimerRedHealth = true;
 		}
 		else if (collision.gameObject.CompareTag("Ground"))
@@ -131,8 +131,8 @@ public class Player : MonoBehaviour
 			RegenerateHealth(other.GetComponent<PickUp>().HealthRegeneration);
 
 			//Adjust health bar
-			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
-			gameController.RedHealthBarRect.sizeDelta = new Vector2((health * 4), 30);
+			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 8), 40);
+			gameController.RedHealthBarRect.sizeDelta = new Vector2((health * 8), 40);
 			other.gameObject.SetActive(false);
 
 			//Update score

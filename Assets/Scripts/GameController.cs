@@ -86,9 +86,9 @@ public class GameController : MonoBehaviour
 		playCanvas.SetActive(true);
 		gameOverCanvas.SetActive(false);
 		greenHealthBarRect = greenHealthBar.GetComponent<RectTransform>();
-		greenHealthBarRect.sizeDelta = new Vector2((player.Health * 4), 30);
+		greenHealthBarRect.sizeDelta = new Vector2((player.Health * 8), 40);
 		redHealthBarRect = redHealthBar.GetComponent<RectTransform>();
-		redHealthBarRect.sizeDelta = new Vector2((player.Health * 4), 30);
+		redHealthBarRect.sizeDelta = new Vector2((player.Health * 8), 40);
 	}
 
 	// Update is called once per frame
@@ -211,5 +211,25 @@ public class GameController : MonoBehaviour
 		//Set GameOver texts
 		gameOverScoreText.text = "Score: " + player.Score;
 		gameOverCounterText.text = timePlayingStr;
+	}
+
+	public void HackAllLevel()
+	{
+		openWall1.SetActive(false);
+		level2.SetActive(true);
+
+		openWall2.SetActive(false);
+		bridge3.SetActive(true);
+		level3.SetActive(true);
+
+		openWall3.SetActive(false);
+		bridge4.SetActive(true);
+		level4.SetActive(true);
+
+		openWall4.SetActive(false);
+		bridge5.SetActive(true);
+		level5.SetActive(true);
+
+		openWall5.SetActive(false);
 	}
 }
