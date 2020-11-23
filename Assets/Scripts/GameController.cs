@@ -108,7 +108,7 @@ public class GameController : MonoBehaviour
 
 		counter += Time.deltaTime;
 		timePlaying = TimeSpan.FromSeconds(counter);
-		timePlayingStr = "Time: " + timePlaying.ToString("mm':'ss'.'ff");
+		timePlayingStr = "Time: " + timePlaying.ToString("mm':'ss");
 		counterText.text = timePlayingStr;
 	}
 
