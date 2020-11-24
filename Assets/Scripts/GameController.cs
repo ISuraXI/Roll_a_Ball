@@ -50,7 +50,6 @@ public class GameController : MonoBehaviour
 	public Text gameOverScoreText;
 	public Text gameOverCounterText;
 
-
 	//Timer
 	private bool startTimerWinText;
 	private float timerWinText = 2;
@@ -64,6 +63,11 @@ public class GameController : MonoBehaviour
 	private int collectedPickUps;
 
 	private int level;
+
+	//Score
+	private const int baseScore = 10;
+	private const int maxTimeBonus = 10;
+	private int score = 0;
 
 	//Health bar
 	private RectTransform greenHealthBarRect;
@@ -132,6 +136,27 @@ public class GameController : MonoBehaviour
 				activePickUps++;
 			}
 		}
+	}
+
+	/// <summary>
+	/// Calculates the score for each level individually
+	/// </summary>
+	/// <returns>The score of each level</returns>
+	private int CalculateLevelScore()
+	{
+		var timeBonus = (int) Math.Round((1 / counter) * 100);
+		int levelScore;
+
+		if (timeBonus <= maxTimeBonus)
+		{
+			levelScore = baseScore + timeBonus;
+		}
+		else
+		{
+			levelScore = baseScore + maxTimeBonus;
+		}
+
+		return levelScore;
 	}
 
 	public void PickUpCollected()
@@ -203,6 +228,11 @@ public class GameController : MonoBehaviour
 		CalculateActivePickUpCount();
 		collectedPickUps = 0;
 		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
+
+		//TODO Calculate global score by adding level score
+		score += CalculateLevelScore(); //TODO make addition of score and level score transparent
+		scoreText.text = "Score: " + score; //TODO show on startup
+		counter = 0;
 
 		switch (level)
 		{

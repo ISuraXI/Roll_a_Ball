@@ -136,7 +136,7 @@ public class Player : MonoBehaviour
 			other.gameObject.SetActive(false);
 
 			//Update score
-			score++;
+			score++; //TODO remove, since it is done in the GameController
 			gameController.PickUpCollected();
 			gameController.UnlockNextLevel();
 		}
