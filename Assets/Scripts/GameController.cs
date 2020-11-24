@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
 	public GameObject gameOverCanvas;
 
 	//HUD
+	public Text pickUpsText;
 	public Text scoreText;
 	public Text levelText;
 	public Text counterText;
@@ -59,6 +60,8 @@ public class GameController : MonoBehaviour
 	private float counter;
 	private TimeSpan timePlaying;
 	private string timePlayingStr;
+	private int activePickUps;
+	private int collectedPickUps;
 
 	private int level;
 
@@ -80,11 +83,16 @@ public class GameController : MonoBehaviour
 
 	private void Start()
 	{
+		CalculateActivePickUpCount();
 		UnlockNextLevel();
+
+		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
 		counterText.text = "";
 		levelText.text = "";
+
 		playCanvas.SetActive(true);
 		gameOverCanvas.SetActive(false);
+
 		greenHealthBarRect = greenHealthBar.GetComponent<RectTransform>();
 		greenHealthBarRect.sizeDelta = new Vector2((player.Health * 8), 40);
 		redHealthBarRect = redHealthBar.GetComponent<RectTransform>();
@@ -112,10 +120,28 @@ public class GameController : MonoBehaviour
 		counterText.text = timePlayingStr;
 	}
 
+	private void CalculateActivePickUpCount()
+	{
+		var pickUps = FindObjectsOfType<PickUp>();
+		activePickUps = 0;
+
+		foreach (var pickUp in pickUps)
+		{
+			if (pickUp.isActiveAndEnabled)
+			{
+				activePickUps++;
+			}
+		}
+	}
+
+	public void PickUpCollected()
+	{
+		collectedPickUps++;
+		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
+	}
+
 	public void UnlockNextLevel()
 	{
-		scoreText.text = "Score: " + player.Score;
-
 		var pickUps = FindObjectsOfType<PickUp>();
 		var hasRemainingPickups = false;
 		var i = 0;
@@ -174,6 +200,10 @@ public class GameController : MonoBehaviour
 
 	public void IncreaseLevel() //TODO implement in a generic way
 	{
+		CalculateActivePickUpCount();
+		collectedPickUps = 0;
+		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
+
 		switch (level)
 		{
 			case 0:

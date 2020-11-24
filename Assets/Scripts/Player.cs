@@ -137,6 +137,7 @@ public class Player : MonoBehaviour
 
 			//Update score
 			score++;
+			gameController.PickUpCollected();
 			gameController.UnlockNextLevel();
 		}
 		else if (other.gameObject.CompareTag("LevelTrigger"))
