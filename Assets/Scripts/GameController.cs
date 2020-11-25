@@ -250,7 +250,8 @@ public class GameController : MonoBehaviour
 
 	public void CompleteStage()
 	{
-		score += CalculateLevelScore(); //TODO make addition of score and level score transparent
+		var levelScore = CalculateLevelScore();
+		score += levelScore;
 		scoreText.text = "Score: " + score;
 		startScorePointAdd = true;
 		CounterUI.SetActive(false);
@@ -306,7 +307,7 @@ public class GameController : MonoBehaviour
 		gameOverCanvas.SetActive(true);
 
 		//Set GameOver texts
-		gameOverScoreText.text = "Score: " + player.Score;
+		gameOverScoreText.text = "Score: " + score;
 		gameOverCounterText.text = timePlayingStr;
 	}
 

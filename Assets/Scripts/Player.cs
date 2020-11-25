@@ -17,12 +17,10 @@ public class Player : MonoBehaviour
 	private int speedPc;
 	private int speedMobile;
 	private int jumpForce;
-	private int score;
 	private int health;
 	private bool contactWithGround = true;
 	private Vector3 deathPlayerPosition;
 
-	public int Score => score;
 	public int Health => health;
 
 
@@ -136,7 +134,6 @@ public class Player : MonoBehaviour
 			other.gameObject.SetActive(false);
 
 			//Update score
-			score++; //TODO remove, since it is done in the GameController
 			gameController.PickUpCollected();
 			gameController.UnlockNextLevel();
 		}
