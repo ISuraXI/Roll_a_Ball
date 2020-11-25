@@ -17,12 +17,10 @@ public class Player : MonoBehaviour
 	private int speedPc;
 	private int speedMobile;
 	private int jumpForce;
-	private int score;
 	private int health;
 	private bool contactWithGround = true;
 	private Vector3 deathPlayerPosition;
 
-	public int Score => score;
 	public int Health => health;
 
 
@@ -136,7 +134,6 @@ public class Player : MonoBehaviour
 			other.gameObject.SetActive(false);
 
 			//Update score
-			score++;
 			gameController.PickUpCollected();
 			gameController.UnlockNextLevel();
 		}
@@ -144,6 +141,10 @@ public class Player : MonoBehaviour
 		{
 			other.gameObject.SetActive(false);
 			gameController.IncreaseLevel();
+		}
+		else if (other.gameObject.CompareTag("LevelOutTrigger"))
+		{
+			gameController.CompleteStage();
 		}
 	}
 

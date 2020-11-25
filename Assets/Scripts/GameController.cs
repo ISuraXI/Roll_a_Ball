@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
 	public Text scoreText;
 	public Text levelText;
 	public Text counterText;
+	public Text scorePonitsForLevelText;
+	public Text scorePointsForTimeBonusText;
 
 	//Damage
 	public Transform greenHealthBar;
@@ -46,10 +48,13 @@ public class GameController : MonoBehaviour
 	public GameObject openWall5;
 	public GameObject rotateObject;
 
+	public GameObject goToLevel2;
+	public GameObject goToLevel2Bridge;
+	public GameObject goToLevel2CloseWall;
+
 	//GameOver
 	public Text gameOverScoreText;
 	public Text gameOverCounterText;
-
 
 	//Timer
 	private bool startTimerWinText;
@@ -57,6 +62,7 @@ public class GameController : MonoBehaviour
 	private int timerWinTextInt;
 
 	//Counter
+	public GameObject CounterUI;
 	private float counter;
 	private TimeSpan timePlaying;
 	private string timePlayingStr;
@@ -64,6 +70,14 @@ public class GameController : MonoBehaviour
 	private int collectedPickUps;
 
 	private int level;
+
+	//Score
+	private const int baseScore = 10;
+	private const int maxTimeBonus = 10;
+	private int score = 0;
+	private bool startScorePointAdd = false;
+	private float timerScoreAdd = 2;
+	private int timeBonus;
 
 	//Health bar
 	private RectTransform greenHealthBarRect;
@@ -83,12 +97,15 @@ public class GameController : MonoBehaviour
 
 	private void Start()
 	{
+		scoreText.text = "Score: " + score;
 		CalculateActivePickUpCount();
 		UnlockNextLevel();
 
 		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
 		counterText.text = "";
 		levelText.text = "";
+		scorePonitsForLevelText.text = "";
+		scorePointsForTimeBonusText.text = "";
 
 		playCanvas.SetActive(true);
 		gameOverCanvas.SetActive(false);
@@ -114,6 +131,18 @@ public class GameController : MonoBehaviour
 			}
 		}
 
+		if (startScorePointAdd)
+		{
+			timerScoreAdd -= Time.deltaTime;
+			if (timerScoreAdd <= 0f)
+			{
+				scorePonitsForLevelText.text = "";
+				scorePointsForTimeBonusText.text = "";
+				timerScoreAdd = 2;
+				startScorePointAdd = false;
+			}
+		}
+
 		counter += Time.deltaTime;
 		timePlaying = TimeSpan.FromSeconds(counter);
 		timePlayingStr = "Time: " + timePlaying.ToString("mm':'ss");
@@ -132,6 +161,27 @@ public class GameController : MonoBehaviour
 				activePickUps++;
 			}
 		}
+	}
+
+	/// <summary>
+	/// Calculates the score for each level individually
+	/// </summary>
+	/// <returns>The score of each level</returns>
+	private int CalculateLevelScore()
+	{
+		timeBonus = (int) Math.Round((1 / (counter * 1.5)) * 100);
+		int levelScore;
+
+		if (timeBonus <= maxTimeBonus)
+		{
+			levelScore = baseScore + timeBonus;
+		}
+		else
+		{
+			levelScore = baseScore + maxTimeBonus;
+		}
+
+		return levelScore;
 	}
 
 	public void PickUpCollected()
@@ -163,46 +213,59 @@ public class GameController : MonoBehaviour
 				case 0:
 					openWall1.SetActive(false);
 					level2.SetActive(true);
-					levelText.text = "Level 1";
+					levelText.text = "Stage 1";
 					startTimerWinText = true;
 					break;
 				case 1:
 					openWall2.SetActive(false);
 					bridge3.SetActive(true);
 					level3.SetActive(true);
-					levelText.text = "Level 2";
+					levelText.text = "Stage 2";
 					startTimerWinText = true;
 					break;
 				case 2:
 					openWall3.SetActive(false);
 					bridge4.SetActive(true);
 					level4.SetActive(true);
-					levelText.text = "Level 3";
+					levelText.text = "Stage 3";
 					startTimerWinText = true;
 					break;
 				case 3:
 					openWall4.SetActive(false);
 					bridge5.SetActive(true);
 					level5.SetActive(true);
-					levelText.text = "Level 4";
+					levelText.text = "Stage 4";
 					startTimerWinText = true;
 					break;
 				case 4:
 					openWall5.SetActive(false);
-					//bridge6.SetActive(true);
-					//level6.SetActive(true);
-					levelText.text = "Level 5";
+					goToLevel2Bridge.SetActive(true);
+					goToLevel2.SetActive(true);
+					levelText.text = "Stage 5";
 					startTimerWinText = true;
 					break;
 			}
 		}
 	}
 
+	public void CompleteStage()
+	{
+		var levelScore = CalculateLevelScore();
+		score += levelScore;
+		scoreText.text = "Score: " + score;
+		startScorePointAdd = true;
+		CounterUI.SetActive(false);
+		scorePonitsForLevelText.text = "+ Level done: " + baseScore;
+		scorePointsForTimeBonusText.text = "+ Time Bonus: " + (CalculateLevelScore() - baseScore);
+	}
+
 	public void IncreaseLevel() //TODO implement in a generic way
 	{
 		CalculateActivePickUpCount();
+		CounterUI.SetActive(true);
 		collectedPickUps = 0;
 		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
+		counter = 0;
 
 		switch (level)
 		{
@@ -227,6 +290,11 @@ public class GameController : MonoBehaviour
 				bridge5.SetActive(false);
 				rotateObject.GetComponent<RotationLevel5>().enabled = true;
 				break;
+			case 4:
+				goToLevel2CloseWall.SetActive(true);
+				level5.SetActive(false);
+				goToLevel2Bridge.SetActive(false);
+				break;
 		}
 
 		level++;
@@ -239,7 +307,7 @@ public class GameController : MonoBehaviour
 		gameOverCanvas.SetActive(true);
 
 		//Set GameOver texts
-		gameOverScoreText.text = "Score: " + player.Score;
+		gameOverScoreText.text = "Score: " + score;
 		gameOverCounterText.text = timePlayingStr;
 	}
 
