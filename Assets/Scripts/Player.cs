@@ -145,6 +145,10 @@ public class Player : MonoBehaviour
 			other.gameObject.SetActive(false);
 			gameController.IncreaseLevel();
 		}
+		else if (other.gameObject.CompareTag("LevelOutTrigger"))
+		{
+			gameController.CompleteStage();
+		}
 	}
 
 	private void TakeDamage(int damage)
