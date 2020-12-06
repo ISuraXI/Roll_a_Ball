@@ -42,6 +42,19 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
+		if (gameController.TimerTeleportStart)
+		{
+			rb.AddForce(0, 0.45f, 0, ForceMode.Impulse);
+			gameController.TimeTelportForce -= Time.deltaTime;
+			if (gameController.TimeTelportForce <= 0f)
+			{
+				rb.AddForce(0, -0.45f, 0, ForceMode.Impulse);
+				rb.AddForce(0, 0, 0, ForceMode.Impulse);
+				gameController.TimerTeleportStart = false;
+				gameController.TimeTelportForce = 1;
+			}
+		}
+
 		//For timer explosion particle
 		if (gameController.StartTimerGameOverExplosion)
 		{
@@ -124,6 +137,17 @@ public class Player : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
+		if (other.gameObject.CompareTag("GroundTrigger"))
+		{
+			gameController.timelineLevel2_1.SetActive(true);
+			gameController.groundFill.SetActive(true);
+		}
+
+		if (other.gameObject.CompareTag("Transporter"))
+		{
+			gameController.TimerTeleportStart = true;
+		}
+
 		if (other.gameObject.CompareTag("Pick Up"))
 		{
 			healthParticle.SetActive(false);

@@ -52,6 +52,16 @@ public class GameController : MonoBehaviour
 	public GameObject goToLevel2Bridge;
 	public GameObject goToLevel2CloseWall;
 
+	public GameObject level2_0;
+	public GameObject groundFill;
+
+	public GameObject Level2_1;
+	public GameObject bridge2_1;
+	public GameObject closeWall2_1;
+	public GameObject openWall2_1;
+	public GameObject timelineLevel2_1;
+
+
 	//GameOver
 	public Text gameOverScoreText;
 	public Text gameOverCounterText;
@@ -95,6 +105,10 @@ public class GameController : MonoBehaviour
 
 	public float TimerGameOverExplosion { get; set; } = 2;
 
+	public float TimeTelportForce { get; set; } = 1;
+
+	public bool TimerTeleportStart { get; set; }
+
 	private void Start()
 	{
 		scoreText.text = "Score: " + score;
@@ -119,6 +133,7 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
+		Debug.Log(level);
 		if (startTimerWinText)
 		{
 			timerWinText -= Time.deltaTime;
@@ -241,6 +256,8 @@ public class GameController : MonoBehaviour
 					openWall5.SetActive(false);
 					goToLevel2Bridge.SetActive(true);
 					goToLevel2.SetActive(true);
+					level2_0.SetActive(true);
+					Level2_1.SetActive(true);
 					levelText.text = "Stage 5";
 					startTimerWinText = true;
 					break;
@@ -294,6 +311,10 @@ public class GameController : MonoBehaviour
 				level5.SetActive(false);
 				goToLevel2Bridge.SetActive(false);
 				break;
+			case 5:
+				closeWall2_1.SetActive(true);
+				level2_0.SetActive(false);
+				break;
 		}
 
 		level++;
@@ -327,6 +348,9 @@ public class GameController : MonoBehaviour
 		bridge5.SetActive(true);
 		level5.SetActive(true);
 
+
 		openWall5.SetActive(false);
+		goToLevel2Bridge.SetActive(true);
+		goToLevel2.SetActive(true);
 	}
 }

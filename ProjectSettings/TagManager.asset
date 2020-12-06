@@ -12,6 +12,9 @@ TagManager:
   - Damage
   - Level5Rotate
   - LevelOutTrigger
+  - TriggerCube
+  - Transporter
+  - GroundTrigger
   layers:
   - Default
   - TransparentFX
