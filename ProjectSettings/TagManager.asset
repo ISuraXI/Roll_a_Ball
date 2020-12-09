@@ -15,6 +15,7 @@ TagManager:
   - TriggerCube
   - Transporter
   - GroundTrigger
+  - test
   layers:
   - Default
   - TransparentFX

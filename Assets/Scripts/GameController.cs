@@ -7,9 +7,15 @@ public class GameController : MonoBehaviour
 	//Player
 	public Player player;
 
-	//UI
+	//UI Canvas
 	public GameObject playCanvas;
 	public GameObject gameOverCanvas;
+	public GameObject menuCanvas;
+	public GameObject levelCanvas;
+	public GameObject skyboxController;
+
+	//Cam
+	public GameObject mainCam;
 
 	//HUD
 	public Text pickUpsText;
@@ -22,6 +28,14 @@ public class GameController : MonoBehaviour
 	//Damage
 	public Transform greenHealthBar;
 	public Transform redHealthBar;
+
+	//Level Spawn
+	public Vector3 level1BallSpawn = new Vector3(0, 0, 0);
+	public Vector3 level1CamSpawn = new Vector3(0, 10, -10);
+
+	public bool level2Load = false;
+	public static Vector3 level2BallSpawn = new Vector3(0.33f, 31.91f, 119.25f);
+	public Vector3 level2CamSpawn = level2BallSpawn + new Vector3(0, 10, -10);
 
 	//Level
 	public GameObject level1;
@@ -60,7 +74,6 @@ public class GameController : MonoBehaviour
 	public GameObject closeWall2_1;
 	public GameObject openWall2_1;
 	public GameObject timelineLevel2_1;
-
 
 	//GameOver
 	public Text gameOverScoreText;
@@ -111,6 +124,7 @@ public class GameController : MonoBehaviour
 
 	private void Start()
 	{
+		//player.gameObject.transform.position = new Vector3(0.33f, 31.91f, 119.25f);
 		scoreText.text = "Score: " + score;
 		CalculateActivePickUpCount();
 		UnlockNextLevel();
@@ -121,19 +135,21 @@ public class GameController : MonoBehaviour
 		scorePonitsForLevelText.text = "";
 		scorePointsForTimeBonusText.text = "";
 
-		playCanvas.SetActive(true);
-		gameOverCanvas.SetActive(false);
-
 		greenHealthBarRect = greenHealthBar.GetComponent<RectTransform>();
 		greenHealthBarRect.sizeDelta = new Vector2((player.Health * 8), 40);
 		redHealthBarRect = redHealthBar.GetComponent<RectTransform>();
 		redHealthBarRect.sizeDelta = new Vector2((player.Health * 8), 40);
 	}
 
+
 	// Update is called once per frame
 	private void Update()
 	{
-		Debug.Log(level);
+		if (level2Load)
+		{
+			startLevel2();
+		}
+
 		if (startTimerWinText)
 		{
 			timerWinText -= Time.deltaTime;
@@ -261,6 +277,10 @@ public class GameController : MonoBehaviour
 					levelText.text = "Stage 5";
 					startTimerWinText = true;
 					break;
+				case 5:
+					openWall2_1.SetActive(true);
+					bridge2_1.SetActive(true);
+					break;
 			}
 		}
 	}
@@ -331,6 +351,18 @@ public class GameController : MonoBehaviour
 		gameOverCounterText.text = timePlayingStr;
 	}
 
+	public void startLevel2()
+	{
+		player.gameObject.transform.position = level2BallSpawn;
+		level = 5;
+		goToLevel2.SetActive(false);
+		level1.SetActive(false);
+		level2_0.SetActive(true);
+		Level2_1.SetActive(true);
+		groundFill.SetActive(true);
+		level2Load = false;
+	}
+
 	public void HackAllLevel()
 	{
 		openWall1.SetActive(false);
@@ -352,5 +384,10 @@ public class GameController : MonoBehaviour
 		openWall5.SetActive(false);
 		goToLevel2Bridge.SetActive(true);
 		goToLevel2.SetActive(true);
+
+		level2_0.SetActive(true);
+		Level2_1.SetActive(true);
+		openWall2.SetActive(false);
+		openWall2_1.SetActive(false);
 	}
 }
