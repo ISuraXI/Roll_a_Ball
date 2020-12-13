@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class UiMenuController : MonoBehaviour
 {
@@ -56,9 +52,9 @@ public class UiMenuController : MonoBehaviour
 		gameController.skyboxController.SetActive(true);
 	}
 
-	public void restartGame()
+	public void restartGame() //TODO should be done in gameContoller
 	{
-		gameController.gameStartLevelStatus();
+		gameController.GameStartLevelStatus();
 		gameController.level = 0;
 		gameController.score = 0;
 		gameController.collectedPickUps = 0;

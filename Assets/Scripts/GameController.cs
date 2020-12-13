@@ -35,9 +35,9 @@ public class GameController : MonoBehaviour
 	public Vector3 level1BallSpawn = new Vector3(0, 0.55f, 0);
 	public Vector3 level1CamSpawn = new Vector3(0, 10, -10);
 
-	public bool level2Load = false;
-	public static Vector3 level2BallSpawn = new Vector3(0.33f, 31.91f, 119.25f);
-	public Vector3 level2CamSpawn = level2BallSpawn + new Vector3(0, 10, -10);
+	public bool level2Load;
+	private static readonly Vector3 Level2BallSpawn = new Vector3(0.33f, 31.91f, 119.25f);
+	public Vector3 level2CamSpawn = Level2BallSpawn + new Vector3(0, 10, -10);
 
 	//Level
 	public GameObject level1;
@@ -149,7 +149,7 @@ public class GameController : MonoBehaviour
 	{
 		if (level2Load)
 		{
-			startLevel2();
+			StartLevel2();
 		}
 
 		if (startTimerWinText)
@@ -288,7 +288,7 @@ public class GameController : MonoBehaviour
 
 	public void CompleteStage()
 	{
-		score += CalculateLevelScore(); //TODO make addition of score and level score transparent
+		score += CalculateLevelScore();
 		scoreText.text = "Score: " + score;
 		startScorePointAdd = true;
 		CounterUI.SetActive(false);
@@ -352,9 +352,9 @@ public class GameController : MonoBehaviour
 		gameOverCounterText.text = timePlayingStr;
 	}
 
-	public void startLevel2()
+	private void StartLevel2()
 	{
-		player.gameObject.transform.position = level2BallSpawn;
+		player.gameObject.transform.position = Level2BallSpawn;
 		level = 5;
 		goToLevel2.SetActive(false);
 		level1.SetActive(false);
@@ -364,7 +364,7 @@ public class GameController : MonoBehaviour
 		level2Load = false;
 	}
 
-	public void gameStartLevelStatus()
+	public void GameStartLevelStatus()
 	{
 		bridge2.SetActive(true);
 

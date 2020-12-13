@@ -171,6 +171,7 @@ public class Player : MonoBehaviour
 		else if (other.gameObject.CompareTag("LevelOutTrigger"))
 		{
 			gameController.CompleteStage();
+			other.gameObject.SetActive(false);
 		}
 	}
 
