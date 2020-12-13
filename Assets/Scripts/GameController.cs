@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour
 {
 	//Player
 	public Player player;
+	public GameObject playerGameObject;
 
 	//UI Canvas
 	public GameObject playCanvas;
@@ -30,7 +31,8 @@ public class GameController : MonoBehaviour
 	public Transform redHealthBar;
 
 	//Level Spawn
-	public Vector3 level1BallSpawn = new Vector3(0, 0, 0);
+	public Vector3 camRotation = new Vector3(45, 0, 0);
+	public Vector3 level1BallSpawn = new Vector3(0, 0.55f, 0);
 	public Vector3 level1CamSpawn = new Vector3(0, 10, -10);
 
 	public bool level2Load = false;
@@ -89,15 +91,15 @@ public class GameController : MonoBehaviour
 	private float counter;
 	private TimeSpan timePlaying;
 	private string timePlayingStr;
-	private int activePickUps;
-	private int collectedPickUps;
+	public int activePickUps;
+	public int collectedPickUps;
 
-	private int level;
+	public int level;
 
 	//Score
 	private const int baseScore = 10;
 	private const int maxTimeBonus = 10;
-	private int score = 0;
+	public int score = 0;
 	private bool startScorePointAdd = false;
 	private float timerScoreAdd = 2;
 	private int timeBonus;
@@ -153,7 +155,6 @@ public class GameController : MonoBehaviour
 		if (startTimerWinText)
 		{
 			timerWinText -= Time.deltaTime;
-			//timerWinTextInt = (int) timerWinText;
 			if (timerWinText <= 0f)
 			{
 				levelText.text = "";
@@ -180,7 +181,7 @@ public class GameController : MonoBehaviour
 		counterText.text = timePlayingStr;
 	}
 
-	private void CalculateActivePickUpCount()
+	public void CalculateActivePickUpCount()
 	{
 		var pickUps = FindObjectsOfType<PickUp>();
 		activePickUps = 0;
@@ -361,6 +362,39 @@ public class GameController : MonoBehaviour
 		Level2_1.SetActive(true);
 		groundFill.SetActive(true);
 		level2Load = false;
+	}
+
+	public void gameStartLevelStatus()
+	{
+		level1.SetActive(true);
+		openWall1.SetActive(true);
+		level2.SetActive(false);
+
+
+		openWall2.SetActive(true);
+		bridge3.SetActive(false);
+		level3.SetActive(false);
+
+
+		openWall3.SetActive(true);
+		bridge4.SetActive(false);
+		level4.SetActive(false);
+
+
+		openWall4.SetActive(true);
+		bridge5.SetActive(false);
+		level5.SetActive(false);
+
+
+		openWall5.SetActive(true);
+		goToLevel2Bridge.SetActive(false);
+		goToLevel2.SetActive(false);
+		level2_0.SetActive(false);
+		Level2_1.SetActive(false);
+
+
+		openWall2_1.SetActive(false);
+		bridge2_1.SetActive(false);
 	}
 
 	public void HackAllLevel()

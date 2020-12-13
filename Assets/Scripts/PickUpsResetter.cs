@@ -1,0 +1,93 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PickUpsResetter : MonoBehaviour
+{
+	public GameObject pickUp1_1_1;
+	public GameObject pickUp1_1_2;
+	public GameObject pickUp1_1_3;
+	public GameObject pickUp1_1_4;
+	public GameObject pickUp1_1_5;
+	public GameObject pickUp1_1_6;
+	public GameObject pickUp1_1_7;
+	public GameObject pickUp1_1_8;
+	public GameObject pickUp1_2_1;
+	public GameObject pickUp1_3_1;
+	public GameObject pickUp1_3_2;
+	public GameObject pickUp1_3_3;
+	public GameObject pickUp1_3_4;
+	public GameObject pickUp1_3_5;
+	public GameObject pickUp1_3_6;
+	public GameObject pickUp1_4_1;
+	public GameObject pickUp1_4_2;
+	public GameObject pickUp1_4_3;
+	public GameObject pickUp1_4_4;
+	public GameObject pickUp1_4_5;
+	public GameObject pickUp1_4_6;
+	public GameObject pickUp1_5_1;
+	public GameObject pickUp1_5_2;
+	public GameObject pickUp1_5_3;
+	public GameObject pickUp1_5_4;
+	public GameObject pickUp1_5_5;
+	public GameObject pickUp1_5_6;
+	public GameObject pickUp1_5_7;
+	public GameObject pickUp1_5_8;
+	public GameObject pickUp31;
+	public GameObject pickUp32;
+	public GameObject pickUp33;
+	public GameObject pickUp34;
+	public GameObject pickUp35;
+	public GameObject pickUp36;
+	public GameObject pickUp37;
+	public GameObject pickUp38;
+	public GameObject pickUp39;
+	public GameObject pickUp40;
+	public GameObject pickUp41;
+	public GameObject pickUp42;
+	public GameObject pickUp43;
+	public GameObject pickUp44;
+	public GameObject pickUp45;
+	public GameObject pickUp46;
+	public GameObject pickUp47;
+	public GameObject pickUp48;
+	public GameObject pickUp49;
+	public GameObject pickUp50;
+	public GameObject pickUp51;
+	public GameObject pickUp52;
+	public GameObject pickUp53;
+	public GameObject pickUp54;
+
+	public void ResetPickUps()
+	{
+		pickUp1_1_1.SetActive(true);
+		pickUp1_1_2.SetActive(true);
+		pickUp1_1_3.SetActive(true);
+		pickUp1_1_4.SetActive(true);
+		pickUp1_1_5.SetActive(true);
+		pickUp1_1_6.SetActive(true);
+		pickUp1_1_7.SetActive(true);
+		pickUp1_1_8.SetActive(true);
+		pickUp1_2_1.SetActive(true);
+		pickUp1_3_1.SetActive(true);
+		pickUp1_3_2.SetActive(true);
+		pickUp1_3_3.SetActive(true);
+		pickUp1_3_4.SetActive(true);
+		pickUp1_3_5.SetActive(true);
+		pickUp1_3_6.SetActive(true);
+		pickUp1_4_1.SetActive(true);
+		pickUp1_4_2.SetActive(true);
+		pickUp1_4_3.SetActive(true);
+		pickUp1_4_4.SetActive(true);
+		pickUp1_4_5.SetActive(true);
+		pickUp1_4_6.SetActive(true);
+		pickUp1_5_1.SetActive(true);
+		pickUp1_5_2.SetActive(true);
+		pickUp1_5_3.SetActive(true);
+		pickUp1_5_4.SetActive(true);
+		pickUp1_5_5.SetActive(true);
+		pickUp1_5_6.SetActive(true);
+		pickUp1_5_7.SetActive(true);
+		pickUp1_5_8.SetActive(true);
+	}
+}

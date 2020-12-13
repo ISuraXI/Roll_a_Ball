@@ -60,20 +60,19 @@ public class Player : MonoBehaviour
 		{
 			rb.transform.position = deathPlayerPosition;
 			gameController.TimerGameOverExplosion -= Time.deltaTime;
-			//gameController.TimerGameOverExplosionInt = (int) gameController.TimerGameOverExplosion;
 			if (gameController.TimerGameOverExplosion <= 0f)
-			{
-				gameController.SetGameOver();
-				gameController.TimerGameOverExplosion = 2;
-				gameController.StartTimerGameOverExplosion = false;
-			}
+				if (gameController.TimerGameOverExplosion <= 0f)
+				{
+					gameController.SetGameOver();
+					gameController.TimerGameOverExplosion = 2;
+					gameController.StartTimerGameOverExplosion = false;
+				}
 		}
 
 
 		if (gameController.StartTimerRedHealth)
 		{
 			gameController.TimerRedHealth -= Time.deltaTime;
-			//gameController.TimerRedHealthInt = (int) gameController.TimerRedHealth;
 			if (gameController.TimerRedHealth <= 0f)
 			{
 				gameController.RedHealthBarRect.sizeDelta = new Vector2((health * 8), 40);
@@ -83,16 +82,19 @@ public class Player : MonoBehaviour
 		}
 
 
-		if (Input.GetKeyDown(KeyCode.Space) && contactWithGround)
+		if (!gameController.menuCanvas.activeSelf)
 		{
-			rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
-		}
-
-		foreach (var touch in Input.touches)
-		{
-			if (touch.phase == TouchPhase.Began && contactWithGround)
+			if (Input.GetKeyDown(KeyCode.Space) && contactWithGround)
 			{
 				rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
+			}
+
+			foreach (var touch in Input.touches)
+			{
+				if (touch.phase == TouchPhase.Began && contactWithGround)
+				{
+					rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
+				}
 			}
 		}
 	}
