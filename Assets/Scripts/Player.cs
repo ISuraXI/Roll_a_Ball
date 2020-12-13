@@ -40,25 +40,37 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
+		if (gameController.TimerTeleportStart)
+		{
+			rb.AddForce(0, 0.45f, 0, ForceMode.Impulse);
+			gameController.TimeTelportForce -= Time.deltaTime;
+			if (gameController.TimeTelportForce <= 0f)
+			{
+				rb.AddForce(0, -0.45f, 0, ForceMode.Impulse);
+				rb.AddForce(0, 0, 0, ForceMode.Impulse);
+				gameController.TimerTeleportStart = false;
+				gameController.TimeTelportForce = 1;
+			}
+		}
+
 		//For timer explosion particle
 		if (gameController.StartTimerGameOverExplosion)
 		{
 			rb.transform.position = deathPlayerPosition;
 			gameController.TimerGameOverExplosion -= Time.deltaTime;
-			//gameController.TimerGameOverExplosionInt = (int) gameController.TimerGameOverExplosion;
 			if (gameController.TimerGameOverExplosion <= 0f)
-			{
-				gameController.SetGameOver();
-				gameController.TimerGameOverExplosion = 2;
-				gameController.StartTimerGameOverExplosion = false;
-			}
+				if (gameController.TimerGameOverExplosion <= 0f)
+				{
+					gameController.SetGameOver();
+					gameController.TimerGameOverExplosion = 2;
+					gameController.StartTimerGameOverExplosion = false;
+				}
 		}
 
 
 		if (gameController.StartTimerRedHealth)
 		{
 			gameController.TimerRedHealth -= Time.deltaTime;
-			//gameController.TimerRedHealthInt = (int) gameController.TimerRedHealth;
 			if (gameController.TimerRedHealth <= 0f)
 			{
 				gameController.RedHealthBarRect.sizeDelta = new Vector2((health * 8), 40);
@@ -68,16 +80,19 @@ public class Player : MonoBehaviour
 		}
 
 
-		if (Input.GetKeyDown(KeyCode.Space) && contactWithGround)
+		if (!gameController.menuCanvas.activeSelf)
 		{
-			rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
-		}
-
-		foreach (var touch in Input.touches)
-		{
-			if (touch.phase == TouchPhase.Began && contactWithGround)
+			if (Input.GetKeyDown(KeyCode.Space) && contactWithGround)
 			{
 				rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
+			}
+
+			foreach (var touch in Input.touches)
+			{
+				if (touch.phase == TouchPhase.Began && contactWithGround)
+				{
+					rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
+				}
 			}
 		}
 	}
@@ -122,6 +137,17 @@ public class Player : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
+		if (other.gameObject.CompareTag("GroundTrigger"))
+		{
+			gameController.timelineLevel2_1.SetActive(true);
+			gameController.groundFill.SetActive(true);
+		}
+
+		if (other.gameObject.CompareTag("Transporter"))
+		{
+			gameController.TimerTeleportStart = true;
+		}
+
 		if (other.gameObject.CompareTag("Pick Up"))
 		{
 			healthParticle.SetActive(false);
@@ -145,6 +171,7 @@ public class Player : MonoBehaviour
 		else if (other.gameObject.CompareTag("LevelOutTrigger"))
 		{
 			gameController.CompleteStage();
+			other.gameObject.SetActive(false);
 		}
 	}
 
@@ -177,5 +204,11 @@ public class Player : MonoBehaviour
 		{
 			health = 100;
 		}
+	}
+
+	public void Reset()
+	{
+		healthParticle.GetComponent<ParticleSystem>().playOnAwake = false;
+		rb.GetComponent<MeshRenderer>().enabled = true;
 	}
 }
