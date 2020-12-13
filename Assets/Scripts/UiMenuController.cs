@@ -24,11 +24,6 @@ public class UiMenuController : MonoBehaviour
 		player.healthParticle.GetComponent<ParticleSystem>().playOnAwake = true;
 	}
 
-	/*public void menuScene()
-	{
-		SceneManager.LoadScene("Menu");
-	}*/
-
 	public void RollaBallLevel2()
 	{
 		gameController.levelCanvas.SetActive(false);
@@ -58,16 +53,13 @@ public class UiMenuController : MonoBehaviour
 		gameController.level = 0;
 		gameController.score = 0;
 		gameController.collectedPickUps = 0;
-		gameController.pickUpsText.text =
-			"Pick-ups: " + gameController.collectedPickUps + "/" + gameController.activePickUps;
-		/*gameController.collectedPickUps = -1;
-		gameController.PickUpCollected();*/
-		player.healthParticle.GetComponent<ParticleSystem>().playOnAwake = false;
+		gameController.pickUpsText.text = "Pick-ups: " + gameController.collectedPickUps + "/" + gameController.activePickUps;
+		player.Reset();
+
 		pickUpsResetter.ResetPickUps();
 		gameController.mainCam.transform.Rotate(-45, 0, 0);
 		gameController.CalculateActivePickUpCount();
-		gameController.pickUpsText.text =
-			"Pick-ups: " + gameController.collectedPickUps + "/" + gameController.activePickUps;
+		gameController.pickUpsText.text = "Pick-ups: " + gameController.collectedPickUps + "/" + gameController.activePickUps;
 		gameController.scoreText.text = "Score: " + gameController.score;
 		RollaBallStart();
 	}

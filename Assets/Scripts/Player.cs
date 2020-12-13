@@ -205,4 +205,10 @@ public class Player : MonoBehaviour
 			health = 100;
 		}
 	}
+
+	public void Reset()
+	{
+		healthParticle.GetComponent<ParticleSystem>().playOnAwake = false;
+		rb.GetComponent<MeshRenderer>().enabled = true;
+	}
 }

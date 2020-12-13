@@ -368,33 +368,27 @@ public class GameController : MonoBehaviour
 	{
 		bridge2.SetActive(true);
 
-
 		level1.SetActive(true);
 		openWall1.SetActive(true);
 		level2.SetActive(false);
-
 
 		openWall2.SetActive(true);
 		bridge3.SetActive(false);
 		level3.SetActive(false);
 
-
 		openWall3.SetActive(true);
 		bridge4.SetActive(false);
 		level4.SetActive(false);
 
-
 		openWall4.SetActive(true);
 		bridge5.SetActive(false);
 		level5.SetActive(false);
-
 
 		openWall5.SetActive(true);
 		goToLevel2Bridge.SetActive(false);
 		goToLevel2.SetActive(false);
 		level2_0.SetActive(false);
 		Level2_1.SetActive(false);
-
 
 		openWall2_1.SetActive(false);
 		bridge2_1.SetActive(false);
@@ -416,7 +410,6 @@ public class GameController : MonoBehaviour
 		openWall4.SetActive(false);
 		bridge5.SetActive(true);
 		level5.SetActive(true);
-
 
 		openWall5.SetActive(false);
 		goToLevel2Bridge.SetActive(true);
