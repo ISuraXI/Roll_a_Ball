@@ -348,7 +348,7 @@ public class GameController : MonoBehaviour
 		gameOverCanvas.SetActive(true);
 
 		//Set GameOver texts
-		gameOverScoreText.text = "Score: " + player.Score;
+		gameOverScoreText.text = "Score: " + score;
 		gameOverCounterText.text = timePlayingStr;
 	}
 
