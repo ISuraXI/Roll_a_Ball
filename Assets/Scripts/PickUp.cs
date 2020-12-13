@@ -2,6 +2,7 @@
 
 public class PickUp : MonoBehaviour
 {
+	public PickUpsResetter pickUpsResetter;
 	private int healthRegeneration;
 
 	public int HealthRegeneration => healthRegeneration;
@@ -9,6 +10,7 @@ public class PickUp : MonoBehaviour
 	private void Start()
 	{
 		healthRegeneration = 10;
+		pickUpsResetter.AddPickUp(this);
 	}
 
 	private void Update()
