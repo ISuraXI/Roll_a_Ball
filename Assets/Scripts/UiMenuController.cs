@@ -12,7 +12,6 @@ public class UiMenuController : MonoBehaviour
 
 	public void RollaBallStart()
 	{
-		gameController.gameStartLevelStatus();
 		gameController.playCanvas.SetActive(true);
 		gameController.menuCanvas.SetActive(false);
 		gameController.gameOverCanvas.SetActive(false);
@@ -59,10 +58,14 @@ public class UiMenuController : MonoBehaviour
 
 	public void restartGame()
 	{
+		gameController.gameStartLevelStatus();
 		gameController.level = 0;
 		gameController.score = 0;
-		gameController.collectedPickUps = -1;
-		gameController.PickUpCollected();
+		gameController.collectedPickUps = 0;
+		gameController.pickUpsText.text =
+			"Pick-ups: " + gameController.collectedPickUps + "/" + gameController.activePickUps;
+		/*gameController.collectedPickUps = -1;
+		gameController.PickUpCollected();*/
 		player.healthParticle.GetComponent<ParticleSystem>().playOnAwake = false;
 		pickUpsResetter.ResetPickUps();
 		gameController.mainCam.transform.Rotate(-45, 0, 0);

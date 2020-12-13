@@ -366,6 +366,9 @@ public class GameController : MonoBehaviour
 
 	public void gameStartLevelStatus()
 	{
+		bridge2.SetActive(true);
+
+
 		level1.SetActive(true);
 		openWall1.SetActive(true);
 		level2.SetActive(false);
