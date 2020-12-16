@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
+		Debug.Log(gameController.level);
 		if (gameController.TimerTeleportStart)
 		{
 			rb.AddForce(0, 0.45f, 0, ForceMode.Impulse);

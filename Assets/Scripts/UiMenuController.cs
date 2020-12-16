@@ -2,7 +2,7 @@
 
 public class UiMenuController : MonoBehaviour
 {
-	public Resetter Resetter;
+	public Resetter resetter;
 	public Player player;
 	public GameController gameController;
 
