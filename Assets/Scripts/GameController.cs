@@ -128,6 +128,8 @@ public class GameController : MonoBehaviour
 
 	public void StartGame() //TODO fix Timer + trigger + remove duplicateeees
 	{
+		counter = 0f;
+
 		if (level2OnGo)
 		{
 			StartGameLevel2();
