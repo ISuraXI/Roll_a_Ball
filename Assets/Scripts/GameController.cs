@@ -128,6 +128,8 @@ public class GameController : MonoBehaviour
 
 	public void StartGame() //TODO fix Timer + trigger + remove duplicateeees
 	{
+		counter = 0f;
+
 		if (level2OnGo)
 		{
 			StartGameLevel2();
@@ -174,6 +176,7 @@ public class GameController : MonoBehaviour
 
 	public void StartGameLevel2()
 	{
+		counter = 0f;
 		var Health = 20;
 		player.gameObject.transform.position = new Vector3(0.33f, 31.91f, 119.25f);
 		player.GetComponent<Rigidbody>().isKinematic = false;
