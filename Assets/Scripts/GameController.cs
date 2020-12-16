@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
 	//Player
 	public Player player;
 	public GameObject playerGameObject;
+	public Resetter resetter;
 
 	//UI Canvas
 	public GameObject playCanvas;
@@ -23,7 +24,7 @@ public class GameController : MonoBehaviour
 	public Text scoreText;
 	public Text levelText;
 	public Text counterText;
-	public Text scorePonitsForLevelText;
+	public Text scorePointsForLevelText;
 	public Text scorePointsForTimeBonusText;
 
 	//Damage
@@ -36,29 +37,30 @@ public class GameController : MonoBehaviour
 	public Vector3 level1CamSpawn = new Vector3(0, 10, -10);
 
 	public bool level2Load;
-	private static readonly Vector3 Level2BallSpawn = new Vector3(0.33f, 31.91f, 119.25f);
-	public Vector3 level2CamSpawn = Level2BallSpawn + new Vector3(0, 10, -10);
+	public bool level2OnGo;
+	private static readonly Vector3 level2BallSpawn = new Vector3(0.33f, 31.91f, 119.25f);
+	public Vector3 level2CamSpawn = level2BallSpawn + new Vector3(0, 10, -10);
 
 	//Level
-	public GameObject level1;
+	public GameObject level1_1;
 	public GameObject openWall1;
 
-	public GameObject level2;
+	public GameObject level1_2;
 	public GameObject bridge2;
 	public GameObject closeWall2;
 	public GameObject openWall2;
 
-	public GameObject level3;
+	public GameObject level1_3;
 	public GameObject bridge3;
 	public GameObject closeWall3;
 	public GameObject openWall3;
 
-	public GameObject level4;
+	public GameObject level1_4;
 	public GameObject bridge4;
 	public GameObject closeWall4;
 	public GameObject openWall4;
 
-	public GameObject level5;
+	public GameObject level1_5;
 	public GameObject bridge5;
 	public GameObject closeWall5;
 	public GameObject openWall5;
@@ -124,23 +126,88 @@ public class GameController : MonoBehaviour
 
 	public bool TimerTeleportStart { get; set; }
 
-	private void Start()
+	public void StartGame() //TODO fix Timer + trigger + remove duplicateeees
 	{
-		//player.gameObject.transform.position = new Vector3(0.33f, 31.91f, 119.25f);
-		scoreText.text = "Score: " + score;
-		CalculateActivePickUpCount();
-		UnlockNextLevel();
+		if (level2OnGo)
+		{
+			StartGameLevel2();
+		}
+		else
+		{
+			var Health = 20;
+			player.GetComponent<Rigidbody>().isKinematic = false;
+			resetter.ResetAll();
+			playCanvas.SetActive(true);
+			menuCanvas.SetActive(false);
+			gameOverCanvas.SetActive(false);
+			levelCanvas.SetActive(false);
+			player.transform.position = level1BallSpawn;
+			playerGameObject.SetActive(true);
+			playerGameObject.transform.position = new Vector3(0, 0.55f, 0);
+			mainCam.transform.Rotate(new Vector3(45, 0, 0));
+			mainCam.transform.position = level1CamSpawn;
+			mainCam.GetComponent<CameraController>().enabled = true;
+			playerGameObject.GetComponent<Rigidbody>().isKinematic = true;
+			skyboxController.SetActive(false);
+			playerGameObject.GetComponent<Rigidbody>().isKinematic = false;
+			player.healthParticle.GetComponent<ParticleSystem>().playOnAwake = true;
 
+			scoreText.text = "Score: " + score;
+			CalculateActivePickUpCount();
+			UnlockNextLevel();
+
+			collectedPickUps = 0;
+
+			pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
+			counterText.text = "";
+			levelText.text = "";
+			scorePointsForLevelText.text = "";
+			scorePointsForTimeBonusText.text = "";
+
+			greenHealthBarRect = greenHealthBar.GetComponent<RectTransform>();
+			greenHealthBarRect.sizeDelta = new Vector2((Health * 8), 40);
+			redHealthBarRect = redHealthBar.GetComponent<RectTransform>();
+			redHealthBarRect.sizeDelta = new Vector2((Health * 8), 40);
+		}
+	}
+
+	public void StartGameLevel2()
+	{
+		var Health = 20;
+		player.gameObject.transform.position = new Vector3(0.33f, 31.91f, 119.25f);
+		player.GetComponent<Rigidbody>().isKinematic = false;
+		player.Reset();
+
+		collectedPickUps = 0;
+		activePickUps = 0;
+		score = 0;
+
+		scoreText.text = "Score: " + score;
 		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
 		counterText.text = "";
 		levelText.text = "";
-		scorePonitsForLevelText.text = "";
+		scorePointsForLevelText.text = "";
 		scorePointsForTimeBonusText.text = "";
 
+		playCanvas.SetActive(true);
+		menuCanvas.SetActive(false);
+		gameOverCanvas.SetActive(false);
+		levelCanvas.SetActive(false);
+		playerGameObject.SetActive(true);
+		mainCam.transform.Rotate(new Vector3(45, 0, 0));
+		mainCam.transform.position = level2CamSpawn;
+		mainCam.GetComponent<CameraController>().enabled = true;
+		playerGameObject.GetComponent<Rigidbody>().isKinematic = true;
+		skyboxController.SetActive(false);
+		playerGameObject.GetComponent<Rigidbody>().isKinematic = false;
+		player.healthParticle.GetComponent<ParticleSystem>().playOnAwake = true;
+
 		greenHealthBarRect = greenHealthBar.GetComponent<RectTransform>();
-		greenHealthBarRect.sizeDelta = new Vector2((player.Health * 8), 40);
+		greenHealthBarRect.sizeDelta = new Vector2((Health * 8), 40);
 		redHealthBarRect = redHealthBar.GetComponent<RectTransform>();
-		redHealthBarRect.sizeDelta = new Vector2((player.Health * 8), 40);
+		redHealthBarRect.sizeDelta = new Vector2((Health * 8), 40);
+		UnlockNextLevel();
+		level2Load = true;
 	}
 
 
@@ -168,7 +235,7 @@ public class GameController : MonoBehaviour
 			timerScoreAdd -= Time.deltaTime;
 			if (timerScoreAdd <= 0f)
 			{
-				scorePonitsForLevelText.text = "";
+				scorePointsForLevelText.text = "";
 				scorePointsForTimeBonusText.text = "";
 				timerScoreAdd = 2;
 				startScorePointAdd = false;
@@ -244,28 +311,28 @@ public class GameController : MonoBehaviour
 			{
 				case 0:
 					openWall1.SetActive(false);
-					level2.SetActive(true);
+					level1_2.SetActive(true);
 					levelText.text = "Stage 1";
 					startTimerWinText = true;
 					break;
 				case 1:
 					openWall2.SetActive(false);
 					bridge3.SetActive(true);
-					level3.SetActive(true);
+					level1_3.SetActive(true);
 					levelText.text = "Stage 2";
 					startTimerWinText = true;
 					break;
 				case 2:
 					openWall3.SetActive(false);
 					bridge4.SetActive(true);
-					level4.SetActive(true);
+					level1_4.SetActive(true);
 					levelText.text = "Stage 3";
 					startTimerWinText = true;
 					break;
 				case 3:
 					openWall4.SetActive(false);
 					bridge5.SetActive(true);
-					level5.SetActive(true);
+					level1_5.SetActive(true);
 					levelText.text = "Stage 4";
 					startTimerWinText = true;
 					break;
@@ -292,7 +359,7 @@ public class GameController : MonoBehaviour
 		scoreText.text = "Score: " + score;
 		startScorePointAdd = true;
 		CounterUI.SetActive(false);
-		scorePonitsForLevelText.text = "+ Level done: " + baseScore;
+		scorePointsForLevelText.text = "+ Level done: " + baseScore;
 		scorePointsForTimeBonusText.text = "+ Time Bonus: " + (CalculateLevelScore() - baseScore);
 	}
 
@@ -308,28 +375,28 @@ public class GameController : MonoBehaviour
 		{
 			case 0:
 				closeWall2.SetActive(true);
-				level1.SetActive(false);
+				level1_1.SetActive(false);
 				bridge2.SetActive(false);
 				break;
 			case 1:
 				closeWall3.SetActive(true);
-				level2.SetActive(false);
+				level1_2.SetActive(false);
 				bridge3.SetActive(false);
 				break;
 			case 2:
 				closeWall4.SetActive(true);
-				level3.SetActive(false);
+				level1_3.SetActive(false);
 				bridge4.SetActive(false);
 				break;
 			case 3:
 				closeWall5.SetActive(true);
-				level4.SetActive(false);
+				level1_4.SetActive(false);
 				bridge5.SetActive(false);
 				rotateObject.GetComponent<RotationLevel5>().enabled = true;
 				break;
 			case 4:
 				goToLevel2CloseWall.SetActive(true);
-				level5.SetActive(false);
+				level1_5.SetActive(false);
 				goToLevel2Bridge.SetActive(false);
 				break;
 			case 5:
@@ -354,13 +421,18 @@ public class GameController : MonoBehaviour
 
 	private void StartLevel2()
 	{
-		player.gameObject.transform.position = Level2BallSpawn;
+		player.gameObject.transform.position = level2BallSpawn;
 		level = 5;
 		goToLevel2.SetActive(false);
-		level1.SetActive(false);
+		level1_1.SetActive(false);
+		level1_2.SetActive(false);
+		level1_3.SetActive(false);
+		level1_4.SetActive(false);
+		level1_5.SetActive(false);
 		level2_0.SetActive(true);
 		Level2_1.SetActive(true);
 		groundFill.SetActive(true);
+		level2OnGo = true;
 		level2Load = false;
 	}
 
@@ -368,21 +440,21 @@ public class GameController : MonoBehaviour
 	{
 		bridge2.SetActive(true);
 
-		level1.SetActive(true);
+		level1_1.SetActive(true);
 		openWall1.SetActive(true);
-		level2.SetActive(false);
+		level1_2.SetActive(false);
 
 		openWall2.SetActive(true);
 		bridge3.SetActive(false);
-		level3.SetActive(false);
+		level1_3.SetActive(false);
 
 		openWall3.SetActive(true);
 		bridge4.SetActive(false);
-		level4.SetActive(false);
+		level1_4.SetActive(false);
 
 		openWall4.SetActive(true);
 		bridge5.SetActive(false);
-		level5.SetActive(false);
+		level1_5.SetActive(false);
 
 		openWall5.SetActive(true);
 		goToLevel2Bridge.SetActive(false);
@@ -390,26 +462,26 @@ public class GameController : MonoBehaviour
 		level2_0.SetActive(false);
 		Level2_1.SetActive(false);
 
-		openWall2_1.SetActive(false);
+		openWall2_1.SetActive(true);
 		bridge2_1.SetActive(false);
 	}
 
 	public void HackAllLevel()
 	{
 		openWall1.SetActive(false);
-		level2.SetActive(true);
+		level1_2.SetActive(true);
 
 		openWall2.SetActive(false);
 		bridge3.SetActive(true);
-		level3.SetActive(true);
+		level1_3.SetActive(true);
 
 		openWall3.SetActive(false);
 		bridge4.SetActive(true);
-		level4.SetActive(true);
+		level1_4.SetActive(true);
 
 		openWall4.SetActive(false);
 		bridge5.SetActive(true);
-		level5.SetActive(true);
+		level1_5.SetActive(true);
 
 		openWall5.SetActive(false);
 		goToLevel2Bridge.SetActive(true);
