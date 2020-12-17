@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
 	private bool contactWithGround = true;
 	private Vector3 deathPlayerPosition;
 
-	public int Health => health;
+	public int Health { get; set; }
 
 
 	private void Start()
@@ -184,6 +184,7 @@ public class Player : MonoBehaviour
 		else
 		{
 			health = 0;
+
 			explosionParticle.GetComponent<ParticleSystem>().playOnAwake = true;
 			gameController.StartTimerGameOverExplosion = true;
 			explosionParticle.SetActive(true);

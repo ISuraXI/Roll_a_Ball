@@ -36,7 +36,6 @@ public class GameController : MonoBehaviour
 	public Vector3 level1BallSpawn = new Vector3(0, 0.55f, 0);
 	public Vector3 level1CamSpawn = new Vector3(0, 10, -10);
 
-	public bool level2Load;
 	public bool level2OnGo;
 	private static readonly Vector3 level2BallSpawn = new Vector3(0.33f, 31.91f, 119.25f);
 	public Vector3 level2CamSpawn = level2BallSpawn + new Vector3(0, 10, -10);
@@ -128,7 +127,48 @@ public class GameController : MonoBehaviour
 
 	public void StartGame() //TODO fix Timer + trigger + remove duplicateeees
 	{
+		GameStartLevelStatus();
+
+		level = 0;
 		counter = 0f;
+
+		player.explosionParticle.SetActive(false);
+		player.Reset();
+		player.gameObject.GetComponent<MeshRenderer>().enabled = true;
+		player.GetComponent<Rigidbody>().isKinematic = false;
+		playerGameObject.GetComponent<Rigidbody>().isKinematic = false;
+		playerGameObject.GetComponent<Rigidbody>().isKinematic = true;
+		player.healthParticle.GetComponent<ParticleSystem>().playOnAwake = true;
+
+
+		greenHealthBarRect = greenHealthBar.GetComponent<RectTransform>();
+		greenHealthBarRect.sizeDelta = new Vector2((player.Health * 8), 40);
+		redHealthBarRect = redHealthBar.GetComponent<RectTransform>();
+		redHealthBarRect.sizeDelta = new Vector2((player.Health * 8), 40);
+
+		CalculateActivePickUpCount();
+		UnlockNextLevel();
+		score = 0;
+		scoreText.text = "Score: " + score;
+		collectedPickUps = 0;
+		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
+		counterText.text = "";
+		levelText.text = "";
+		scorePointsForLevelText.text = "";
+		scorePointsForTimeBonusText.text = "";
+
+		resetter.ResetAll();
+
+		playCanvas.SetActive(true);
+		menuCanvas.SetActive(false);
+		gameOverCanvas.SetActive(false);
+		levelCanvas.SetActive(false);
+		playerGameObject.SetActive(true);
+
+		mainCam.transform.Rotate(45, 0 , 0);
+		mainCam.GetComponent<CameraController>().enabled = true;
+
+		skyboxController.SetActive(false);
 
 		if (level2OnGo)
 		{
@@ -136,109 +176,38 @@ public class GameController : MonoBehaviour
 		}
 		else
 		{
-			var Health = 20;
-			player.GetComponent<Rigidbody>().isKinematic = false;
-			resetter.ResetAll();
-			playCanvas.SetActive(true);
-			menuCanvas.SetActive(false);
-			gameOverCanvas.SetActive(false);
-			levelCanvas.SetActive(false);
-			player.transform.position = level1BallSpawn;
-			playerGameObject.SetActive(true);
-			playerGameObject.transform.position = new Vector3(0, 0.55f, 0);
-			mainCam.transform.Rotate(new Vector3(45, 0, 0));
+			Level1LevelStates();
+			playerGameObject.transform.position = level1BallSpawn;;
 			mainCam.transform.position = level1CamSpawn;
-			mainCam.GetComponent<CameraController>().enabled = true;
-			playerGameObject.GetComponent<Rigidbody>().isKinematic = true;
-			skyboxController.SetActive(false);
-			playerGameObject.GetComponent<Rigidbody>().isKinematic = false;
-			player.healthParticle.GetComponent<ParticleSystem>().playOnAwake = true;
-
-			score = 0;
-			scoreText.text = "Score: " + score;
-			CalculateActivePickUpCount();
-			UnlockNextLevel();
-
-			collectedPickUps = 0;
-
-			pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
-			counterText.text = "";
-			levelText.text = "";
-			scorePointsForLevelText.text = "";
-			scorePointsForTimeBonusText.text = "";
-
-			greenHealthBarRect = greenHealthBar.GetComponent<RectTransform>();
-			greenHealthBarRect.sizeDelta = new Vector2((Health * 8), 40);
-			redHealthBarRect = redHealthBar.GetComponent<RectTransform>();
-			redHealthBarRect.sizeDelta = new Vector2((Health * 8), 40);
 		}
 	}
 
 	public void StartGameLevel2()
 	{
-		counter = 0f;
-		var Health = 20;
-		player.gameObject.transform.position = new Vector3(0.33f, 31.91f, 119.25f);
-		player.GetComponent<Rigidbody>().isKinematic = false;
-		player.Reset();
-
-		collectedPickUps = 0;
 		activePickUps = 0;
-		score = 0;
-
-		scoreText.text = "Score: " + score;
 		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
-		counterText.text = "";
-		levelText.text = "";
-		scorePointsForLevelText.text = "";
-		scorePointsForTimeBonusText.text = "";
-
-		playCanvas.SetActive(true);
-		menuCanvas.SetActive(false);
-		gameOverCanvas.SetActive(false);
-		levelCanvas.SetActive(false);
-		playerGameObject.SetActive(true);
-		mainCam.transform.Rotate(new Vector3(45, 0, 0));
+		Level2LevelStates();
+		level = 5;
+		playerGameObject.transform.position = level2BallSpawn;
 		mainCam.transform.position = level2CamSpawn;
-		mainCam.GetComponent<CameraController>().enabled = true;
-		playerGameObject.GetComponent<Rigidbody>().isKinematic = true;
-		skyboxController.SetActive(false);
-		playerGameObject.GetComponent<Rigidbody>().isKinematic = false;
-		player.healthParticle.GetComponent<ParticleSystem>().playOnAwake = true;
-
-		greenHealthBarRect = greenHealthBar.GetComponent<RectTransform>();
-		greenHealthBarRect.sizeDelta = new Vector2((Health * 8), 40);
-		redHealthBarRect = redHealthBar.GetComponent<RectTransform>();
-		redHealthBarRect.sizeDelta = new Vector2((Health * 8), 40);
-		UnlockNextLevel();
-		level2Load = true;
 	}
 
 	public void RestartGame()
 	{
-		GameStartLevelStatus();
-		level = 0;
-		var score = 0;
-		var collectedPickUps = 0;
-		var activePickUps = 0;
-		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
-		scoreText.text = "Score: " + score;
-		mainCam.transform.Rotate(-45, 0, 0);
-
+		mainCam.transform.Rotate(-45, 0 , 0);
 		player.Reset();
 		resetter.ResetAll();
-		CalculateActivePickUpCount();
+
+		if (level >= 5)
+		{
+			level2OnGo = true;
+		}
 		StartGame();
 	}
 
 	// Update is called once per frame
 	private void Update()
 	{
-		if (level2Load)
-		{
-			StartLevel2();
-		}
-
 		if (startTimerWinText)
 		{
 			timerWinText -= Time.deltaTime;
@@ -439,10 +408,32 @@ public class GameController : MonoBehaviour
 		gameOverCounterText.text = timePlayingStr;
 	}
 
-	private void StartLevel2()
+	public void StartLevel1() //muss public sein DANIEL!!
 	{
-		player.gameObject.transform.position = level2BallSpawn;
-		level = 5;
+		level2OnGo = false;
+		/*level3OnGo = false;
+		level4OnGo = false;
+		level5OnGo = false;*/
+	}
+
+	public void StartLevel2() //muss public sein DANIEL!!
+	{
+		level2OnGo = true;
+		/*level3OnGo = false;
+		level4OnGo = false;
+		level5OnGo = false;*/
+	}
+
+	private void Level1LevelStates()
+	{
+		level1_1.SetActive(true);
+		//TODO auslagern hier wird jeders lavel rein kommen und false gesetzt
+		level2_0.SetActive(false);
+		Level2_1.SetActive(false);
+	}
+
+	private void Level2LevelStates()
+	{
 		goToLevel2.SetActive(false);
 		level1_1.SetActive(false);
 		level1_2.SetActive(false);
@@ -452,8 +443,8 @@ public class GameController : MonoBehaviour
 		level2_0.SetActive(true);
 		Level2_1.SetActive(true);
 		groundFill.SetActive(true);
-		level2OnGo = true;
-		level2Load = false;
+		/*level2OnGo = true;
+		level2Load = false;*/
 	}
 
 	public void GameStartLevelStatus()
