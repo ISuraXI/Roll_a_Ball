@@ -21,7 +21,8 @@ public class Player : MonoBehaviour
 	private bool contactWithGround = true;
 	private Vector3 deathPlayerPosition;
 
-	public int Health { get; }
+
+	public int Health => health;
 
 	private const int StartHealth = 20;
 
@@ -41,6 +42,7 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
+		Debug.Log(gameController.level);
 		if (gameController.TimerTeleportStart)
 		{
 			rb.AddForce(0, 0.45f, 0, ForceMode.Impulse);
@@ -186,7 +188,6 @@ public class Player : MonoBehaviour
 		{
 			health = 0;
 
-			explosionParticle.GetComponent<ParticleSystem>().playOnAwake = true;
 			gameController.StartTimerGameOverExplosion = true;
 			explosionParticle.SetActive(true);
 
@@ -211,7 +212,6 @@ public class Player : MonoBehaviour
 	public void Reset()
 	{
 		health = StartHealth;
-		healthParticle.GetComponent<ParticleSystem>().playOnAwake = false;
 		rb.GetComponent<MeshRenderer>().enabled = true;
 	}
 }

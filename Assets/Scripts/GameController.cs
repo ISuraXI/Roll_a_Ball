@@ -33,7 +33,7 @@ public class GameController : MonoBehaviour
 
 	//Level Spawn
 	public Vector3 camRotation = new Vector3(45, 0, 0);
-	public Vector3 level1BallSpawn = new Vector3(0, 0.55f, 0);
+	public Vector3 level1BallSpawn = new Vector3(0, 1.1f, 0);
 	public Vector3 level1CamSpawn = new Vector3(0, 10, -10);
 
 	public bool level2OnGo;
@@ -42,6 +42,7 @@ public class GameController : MonoBehaviour
 
 	//Level
 	public GameObject level1_1;
+	public GameObject closeWall1;
 	public GameObject openWall1;
 
 	public GameObject level1_2;
@@ -72,11 +73,21 @@ public class GameController : MonoBehaviour
 	public GameObject level2_0;
 	public GameObject groundFill;
 
-	public GameObject Level2_1;
+	public GameObject level2_1;
 	public GameObject bridge2_1;
 	public GameObject closeWall2_1;
 	public GameObject openWall2_1;
 	public GameObject timelineLevel2_1;
+
+	public GameObject level2_2;
+	public GameObject bridge2_2;
+	public GameObject closeWall2_2;
+	public GameObject openWall2_2;
+
+	public GameObject level2_3;
+	public GameObject bridge2_3;
+	public GameObject closeWall2_3;
+	public GameObject openWall2_3;
 
 	//GameOver
 	public Text gameOverScoreText;
@@ -128,23 +139,23 @@ public class GameController : MonoBehaviour
 	public void StartGame() //TODO fix Timer + trigger + remove duplicateeees
 	{
 		GameStartLevelStatus();
-
 		level = 0;
 		counter = 0f;
+		player.healthParticle.GetComponent<ParticleSystem>().playOnAwake = false;
+		playerGameObject.GetComponent<Rigidbody>().isKinematic = true;
 
+		playerGameObject.SetActive(true);
 		player.explosionParticle.SetActive(false);
-		player.Reset();
 		player.gameObject.GetComponent<MeshRenderer>().enabled = true;
 		player.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-		// playerGameObject.GetComponent<Rigidbody>().isKinematic = false;
-		player.healthParticle.GetComponent<ParticleSystem>().playOnAwake = true;
-
+		player.Reset();
 
 		greenHealthBarRect = greenHealthBar.GetComponent<RectTransform>();
 		greenHealthBarRect.sizeDelta = new Vector2((player.Health * 8), 40);
 		redHealthBarRect = redHealthBar.GetComponent<RectTransform>();
 		redHealthBarRect.sizeDelta = new Vector2((player.Health * 8), 40);
 
+		resetter.ResetAll();
 		CalculateActivePickUpCount();
 		UnlockNextLevel();
 		score = 0;
@@ -156,13 +167,11 @@ public class GameController : MonoBehaviour
 		scorePointsForLevelText.text = "";
 		scorePointsForTimeBonusText.text = "";
 
-		resetter.ResetAll();
-
 		playCanvas.SetActive(true);
 		menuCanvas.SetActive(false);
 		gameOverCanvas.SetActive(false);
 		levelCanvas.SetActive(false);
-		playerGameObject.SetActive(true);
+		player.healthParticle.GetComponent<ParticleSystem>().playOnAwake = true;
 
 		mainCam.transform.Rotate(45, 0 , 0);
 		mainCam.GetComponent<CameraController>().enabled = true;
@@ -183,17 +192,17 @@ public class GameController : MonoBehaviour
 
 	private void StartGameLevel2()
 	{
-		activePickUps = 0;
-		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
 		Level2LevelStates();
 		level = 5;
 		playerGameObject.transform.position = level2BallSpawn;
 		mainCam.transform.position = level2CamSpawn;
+
+		//Should start after reset and active the pick ups
+
 	}
 
 	public void RestartGame()
 	{
-		playerGameObject.GetComponent<Rigidbody>().isKinematic = true;
 		mainCam.transform.Rotate(-45, 0 , 0);
 
 		if (level >= 5)
@@ -328,13 +337,27 @@ public class GameController : MonoBehaviour
 					goToLevel2Bridge.SetActive(true);
 					goToLevel2.SetActive(true);
 					level2_0.SetActive(true);
-					Level2_1.SetActive(true);
+					level2_1.SetActive(true);
 					levelText.text = "Stage 5";
 					startTimerWinText = true;
 					break;
-				case 5:
-					openWall2_1.SetActive(true);
+				/*case 5:
+					// openWall2_1.SetActive(true);
+					// bridge2_1.SetActive(true);
+					break;*/
+				case 6 :
+					openWall2_1.SetActive(false);
 					bridge2_1.SetActive(true);
+					level2_2.SetActive(true);
+					levelText.text = "Stage 1";
+					startTimerWinText = true;
+					break;
+				case 7 :
+					openWall2_2.SetActive(false);
+					bridge2_2.SetActive(true);
+					level2_3.SetActive(true);
+					levelText.text = "Stage 2";
+					startTimerWinText = true;
 					break;
 			}
 		}
@@ -390,6 +413,14 @@ public class GameController : MonoBehaviour
 				closeWall2_1.SetActive(true);
 				level2_0.SetActive(false);
 				break;
+			case 6:
+				closeWall2_2.SetActive(true);
+				level2_1.SetActive(false);
+				break;
+			case 7:
+				closeWall2_3.SetActive(true);
+				level2_2.SetActive(false);
+				break;
 		}
 
 		level++;
@@ -424,10 +455,15 @@ public class GameController : MonoBehaviour
 
 	private void Level1LevelStates()
 	{
-		level1_1.SetActive(true);
-		//TODO hier wird jeders lavel rein kommen und false gesetzt
+		level1_1.SetActive(true); //TODO hier wird jeders lavel rein kommen und false gesetzt
+		closeWall1.SetActive(true);
+		level1_2.SetActive(false);
+		level1_3.SetActive(false);
+		level1_4.SetActive(false);
+		level1_5.SetActive(false);
+		goToLevel2.SetActive(false);
 		level2_0.SetActive(false);
-		Level2_1.SetActive(false);
+		level2_1.SetActive(false);
 	}
 
 	private void Level2LevelStates()
@@ -439,7 +475,11 @@ public class GameController : MonoBehaviour
 		level1_4.SetActive(false);
 		level1_5.SetActive(false);
 		level2_0.SetActive(true);
-		Level2_1.SetActive(true);
+
+		CalculateActivePickUpCount(); // is there because to calculate the activePickups on spawn platform and there it is 0
+		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
+
+		level2_1.SetActive(true);
 		groundFill.SetActive(true);
 		/*level2OnGo = true;
 		level2Load = false;*/
@@ -448,6 +488,7 @@ public class GameController : MonoBehaviour
 	public void GameStartLevelStatus()
 	{
 		bridge2.SetActive(true);
+		//bridge2.SetActive(false);
 
 		level1_1.SetActive(true);
 		openWall1.SetActive(true);
@@ -469,10 +510,26 @@ public class GameController : MonoBehaviour
 		goToLevel2Bridge.SetActive(false);
 		goToLevel2.SetActive(false);
 		level2_0.SetActive(false);
-		Level2_1.SetActive(false);
+		level2_1.SetActive(false);
+		bridge2_1.SetActive(false);
 
 		openWall2_1.SetActive(true);
-		bridge2_1.SetActive(false);
+		bridge2_2.SetActive(false);
+		level2_2.SetActive(false);
+
+		openWall2_2.SetActive(true);
+		bridge2_3.SetActive(false);
+		level2_3.SetActive(false);
+
+		openWall2_3.SetActive(true);
+		/*bridge2_4.SetActive(false);
+		level2_4.SetActive(false);*/
+
+		/*openWall2_4.SetActive(true);
+		bridge2_5.SetActive(false);
+		level2_5.SetActive(false);*/
+
+
 	}
 
 	public void HackAllLevel()
@@ -497,7 +554,7 @@ public class GameController : MonoBehaviour
 		goToLevel2.SetActive(true);
 
 		level2_0.SetActive(true);
-		Level2_1.SetActive(true);
+		level2_1.SetActive(true);
 		openWall2.SetActive(false);
 		openWall2_1.SetActive(false);
 	}
