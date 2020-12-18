@@ -21,16 +21,17 @@ public class Player : MonoBehaviour
 	private bool contactWithGround = true;
 	private Vector3 deathPlayerPosition;
 
-	public int Health { get; set; }
+	public int Health { get; }
 
+	private const int StartHealth = 20;
 
 	private void Start()
 	{
-		//TODO: makt it better for set x and y to 0 when you have the phone not horizontal when you start the game working but not good :(
+		//TODO: make it better for set x and y to 0 when you have the phone not horizontal when you start the game working but not good :(
 		//x = Input.acceleration.x;
 		//y = Input.acceleration.y;
 		healthParticle.GetComponent<ParticleSystem>().playOnAwake = true;
-		health = 20;
+		health = StartHealth;
 		speedPc = 10;
 		speedMobile = 5;
 		jumpForce = 4;
@@ -209,6 +210,7 @@ public class Player : MonoBehaviour
 
 	public void Reset()
 	{
+		health = StartHealth;
 		healthParticle.GetComponent<ParticleSystem>().playOnAwake = false;
 		rb.GetComponent<MeshRenderer>().enabled = true;
 	}

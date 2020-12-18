@@ -135,9 +135,8 @@ public class GameController : MonoBehaviour
 		player.explosionParticle.SetActive(false);
 		player.Reset();
 		player.gameObject.GetComponent<MeshRenderer>().enabled = true;
-		player.GetComponent<Rigidbody>().isKinematic = false;
-		playerGameObject.GetComponent<Rigidbody>().isKinematic = false;
-		playerGameObject.GetComponent<Rigidbody>().isKinematic = true;
+		player.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+		// playerGameObject.GetComponent<Rigidbody>().isKinematic = false;
 		player.healthParticle.GetComponent<ParticleSystem>().playOnAwake = true;
 
 
@@ -177,12 +176,12 @@ public class GameController : MonoBehaviour
 		else
 		{
 			Level1LevelStates();
-			playerGameObject.transform.position = level1BallSpawn;;
+			playerGameObject.transform.position = level1BallSpawn;
 			mainCam.transform.position = level1CamSpawn;
 		}
 	}
 
-	public void StartGameLevel2()
+	private void StartGameLevel2()
 	{
 		activePickUps = 0;
 		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
@@ -194,9 +193,8 @@ public class GameController : MonoBehaviour
 
 	public void RestartGame()
 	{
+		playerGameObject.GetComponent<Rigidbody>().isKinematic = true;
 		mainCam.transform.Rotate(-45, 0 , 0);
-		player.Reset();
-		resetter.ResetAll();
 
 		if (level >= 5)
 		{
@@ -408,7 +406,7 @@ public class GameController : MonoBehaviour
 		gameOverCounterText.text = timePlayingStr;
 	}
 
-	public void StartLevel1() //muss public sein DANIEL!!
+	public void StartLevel1()
 	{
 		level2OnGo = false;
 		/*level3OnGo = false;
@@ -416,7 +414,7 @@ public class GameController : MonoBehaviour
 		level5OnGo = false;*/
 	}
 
-	public void StartLevel2() //muss public sein DANIEL!!
+	public void StartLevel2()
 	{
 		level2OnGo = true;
 		/*level3OnGo = false;
@@ -427,7 +425,7 @@ public class GameController : MonoBehaviour
 	private void Level1LevelStates()
 	{
 		level1_1.SetActive(true);
-		//TODO auslagern hier wird jeders lavel rein kommen und false gesetzt
+		//TODO hier wird jeders lavel rein kommen und false gesetzt
 		level2_0.SetActive(false);
 		Level2_1.SetActive(false);
 	}
