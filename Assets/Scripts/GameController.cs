@@ -101,7 +101,6 @@ public class GameController : MonoBehaviour
 	public int level;
 
 	//Level Spawn
-	private Vector3 camRotation = new Vector3(45, 0, 0);
 	private Vector3 level1BallSpawn = new Vector3(0, 1.1f, 0);
 	private Vector3 level1CamSpawn = new Vector3(0, 10, -10);
 
