@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
 	private int health;
 	private bool contactWithGround = true;
 	private Vector3 deathPlayerPosition;
+	private bool fullLife;
 
 
 	public int Health => health;
@@ -34,7 +35,7 @@ public class Player : MonoBehaviour
 		healthParticle.GetComponent<ParticleSystem>().playOnAwake = true;
 		health = StartHealth;
 		speedPc = 10;
-		speedMobile = 5;
+		speedMobile = 6;
 		jumpForce = 4;
 		rb = GetComponent<Rigidbody>();
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
@@ -42,7 +43,15 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
-		Debug.Log(gameController.level);
+		if (health == 100)
+		{
+			fullLife = true;
+		}
+		else if (health <= 100)
+		{
+			fullLife = false;
+		}
+
 		if (gameController.TimerTeleportStart)
 		{
 			rb.AddForce(0, 0.45f, 0, ForceMode.Impulse);
@@ -109,9 +118,12 @@ public class Player : MonoBehaviour
 		rb.AddForce(movementPc * speedPc);
 
 		//For Mobile
-		var movementMobile = new Vector3((Input.acceleration.x - x) * speedMobile, 0.0f,
-			(Input.acceleration.y - y) * speedMobile);
-		rb.AddForce(movementMobile * speedMobile);
+		if (SystemInfo.deviceType == DeviceType.Handheld)
+		{
+			var movementMobile = new Vector3((Input.acceleration.x - x) * speedMobile, 0.0f,
+				(Input.acceleration.y - y + 0.5f) * speedMobile);
+			rb.AddForce(movementMobile * speedMobile);
+		}
 	}
 
 	private void OnCollisionEnter(Collision collision)
@@ -153,8 +165,11 @@ public class Player : MonoBehaviour
 
 		if (other.gameObject.CompareTag("Pick Up"))
 		{
-			healthParticle.SetActive(false);
-			healthParticle.SetActive(true);
+			if (!fullLife)
+			{
+				healthParticle.SetActive(false);
+				healthParticle.SetActive(true);
+			}
 			RegenerateHealth(other.GetComponent<PickUp>().HealthRegeneration);
 
 			//Adjust health bar

@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
 	public GameObject gameOverCanvas;
 	public GameObject menuCanvas;
 	public GameObject levelCanvas;
+	public GameObject pauseCanvas;
 	public GameObject skyboxController;
 
 	//Cam
