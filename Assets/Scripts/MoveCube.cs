@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MoveCube : MonoBehaviour
 {
 	private Vector3 scaleChange;
-	private Vector3 startPosi;
-	private Vector3 endPosi;
+	private Vector3 startPosition;
+	private Vector3 endPosition;
 	private bool switchBool = true;
-	public int spped = 5;
 
-	void Start()
+	private void Start()
 	{
-		startPosi = new Vector3(1.0f, 0.0f, 1.0f);
-		endPosi = new Vector3(1.0f, 4.0f, 1.0f);
+		startPosition = new Vector3(1.0f, 0.0f, 1.0f);
+		endPosition = new Vector3(1.0f, 4.0f, 1.0f);
 		scaleChange = new Vector3(0, 0.05f, 0);
 	}
 
 	// Update is called once per frame
-	void Update()
+	private void Update()
 	{
 		if (switchBool)
 		{
@@ -30,12 +26,12 @@ public class MoveCube : MonoBehaviour
 			transform.localScale -= scaleChange;
 		}
 
-		if (transform.lossyScale == startPosi)
+		if (transform.lossyScale == startPosition)
 		{
 			switchBool = true;
 		}
 
-		if (transform.localScale == endPosi)
+		if (transform.localScale == endPosition)
 		{
 			switchBool = false;
 		}

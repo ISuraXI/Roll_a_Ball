@@ -22,7 +22,6 @@ public class Player : MonoBehaviour
 	private Vector3 deathPlayerPosition;
 	private bool fullLife;
 
-
 	public int Health => health;
 
 	private const int StartHealth = 20;

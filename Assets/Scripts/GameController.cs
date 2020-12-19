@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
 	public GameObject levelCanvas;
 	public GameObject pauseCanvas;
 	public GameObject skyboxController;
+	public GameObject CounterUI;
 
 	//Cam
 	public GameObject mainCam;
@@ -31,15 +32,6 @@ public class GameController : MonoBehaviour
 	//Damage
 	public Transform greenHealthBar;
 	public Transform redHealthBar;
-
-	//Level Spawn
-	public Vector3 camRotation = new Vector3(45, 0, 0);
-	public Vector3 level1BallSpawn = new Vector3(0, 1.1f, 0);
-	public Vector3 level1CamSpawn = new Vector3(0, 10, -10);
-
-	public bool level2OnGo;
-	private static readonly Vector3 level2BallSpawn = new Vector3(0.33f, 31.91f, 119.25f);
-	public Vector3 level2CamSpawn = level2BallSpawn + new Vector3(0, 10, -10);
 
 	//Level
 	public GameObject level1_1;
@@ -100,7 +92,6 @@ public class GameController : MonoBehaviour
 	private int timerWinTextInt;
 
 	//Counter
-	public GameObject CounterUI;
 	private float counter;
 	private TimeSpan timePlaying;
 	private string timePlayingStr;
@@ -109,11 +100,20 @@ public class GameController : MonoBehaviour
 
 	public int level;
 
+	//Level Spawn
+	private Vector3 camRotation = new Vector3(45, 0, 0);
+	private Vector3 level1BallSpawn = new Vector3(0, 1.1f, 0);
+	private Vector3 level1CamSpawn = new Vector3(0, 10, -10);
+
+	private bool level2OnGo;
+	private static readonly Vector3 level2BallSpawn = new Vector3(0.33f, 31.91f, 119.25f);
+	private readonly Vector3 level2CamSpawn = level2BallSpawn + new Vector3(0, 10, -10);
+
 	//Score
-	private const int baseScore = 10;
-	private const int maxTimeBonus = 10;
-	public int score = 0;
-	private bool startScorePointAdd = false;
+	private const int BaseScore = 10;
+	private const int MaxTimeBonus = 10;
+	private int score;
+	private bool startScorePointAdd;
 	private float timerScoreAdd = 2;
 	private int timeBonus;
 
@@ -197,9 +197,6 @@ public class GameController : MonoBehaviour
 		level = 5;
 		playerGameObject.transform.position = level2BallSpawn;
 		mainCam.transform.position = level2CamSpawn;
-
-		//Should start after reset and active the pick ups
-
 	}
 
 	public void RestartGame()
@@ -245,7 +242,7 @@ public class GameController : MonoBehaviour
 		counterText.text = timePlayingStr;
 	}
 
-	public void CalculateActivePickUpCount()
+	private void CalculateActivePickUpCount()
 	{
 		var pickUps = FindObjectsOfType<PickUp>();
 		activePickUps = 0;
@@ -268,13 +265,13 @@ public class GameController : MonoBehaviour
 		timeBonus = (int) Math.Round((1 / (counter * 1.5)) * 100);
 		int levelScore;
 
-		if (timeBonus <= maxTimeBonus)
+		if (timeBonus <= MaxTimeBonus)
 		{
-			levelScore = baseScore + timeBonus;
+			levelScore = BaseScore + timeBonus;
 		}
 		else
 		{
-			levelScore = baseScore + maxTimeBonus;
+			levelScore = BaseScore + MaxTimeBonus;
 		}
 
 		return levelScore;
@@ -342,10 +339,6 @@ public class GameController : MonoBehaviour
 					levelText.text = "Stage 5";
 					startTimerWinText = true;
 					break;
-				/*case 5:
-					// openWall2_1.SetActive(true);
-					// bridge2_1.SetActive(true);
-					break;*/
 				case 6 :
 					openWall2_1.SetActive(false);
 					bridge2_1.SetActive(true);
@@ -370,8 +363,8 @@ public class GameController : MonoBehaviour
 		scoreText.text = "Score: " + score;
 		startScorePointAdd = true;
 		CounterUI.SetActive(false);
-		scorePointsForLevelText.text = "+ Level done: " + baseScore;
-		scorePointsForTimeBonusText.text = "+ Time Bonus: " + (CalculateLevelScore() - baseScore);
+		scorePointsForLevelText.text = "+ Level done: " + BaseScore;
+		scorePointsForTimeBonusText.text = "+ Time Bonus: " + (CalculateLevelScore() - BaseScore);
 	}
 
 	public void IncreaseLevel() //TODO implement in a generic way
@@ -438,7 +431,7 @@ public class GameController : MonoBehaviour
 		gameOverCounterText.text = timePlayingStr;
 	}
 
-	public void StartLevel1()
+	public void StartLevel1() //TODO use int which represents level
 	{
 		level2OnGo = false;
 		/*level3OnGo = false;
@@ -482,11 +475,9 @@ public class GameController : MonoBehaviour
 
 		level2_1.SetActive(true);
 		groundFill.SetActive(true);
-		/*level2OnGo = true;
-		level2Load = false;*/
 	}
 
-	public void GameStartLevelStatus()
+	private void GameStartLevelStatus()
 	{
 		bridge2.SetActive(true);
 		//bridge2.SetActive(false);
@@ -529,8 +520,6 @@ public class GameController : MonoBehaviour
 		/*openWall2_4.SetActive(true);
 		bridge2_5.SetActive(false);
 		level2_5.SetActive(false);*/
-
-
 	}
 
 	public void HackAllLevel()
