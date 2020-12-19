@@ -101,8 +101,8 @@ public class GameController : MonoBehaviour
 	public int level;
 
 	//Level Spawn
-	private Vector3 level1BallSpawn = new Vector3(0, 1.1f, 0);
-	private Vector3 level1CamSpawn = new Vector3(0, 10, -10);
+	private readonly Vector3 level1BallSpawn = new Vector3(0, 1.1f, 0);
+	private readonly Vector3 level1CamSpawn = new Vector3(0, 10, -10);
 
 	private bool level2OnGo;
 	private static readonly Vector3 level2BallSpawn = new Vector3(0.33f, 31.91f, 119.25f);
