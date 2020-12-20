@@ -109,7 +109,7 @@ public class Player : MonoBehaviour
 		if (SystemInfo.deviceType == DeviceType.Handheld)
 		{
 			var movementMobile = new Vector3((Input.acceleration.x - x) * speedMobile, 0.0f,
-				(Input.acceleration.y - y + 0.5f) * speedMobile);
+				(Input.acceleration.y - y + 0.5f) * 5);
 			rb.AddForce(movementMobile * speedMobile);
 		}
 	}
