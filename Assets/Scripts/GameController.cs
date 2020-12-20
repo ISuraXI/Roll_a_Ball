@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,28 +36,28 @@ public class GameController : MonoBehaviour
 
 	//Level
 	public GameObject level1_1;
-	public GameObject closeWall1;
-	public GameObject openWall1;
+	public GameObject closeWall1_1;
+	public GameObject openWall1_1;
 
 	public GameObject level1_2;
-	public GameObject bridge2;
-	public GameObject closeWall2;
-	public GameObject openWall2;
+	public GameObject bridge1_2;
+	public GameObject closeWall1_2;
+	public GameObject openWall1_2;
 
 	public GameObject level1_3;
-	public GameObject bridge3;
-	public GameObject closeWall3;
-	public GameObject openWall3;
+	public GameObject bridge1_3;
+	public GameObject closeWall1_3;
+	public GameObject openWall1_3;
 
 	public GameObject level1_4;
-	public GameObject bridge4;
-	public GameObject closeWall4;
-	public GameObject openWall4;
+	public GameObject bridge1_4;
+	public GameObject closeWall1_4;
+	public GameObject openWall1_4;
 
 	public GameObject level1_5;
-	public GameObject bridge5;
-	public GameObject closeWall5;
-	public GameObject openWall5;
+	public GameObject bridge1_5;
+	public GameObject closeWall1_5;
+	public GameObject openWall1_5;
 	public GameObject rotateObject;
 
 	public GameObject goToLevel2;
@@ -64,7 +65,7 @@ public class GameController : MonoBehaviour
 	public GameObject goToLevel2CloseWall;
 
 	public GameObject level2_0;
-	public GameObject groundFill;
+	public GameObject groundFillLevel2;
 
 	public GameObject level2_1;
 	public GameObject bridge2_1;
@@ -81,6 +82,22 @@ public class GameController : MonoBehaviour
 	public GameObject bridge2_3;
 	public GameObject closeWall2_3;
 	public GameObject openWall2_3;
+
+	public GameObject level2_4;
+	public GameObject bridge2_4;
+	public GameObject closeWall2_4;
+	public GameObject openWall2_4;
+
+	public GameObject level2_5;
+	public GameObject bridge2_5;
+	public GameObject closeWall2_5;
+	public GameObject openWall2_5;
+
+	public GameObject goToLevel3;
+	public GameObject goToLevel3CloseWall;
+
+	public GameObject level3_0;
+	public GameObject groundFillLevel3;
 
 	//GameOver
 	public Text gameOverScoreText;
@@ -299,34 +316,34 @@ public class GameController : MonoBehaviour
 			switch (level)
 			{
 				case 0:
-					openWall1.SetActive(false);
+					openWall1_1.SetActive(false);
 					level1_2.SetActive(true);
 					levelText.text = "Stage 1";
 					startTimerWinText = true;
 					break;
 				case 1:
-					openWall2.SetActive(false);
-					bridge3.SetActive(true);
+					openWall1_2.SetActive(false);
+					bridge1_3.SetActive(true);
 					level1_3.SetActive(true);
 					levelText.text = "Stage 2";
 					startTimerWinText = true;
 					break;
 				case 2:
-					openWall3.SetActive(false);
-					bridge4.SetActive(true);
+					openWall1_3.SetActive(false);
+					bridge1_4.SetActive(true);
 					level1_4.SetActive(true);
 					levelText.text = "Stage 3";
 					startTimerWinText = true;
 					break;
 				case 3:
-					openWall4.SetActive(false);
-					bridge5.SetActive(true);
+					openWall1_4.SetActive(false);
+					bridge1_5.SetActive(true);
 					level1_5.SetActive(true);
 					levelText.text = "Stage 4";
 					startTimerWinText = true;
 					break;
 				case 4:
-					openWall5.SetActive(false);
+					openWall1_5.SetActive(false);
 					goToLevel2Bridge.SetActive(true);
 					goToLevel2.SetActive(true);
 					level2_0.SetActive(true);
@@ -346,6 +363,29 @@ public class GameController : MonoBehaviour
 					bridge2_2.SetActive(true);
 					level2_3.SetActive(true);
 					levelText.text = "Stage 2";
+					startTimerWinText = true;
+					break;
+				case 8 :
+					openWall2_3.SetActive(false);
+					bridge2_3.SetActive(true);
+					level2_4.SetActive(true);
+					levelText.text = "Stage 3";
+					startTimerWinText = true;
+					break;
+				case 9 :
+					openWall2_4.SetActive(false);
+					bridge2_4.SetActive(true);
+					level2_5.SetActive(true);
+					levelText.text = "Stage 4";
+					startTimerWinText = true;
+					break;
+				case 10 :
+					openWall2_5.SetActive(false);
+					bridge2_4.SetActive(true);
+					goToLevel3.SetActive(true);
+					level3_0.SetActive(true);
+					// level3_1.SetActive(true);   //TODO: Gibt es noch nicht muss noch erstellt werden
+					levelText.text = "Stage 5";
 					startTimerWinText = true;
 					break;
 			}
@@ -373,24 +413,24 @@ public class GameController : MonoBehaviour
 		switch (level)
 		{
 			case 0:
-				closeWall2.SetActive(true);
+				closeWall1_2.SetActive(true);
 				level1_1.SetActive(false);
-				bridge2.SetActive(false);
+				bridge1_2.SetActive(false);
 				break;
 			case 1:
-				closeWall3.SetActive(true);
+				closeWall1_3.SetActive(true);
 				level1_2.SetActive(false);
-				bridge3.SetActive(false);
+				bridge1_3.SetActive(false);
 				break;
 			case 2:
-				closeWall4.SetActive(true);
+				closeWall1_4.SetActive(true);
 				level1_3.SetActive(false);
-				bridge4.SetActive(false);
+				bridge1_4.SetActive(false);
 				break;
 			case 3:
-				closeWall5.SetActive(true);
+				closeWall1_5.SetActive(true);
 				level1_4.SetActive(false);
-				bridge5.SetActive(false);
+				bridge1_5.SetActive(false);
 				rotateObject.GetComponent<RotationLevel5>().enabled = true;
 				break;
 			case 4:
@@ -409,6 +449,18 @@ public class GameController : MonoBehaviour
 			case 7:
 				closeWall2_3.SetActive(true);
 				level2_2.SetActive(false);
+				break;
+			case 8:
+				closeWall2_4.SetActive(true);
+				level2_3.SetActive(false);
+				break;
+			case 9:
+				closeWall2_5.SetActive(true);
+				level2_4.SetActive(false);
+				break;
+			case 10:
+				goToLevel3CloseWall.SetActive(true);
+				level2_5.SetActive(false);
 				break;
 		}
 
@@ -445,7 +497,7 @@ public class GameController : MonoBehaviour
 	private void Level1LevelStates()
 	{
 		level1_1.SetActive(true); //TODO hier wird jeders lavel rein kommen und false gesetzt
-		closeWall1.SetActive(true);
+		closeWall1_1.SetActive(true);
 		level1_2.SetActive(false);
 		level1_3.SetActive(false);
 		level1_4.SetActive(false);
@@ -469,31 +521,31 @@ public class GameController : MonoBehaviour
 		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
 
 		level2_1.SetActive(true);
-		groundFill.SetActive(true);
+		groundFillLevel2.SetActive(true);
 	}
 
 	private void GameStartLevelStatus()
 	{
-		bridge2.SetActive(true);
+		bridge1_2.SetActive(true);
 		//bridge2.SetActive(false);
 
 		level1_1.SetActive(true);
-		openWall1.SetActive(true);
+		openWall1_1.SetActive(true);
 		level1_2.SetActive(false);
 
-		openWall2.SetActive(true);
-		bridge3.SetActive(false);
+		openWall1_2.SetActive(true);
+		bridge1_3.SetActive(false);
 		level1_3.SetActive(false);
 
-		openWall3.SetActive(true);
-		bridge4.SetActive(false);
+		openWall1_3.SetActive(true);
+		bridge1_4.SetActive(false);
 		level1_4.SetActive(false);
 
-		openWall4.SetActive(true);
-		bridge5.SetActive(false);
+		openWall1_4.SetActive(true);
+		bridge1_5.SetActive(false);
 		level1_5.SetActive(false);
 
-		openWall5.SetActive(true);
+		openWall1_5.SetActive(true);
 		goToLevel2Bridge.SetActive(false);
 		goToLevel2.SetActive(false);
 		level2_0.SetActive(false);
@@ -519,28 +571,28 @@ public class GameController : MonoBehaviour
 
 	public void HackAllLevel()
 	{
-		openWall1.SetActive(false);
+		openWall1_1.SetActive(false);
 		level1_2.SetActive(true);
 
-		openWall2.SetActive(false);
-		bridge3.SetActive(true);
+		openWall1_2.SetActive(false);
+		bridge1_3.SetActive(true);
 		level1_3.SetActive(true);
 
-		openWall3.SetActive(false);
-		bridge4.SetActive(true);
+		openWall1_3.SetActive(false);
+		bridge1_4.SetActive(true);
 		level1_4.SetActive(true);
 
-		openWall4.SetActive(false);
-		bridge5.SetActive(true);
+		openWall1_4.SetActive(false);
+		bridge1_5.SetActive(true);
 		level1_5.SetActive(true);
 
-		openWall5.SetActive(false);
+		openWall1_5.SetActive(false);
 		goToLevel2Bridge.SetActive(true);
 		goToLevel2.SetActive(true);
 
 		level2_0.SetActive(true);
 		level2_1.SetActive(true);
-		openWall2.SetActive(false);
+		openWall1_2.SetActive(false);
 		openWall2_1.SetActive(false);
 	}
 }
