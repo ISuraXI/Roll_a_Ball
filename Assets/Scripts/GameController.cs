@@ -381,7 +381,7 @@ public class GameController : MonoBehaviour
 					break;
 				case 10 :
 					openWall2_5.SetActive(false);
-					bridge2_4.SetActive(true);
+					bridge2_5.SetActive(true);
 					goToLevel3.SetActive(true);
 					level3_0.SetActive(true);
 					// level3_1.SetActive(true);   //TODO: Gibt es noch nicht muss noch erstellt werden

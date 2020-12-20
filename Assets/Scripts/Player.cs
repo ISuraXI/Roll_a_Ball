@@ -143,8 +143,18 @@ public class Player : MonoBehaviour
 	{
 		if (other.gameObject.CompareTag("GroundTrigger"))
 		{
-			gameController.timelineLevel2_1.SetActive(true);
-			gameController.groundFillLevel2.SetActive(true);
+			switch (gameController.level)
+			{
+				case 5:
+					gameController.timelineLevel2_1.SetActive(true);
+					gameController.groundFillLevel2.SetActive(true);
+					break;
+				case 11:
+					gameController.groundFillLevel3.SetActive(true);
+					gameController.goToLevel3.SetActive(false);
+					break;
+			}
+
 		}
 
 		if (other.gameObject.CompareTag("Transporter"))
