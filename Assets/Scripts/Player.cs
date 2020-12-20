@@ -51,18 +51,7 @@ public class Player : MonoBehaviour
 			fullLife = false;
 		}
 
-		if (gameController.TimerTeleportStart)
-		{
-			rb.AddForce(0, 0.45f, 0, ForceMode.Impulse);
-			gameController.TimeTelportForce -= Time.deltaTime;
-			if (gameController.TimeTelportForce <= 0f)
-			{
-				rb.AddForce(0, -0.45f, 0, ForceMode.Impulse);
-				rb.AddForce(0, 0, 0, ForceMode.Impulse);
-				gameController.TimerTeleportStart = false;
-				gameController.TimeTelportForce = 1;
-			}
-		}
+
 
 		//For timer explosion particle
 		if (gameController.StartTimerGameOverExplosion)
@@ -125,6 +114,7 @@ public class Player : MonoBehaviour
 		}
 	}
 
+
 	private void OnCollisionEnter(Collision collision)
 	{
 		if (collision.gameObject.CompareTag("Damage"))
@@ -159,7 +149,10 @@ public class Player : MonoBehaviour
 
 		if (other.gameObject.CompareTag("Transporter"))
 		{
-			gameController.TimerTeleportStart = true;
+			for (int i = 0; i < 50; i++)
+			{
+				rb.AddForce(0, 0.45f, 0, ForceMode.Impulse);
+			}
 		}
 
 		if (other.gameObject.CompareTag("Pick Up"))

@@ -132,10 +132,6 @@ public class GameController : MonoBehaviour
 
 	public float TimerGameOverExplosion { get; set; } = 2;
 
-	public float TimeTelportForce { get; set; } = 1;
-
-	public bool TimerTeleportStart { get; set; }
-
 	public void StartGame() //TODO fix Timer + trigger + remove duplicateeees
 	{
 		GameStartLevelStatus();
