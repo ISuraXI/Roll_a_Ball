@@ -137,6 +137,11 @@ public class Player : MonoBehaviour
 		{
 			contactWithGround = false;
 		}
+
+		if (collision.gameObject.CompareTag("LevelOutTrigger"))
+		{
+			gameController.LevelOutTriggerTurnOff();
+		}
 	}
 
 	private void OnTriggerEnter(Collider other)
