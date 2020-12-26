@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour
 	public Text counterText;
 	public Text scorePointsForLevelText;
 	public Text scorePointsForTimeBonusText;
+	public Text godModeText;
 
 	//Damage
 	public Transform greenHealthBar;
@@ -50,6 +51,7 @@ public class GameController : MonoBehaviour
 	public GameObject closeWall1_3;
 	public GameObject openWall1_3;
 	public GameObject levelOutTrigger1_3;
+	public GameObject godModeLevel1_3;
 
 	public GameObject level1_4;
 	public GameObject bridge1_4;
@@ -83,24 +85,30 @@ public class GameController : MonoBehaviour
 	public GameObject closeWall2_2;
 	public GameObject openWall2_2;
 	public GameObject levelOutTrigger2_2;
+	public GameObject godModeLevel2_2;
 
 	public GameObject level2_3;
 	public GameObject bridge2_3;
 	public GameObject closeWall2_3;
 	public GameObject openWall2_3;
 	public GameObject levelOutTrigger2_3;
+	public GameObject level2_3Enemy;
 
 	public GameObject level2_4;
 	public GameObject bridge2_4;
 	public GameObject closeWall2_4;
 	public GameObject openWall2_4;
 	public GameObject levelOutTrigger2_4;
+	public GameObject mover1;
+	public GameObject mover2;
+	public GameObject godModeLevel2_4;
 
 	public GameObject level2_5;
 	public GameObject bridge2_5;
 	public GameObject closeWall2_5;
 	public GameObject openWall2_5;
 	public GameObject levelOutTrigger2_5;
+	public GameObject DamageCylinderLevel2_5;
 
 	public GameObject goToLevel3;
 	public GameObject goToLevel3CloseWall;
@@ -117,6 +125,12 @@ public class GameController : MonoBehaviour
 	private float timerWinText = 2;
 	private int timerWinTextInt;
 
+	//God Mode
+	public bool canTakeDamage = true;
+	public GameObject godModePlayer;
+	private float timerGodMode = 30f;
+	public GameObject godModeTextGameObject;
+
 	//Counter
 	private float counter;
 	private TimeSpan timePlaying;
@@ -127,7 +141,7 @@ public class GameController : MonoBehaviour
 	public int level;
 
 	//Level Spawn
-	private readonly Vector3 level1BallSpawn = new Vector3(0, 1.1f, 0);
+	private readonly Vector3 level1BallSpawn = new Vector3(0, 0.55f, 0);
 	private readonly Vector3 level1CamSpawn = new Vector3(0, 10, -10);
 
 	private bool level2OnGo;
@@ -150,6 +164,7 @@ public class GameController : MonoBehaviour
 	public RectTransform GreenHealthBarRect => greenHealthBarRect;
 	public RectTransform RedHealthBarRect => redHealthBarRect;
 
+	public bool GodMode { get; set; }
 	public bool StartTimerRedHealth { get; set; }
 
 	public float TimerRedHealth { get; set; } = 2;
@@ -234,6 +249,29 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
+		if (GodMode)
+		{
+			canTakeDamage = false;
+			godModeTextGameObject.SetActive(true);
+			timerGodMode -= Time.deltaTime;
+			var timeGodModeFinal = TimeSpan.FromSeconds(timerGodMode);
+			var timeGodModeFinalStr = "God Mode: " + timeGodModeFinal.ToString("ss");
+			godModeText.text = timeGodModeFinalStr;
+			godModePlayer.SetActive(true);
+			godModeLevel1_3.SetActive(true);
+			godModeLevel2_2.SetActive(true);
+			godModeLevel2_4.SetActive(true);
+			if (timerGodMode <= 0f)
+			{
+				godModeTextGameObject.SetActive(false);
+				godModePlayer.SetActive(false);
+				godModeLevel1_3.SetActive(false);
+				godModeLevel2_2.SetActive(false);
+				godModeLevel2_4.SetActive(false);
+				canTakeDamage = true;
+			}
+		}
+
 		if (startTimerWinText)
 		{
 			timerWinText -= Time.deltaTime;
@@ -396,6 +434,7 @@ public class GameController : MonoBehaviour
 					levelOutTrigger2_4.SetActive(true);
 					levelText.text = "Stage 4";
 					startTimerWinText = true;
+					DamageCylinderLevel2_5.GetComponent<PathMover>().enabled = true;
 					break;
 				case 10 :
 					openWall2_5.SetActive(false);
@@ -419,6 +458,10 @@ public class GameController : MonoBehaviour
 		CounterUI.SetActive(false);
 		scorePointsForLevelText.text = "+ Level done: " + BaseScore;
 		scorePointsForTimeBonusText.text = "+ Time Bonus: " + (CalculateLevelScore() - BaseScore);
+		if (level == 8)
+		{
+			level2_3Enemy.SetActive(false);
+		}
 	}
 
 	public void IncreaseLevel() //TODO implement in a generic way
@@ -456,6 +499,7 @@ public class GameController : MonoBehaviour
 				goToLevel2CloseWall.SetActive(true);
 				level1_5.SetActive(false);
 				goToLevel2Bridge.SetActive(false);
+				rotateObject.GetComponent<RotationLevel5>().enabled = false;
 				break;
 			case 5:
 				closeWall2_1.SetActive(true);
@@ -468,14 +512,20 @@ public class GameController : MonoBehaviour
 			case 7:
 				closeWall2_3.SetActive(true);
 				level2_2.SetActive(false);
+				level2_3Enemy.GetComponent<PathMover>().enabled = true;
 				break;
 			case 8:
 				closeWall2_4.SetActive(true);
+				level2_3Enemy.GetComponent<PathMover>().enabled = false;
+				mover1.GetComponent<PathMover>().enabled = true;
+				mover2.GetComponent<PathMover>().enabled = true;
 				level2_3.SetActive(false);
 				break;
 			case 9:
 				closeWall2_5.SetActive(true);
 				level2_4.SetActive(false);
+				mover1.GetComponent<PathMover>().enabled = false;
+				mover2.GetComponent<PathMover>().enabled = false;
 				break;
 			case 10:
 				goToLevel3CloseWall.SetActive(true);
@@ -563,6 +613,8 @@ public class GameController : MonoBehaviour
 		openWall1_4.SetActive(true);
 		bridge1_5.SetActive(false);
 		level1_5.SetActive(false);
+		rotateObject.GetComponent<RotationLevel5>().enabled = false;
+
 
 		openWall1_5.SetActive(true);
 		goToLevel2Bridge.SetActive(false);
@@ -578,14 +630,33 @@ public class GameController : MonoBehaviour
 		openWall2_2.SetActive(true);
 		bridge2_3.SetActive(false);
 		level2_3.SetActive(false);
+		level2_3Enemy.transform.position = new Vector3(-39.53668f, 39.71216f, 199.0818f);
+		level2_3Enemy.GetComponent<PathMover>().enabled = false;
+		level2_3Enemy.SetActive(true);
 
 		openWall2_3.SetActive(true);
-		/*bridge2_4.SetActive(false);
-		level2_4.SetActive(false);*/
+		bridge2_4.SetActive(false);
+		level2_4.SetActive(false);
+		mover1.GetComponent<PathMover>().enabled = false;
+		mover2.GetComponent<PathMover>().enabled = false;
+		mover1.GetComponent<PathMover>().Test();
+		mover2.GetComponent<PathMover>().Test();
+		mover1.transform.position = new Vector3(-7.926678f, 41.77216f, 204.5818f);
+		mover2.transform.position = new Vector3(8.513323f, 41.77216f, 193.5818f);
+		DamageCylinderLevel2_5.GetComponent<PathMover>().enabled = false;
 
-		/*openWall2_4.SetActive(true);
+
+		openWall2_4.SetActive(true);
 		bridge2_5.SetActive(false);
-		level2_5.SetActive(false);*/
+		level2_5.SetActive(false);
+		DamageCylinderLevel2_5.GetComponent<PathMover>().enabled = false;
+
+		openWall2_5.SetActive(true);
+		bridge2_5.SetActive(false);
+		goToLevel3.SetActive(false);
+		level3_0.SetActive(false);
+		/*level3_1.SetActive(false);
+		bridge3_1.SetActive(false);*/
 	}
 
 	public void LevelOutTriggerTurnOff()

@@ -164,10 +164,16 @@ public class Player : MonoBehaviour
 
 		if (other.gameObject.CompareTag("Transporter"))
 		{
-			for (int i = 0; i < 50; i++)
+			for (var i = 0; i < 50; i++)
 			{
 				rb.AddForce(0, 0.45f, 0, ForceMode.Impulse);
 			}
+		}
+
+		if (other.gameObject.CompareTag("Good Mode"))
+		{
+			other.gameObject.SetActive(false);
+			gameController.GodMode = true;
 		}
 
 		if (other.gameObject.CompareTag("Pick Up"))
@@ -202,20 +208,23 @@ public class Player : MonoBehaviour
 
 	private void TakeDamage(int damage)
 	{
-		if (health - damage > 0)
+		if (gameController.canTakeDamage)
 		{
-			health -= damage;
-		}
-		else
-		{
-			health = 0;
+			if (health - damage > 0)
+			{
+				health -= damage;
+			}
+			else
+			{
+				health = 0;
 
-			gameController.StartTimerGameOverExplosion = true;
-			explosionParticle.SetActive(true);
+				gameController.StartTimerGameOverExplosion = true;
+				explosionParticle.SetActive(true);
 
-			var rbPosition = rb.position;
-			deathPlayerPosition = new Vector3(rbPosition.x, rbPosition.y, rbPosition.z);
-			rb.GetComponent<MeshRenderer>().enabled = false;
+				var rbPosition = rb.position;
+				deathPlayerPosition = new Vector3(rbPosition.x, rbPosition.y, rbPosition.z);
+				rb.GetComponent<MeshRenderer>().enabled = false;
+			}
 		}
 	}
 

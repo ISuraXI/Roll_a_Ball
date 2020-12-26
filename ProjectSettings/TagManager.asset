@@ -16,6 +16,7 @@ TagManager:
   - Transporter
   - GroundTrigger
   - test
+  - Good Mode
   layers:
   - Default
   - TransparentFX
