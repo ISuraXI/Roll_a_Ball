@@ -2,12 +2,12 @@
 
 public class UiMenuController : MonoBehaviour
 {
-	public Resetter resetter;
 	public Player player;
 	public GameController gameController;
 
 	public void Menu()
 	{
+		player.gameObject.SetActive(false);
 		Time.timeScale = 1;
 		var camPosition = new Vector3(0, -100, 0);
 		gameController.mainCam.GetComponent<CameraController>().enabled = false;

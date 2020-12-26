@@ -6,6 +6,7 @@ public class Resetter : MonoBehaviour
 	private readonly List<PickUp> pickUps = new List<PickUp>();
 	private readonly List<Trigger> triggers = new List<Trigger>();
 	private readonly List<OpenWall> openWalls = new List<OpenWall>();
+	private readonly List<GodModePickUp> godModePickUps = new List<GodModePickUp>();
 
 	public void AddGameObject(PickUp pickUp)
 	{
@@ -22,6 +23,11 @@ public class Resetter : MonoBehaviour
 		openWalls.Add(openWall);
 	}
 
+	public void AddGameObject(GodModePickUp godModePickUp)
+	{
+		godModePickUps.Add(godModePickUp);
+	}
+
 	public void ResetAll()
 	{
 		foreach (var pickUp in pickUps)
@@ -34,9 +40,15 @@ public class Resetter : MonoBehaviour
 			trigger.gameObject.SetActive(true);
 		}
 
+		foreach (var godModePickUp in godModePickUps)
+		{
+			godModePickUp.gameObject.SetActive(true);
+		}
+
 		foreach (var openWall in openWalls)
 		{
 			openWall.gameObject.SetActive(false);
 		}
+
 	}
 }

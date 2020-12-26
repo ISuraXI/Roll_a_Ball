@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour
 	public Text counterText;
 	public Text scorePointsForLevelText;
 	public Text scorePointsForTimeBonusText;
+	public Text levelCompleteText;
 	public Text godModeText;
 
 	//Damage
@@ -72,6 +73,7 @@ public class GameController : MonoBehaviour
 
 	public GameObject level2_0;
 	public GameObject groundFillLevel2;
+	public GameObject groundTrigger2;
 
 	public GameObject level2_1;
 	public GameObject bridge2_1;
@@ -115,6 +117,13 @@ public class GameController : MonoBehaviour
 
 	public GameObject level3_0;
 	public GameObject groundFillLevel3;
+	public GameObject groundTrigger3;
+
+	public GameObject level3_1;
+	//public GameObject bridge3_1;
+	public GameObject closeWall3_1;
+	public GameObject openWall3_1;
+	public GameObject levelOutTrigger3_1;
 
 	//GameOver
 	public Text gameOverScoreText;
@@ -129,7 +138,6 @@ public class GameController : MonoBehaviour
 	public bool canTakeDamage = true;
 	public GameObject godModePlayer;
 	private float timerGodMode = 30f;
-	public GameObject godModeTextGameObject;
 
 	//Counter
 	private float counter;
@@ -147,6 +155,10 @@ public class GameController : MonoBehaviour
 	private bool level2OnGo;
 	private static readonly Vector3 level2BallSpawn = new Vector3(0.33f, 31.91f, 119.25f);
 	private readonly Vector3 level2CamSpawn = level2BallSpawn + new Vector3(0, 10, -10);
+
+	private bool level3OnGo;
+	private static readonly Vector3 level3BallSpawn = new Vector3(39.92332f, 65.98216f, 239.0318f);
+	private readonly Vector3 level3CamSpawn = level3BallSpawn + new Vector3(0, 10, -10);
 
 	//Score
 	private const int BaseScore = 10;
@@ -181,6 +193,9 @@ public class GameController : MonoBehaviour
 		player.healthParticle.GetComponent<ParticleSystem>().playOnAwake = false;
 		playerGameObject.GetComponent<Rigidbody>().isKinematic = true;
 
+		GodMode = true;
+		timerGodMode = 0;
+
 		playerGameObject.SetActive(true);
 		player.explosionParticle.SetActive(false);
 		player.gameObject.GetComponent<MeshRenderer>().enabled = true;
@@ -201,6 +216,8 @@ public class GameController : MonoBehaviour
 		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
 		counterText.text = "";
 		levelText.text = "";
+		levelCompleteText.text = "";
+		godModeText.text = "";
 		scorePointsForLevelText.text = "";
 		scorePointsForTimeBonusText.text = "";
 
@@ -219,6 +236,10 @@ public class GameController : MonoBehaviour
 		{
 			StartGameLevel2();
 		}
+		else if (level3OnGo)
+		{
+			StartGameLevel3();
+		}
 		else
 		{
 			Level1LevelStates();
@@ -235,13 +256,25 @@ public class GameController : MonoBehaviour
 		mainCam.transform.position = level2CamSpawn;
 	}
 
+	private void StartGameLevel3()
+	{
+		Level3LevelStates();
+		level = 11;
+		playerGameObject.transform.position = level3BallSpawn;
+		mainCam.transform.position = level3CamSpawn;
+	}
+
 	public void RestartGame()
 	{
 		mainCam.transform.Rotate(-45, 0 , 0);
 
-		if (level >= 5)
+		if (level >= 5 && level <= 11)
 		{
 			level2OnGo = true;
+		}
+		else if (level >= 11)
+		{
+			level3OnGo = true;
 		}
 		StartGame();
 	}
@@ -252,7 +285,6 @@ public class GameController : MonoBehaviour
 		if (GodMode)
 		{
 			canTakeDamage = false;
-			godModeTextGameObject.SetActive(true);
 			timerGodMode -= Time.deltaTime;
 			var timeGodModeFinal = TimeSpan.FromSeconds(timerGodMode);
 			var timeGodModeFinalStr = "God Mode: " + timeGodModeFinal.ToString("ss");
@@ -263,12 +295,14 @@ public class GameController : MonoBehaviour
 			godModeLevel2_4.SetActive(true);
 			if (timerGodMode <= 0f)
 			{
-				godModeTextGameObject.SetActive(false);
+				godModeText.text = "";
 				godModePlayer.SetActive(false);
 				godModeLevel1_3.SetActive(false);
 				godModeLevel2_2.SetActive(false);
 				godModeLevel2_4.SetActive(false);
 				canTakeDamage = true;
+				timerGodMode = 30f;
+				GodMode = false;
 			}
 		}
 
@@ -442,7 +476,7 @@ public class GameController : MonoBehaviour
 					goToLevel3.SetActive(true);
 					levelOutTrigger2_5.SetActive(true);
 					level3_0.SetActive(true);
-					// level3_1.SetActive(true);   //TODO: Gibt es noch nicht muss noch erstellt werden
+					level3_1.SetActive(true);
 					levelText.text = "Stage 5";
 					startTimerWinText = true;
 					break;
@@ -531,6 +565,10 @@ public class GameController : MonoBehaviour
 				goToLevel3CloseWall.SetActive(true);
 				level2_5.SetActive(false);
 				break;
+			case 11:
+				closeWall3_1.SetActive(true);
+				level3_0.SetActive(false);
+				break;
 		}
 
 		level++;
@@ -550,18 +588,28 @@ public class GameController : MonoBehaviour
 	public void StartLevel1() //TODO use int which represents level
 	{
 		level2OnGo = false;
-		/*level3OnGo = false;
-		level4OnGo = false;
+		level3OnGo = false;
+		/*level4OnGo = false;
 		level5OnGo = false;*/
 	}
 
 	public void StartLevel2()
 	{
 		level2OnGo = true;
-		/*level3OnGo = false;
-		level4OnGo = false;
+		level3OnGo = false;
+		/*level4OnGo = false;
 		level5OnGo = false;*/
 	}
+
+	public void StartLevel3()
+	{
+		level2OnGo = false;
+		level3OnGo = true;
+		/*level4OnGo = false;
+		level5OnGo = false;*/
+	}
+
+
 
 	private void Level1LevelStates()
 	{
@@ -573,12 +621,15 @@ public class GameController : MonoBehaviour
 		level1_5.SetActive(false);
 		goToLevel2.SetActive(false);
 		level2_0.SetActive(false);
+		groundTrigger2.SetActive(true);
+		groundTrigger3.SetActive(true);
 		level2_1.SetActive(false);
 	}
 
 	private void Level2LevelStates()
 	{
 		goToLevel2.SetActive(false);
+		groundTrigger2.SetActive(false);
 		level1_1.SetActive(false);
 		level1_2.SetActive(false);
 		level1_3.SetActive(false);
@@ -591,16 +642,41 @@ public class GameController : MonoBehaviour
 
 		level2_1.SetActive(true);
 		groundFillLevel2.SetActive(true);
+		timelineLevel2_1.SetActive(true);
+		groundTrigger3.SetActive(true);
+	}
+
+	private void Level3LevelStates()
+	{
+		level1_1.SetActive(false);
+		level1_2.SetActive(false);
+		level1_3.SetActive(false);
+		level1_4.SetActive(false);
+		level1_5.SetActive(false);
+		goToLevel2.SetActive(false);
+		level2_0.SetActive(false);
+		level2_1.SetActive(false);
+		level2_2.SetActive(false);
+		level2_3.SetActive(false);
+		level2_4.SetActive(false);
+		level2_5.SetActive(false);
+		goToLevel3.SetActive(false);
+		level3_0.SetActive(true);
+		groundFillLevel3.SetActive(true);
+
+		CalculateActivePickUpCount(); // is there because to calculate the activePickups on spawn platform and there it is 0
+		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
+
+		level3_1.SetActive(true);
+		groundTrigger3.SetActive(false);
 	}
 
 	private void GameStartLevelStatus()
 	{
-		bridge1_2.SetActive(true);
-		//bridge2.SetActive(false);
-
 		level1_1.SetActive(true);
 		openWall1_1.SetActive(true);
 		level1_2.SetActive(false);
+		bridge1_2.SetActive(true);
 
 		openWall1_2.SetActive(true);
 		bridge1_3.SetActive(false);
@@ -619,6 +695,7 @@ public class GameController : MonoBehaviour
 		openWall1_5.SetActive(true);
 		goToLevel2Bridge.SetActive(false);
 		goToLevel2.SetActive(false);
+		groundFillLevel2.SetActive(false);
 		level2_0.SetActive(false);
 		level2_1.SetActive(false);
 		bridge2_1.SetActive(false);
@@ -645,7 +722,6 @@ public class GameController : MonoBehaviour
 		mover2.transform.position = new Vector3(8.513323f, 41.77216f, 193.5818f);
 		DamageCylinderLevel2_5.GetComponent<PathMover>().enabled = false;
 
-
 		openWall2_4.SetActive(true);
 		bridge2_5.SetActive(false);
 		level2_5.SetActive(false);
@@ -655,8 +731,12 @@ public class GameController : MonoBehaviour
 		bridge2_5.SetActive(false);
 		goToLevel3.SetActive(false);
 		level3_0.SetActive(false);
-		/*level3_1.SetActive(false);
-		bridge3_1.SetActive(false);*/
+
+		level3_1.SetActive(false);
+		//bridge3_1.SetActive(false);
+
+		/*level3_2.SetActive(false);
+		bridge3_2.SetActive(false);*/
 	}
 
 	public void LevelOutTriggerTurnOff()
@@ -671,6 +751,7 @@ public class GameController : MonoBehaviour
 		levelOutTrigger2_3.SetActive(false);
 		levelOutTrigger2_4.SetActive(false);
 		levelOutTrigger2_5.SetActive(false);
+		levelOutTrigger3_1.SetActive(false);
 	}
 	public void HackAllLevel()
 	{

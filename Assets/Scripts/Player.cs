@@ -40,6 +40,9 @@ public class Player : MonoBehaviour
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 	}
 
+	public bool test;
+	public float timeTest = 2f;
+
 	private void Update()
 	{
 		if (health == 100)
@@ -52,6 +55,25 @@ public class Player : MonoBehaviour
 		}
 
 
+		if (test)
+		{
+			if (gameController.level >= 5)
+			{
+				gameController.levelCompleteText.text = "Level 1 complete";
+			}
+			else if (gameController.level >= 11)
+			{
+				gameController.levelCompleteText.text = "Level 2 complete";
+			}
+
+			timeTest -= Time.deltaTime;
+			if (timeTest <= 0f)
+			{
+				gameController.levelCompleteText.text = "";
+				timeTest = 2f;
+				test = false;
+			}
+		}
 
 		//For timer explosion particle
 		if (gameController.StartTimerGameOverExplosion)
@@ -153,10 +175,12 @@ public class Player : MonoBehaviour
 				case 5:
 					gameController.timelineLevel2_1.SetActive(true);
 					gameController.groundFillLevel2.SetActive(true);
+					test = true;
 					break;
 				case 11:
 					gameController.groundFillLevel3.SetActive(true);
 					gameController.goToLevel3.SetActive(false);
+					test = true;
 					break;
 			}
 
