@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
 	public GameObject playCanvas;
 	public GameObject gameOverCanvas;
 	public GameObject menuCanvas;
+	public GameObject shopCanvas;
 	public GameObject levelCanvas;
 	public GameObject pauseCanvas;
 	public GameObject skyboxController;
