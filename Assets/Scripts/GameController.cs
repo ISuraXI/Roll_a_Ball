@@ -731,6 +731,7 @@ public class GameController : MonoBehaviour
 		bridge2_5.SetActive(false);
 		goToLevel3.SetActive(false);
 		level3_0.SetActive(false);
+		groundFillLevel3.SetActive(false);
 
 		level3_1.SetActive(false);
 		//bridge3_1.SetActive(false);

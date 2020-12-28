@@ -45,6 +45,8 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
+		Debug.Log(gameController.level);
+
 		if (health == 100)
 		{
 			fullLife = true;
@@ -57,11 +59,11 @@ public class Player : MonoBehaviour
 
 		if (test)
 		{
-			if (gameController.level >= 5)
+			if (gameController.level == 5)
 			{
 				gameController.levelCompleteText.text = "Level 1 complete";
 			}
-			else if (gameController.level >= 11)
+			else if (gameController.level == 11)
 			{
 				gameController.levelCompleteText.text = "Level 2 complete";
 			}
@@ -136,6 +138,19 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	/*public GameObject player;
+	private MeshFilter testMesh;
+
+
+
+	public void MeshSwitch()
+	{
+		/*
+		Mesh mesh = GetComponent<MeshFilter>().sp
+		#1#
+		testMesh = player.GetComponent<MeshFilter>();
+		testMesh.mesh = Resources.Load<Mesh>("Assets/Materials/Ball/Mesh/pSphere1");
+	}*/
 
 	private void OnCollisionEnter(Collision collision)
 	{
