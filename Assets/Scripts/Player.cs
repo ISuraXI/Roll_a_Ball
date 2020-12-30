@@ -8,10 +8,6 @@ public class Player : MonoBehaviour
 	public GameObject healthParticle;
 	public GameObject explosionParticle;
 
-	//Mobile Movement
-	private float x = 0;
-	private float y = 0;
-
 	//Properties
 	private Rigidbody rb; //Player body
 	private int speedPc;
@@ -28,9 +24,6 @@ public class Player : MonoBehaviour
 
 	private void Start()
 	{
-		//TODO: make it better for set x and y to 0 when you have the phone not horizontal when you start the game working but not good :(
-		//x = Input.acceleration.x;
-		//y = Input.acceleration.y;
 		healthParticle.GetComponent<ParticleSystem>().playOnAwake = true;
 		health = StartHealth;
 		speedPc = 10;
@@ -132,25 +125,11 @@ public class Player : MonoBehaviour
 		//For Mobile
 		if (SystemInfo.deviceType == DeviceType.Handheld)
 		{
-			var movementMobile = new Vector3((Input.acceleration.x - x) * speedMobile, 0.0f,
-				(Input.acceleration.y - y + 0.5f) * 5);
+			var movementMobile = new Vector3((Input.acceleration.x) * speedMobile, 0.0f,
+				(Input.acceleration.y + 0.5f) * 5);
 			rb.AddForce(movementMobile * speedMobile);
 		}
 	}
-
-	/*public GameObject player;
-	private MeshFilter testMesh;
-
-
-
-	public void MeshSwitch()
-	{
-		/*
-		Mesh mesh = GetComponent<MeshFilter>().sp
-		#1#
-		testMesh = player.GetComponent<MeshFilter>();
-		testMesh.mesh = Resources.Load<Mesh>("Assets/Materials/Ball/Mesh/pSphere1");
-	}*/
 
 	private void OnCollisionEnter(Collision collision)
 	{
@@ -201,7 +180,7 @@ public class Player : MonoBehaviour
 
 		}
 
-		if (other.gameObject.CompareTag("Transporter"))
+		else if (other.gameObject.CompareTag("Transporter"))
 		{
 			for (var i = 0; i < 50; i++)
 			{
@@ -209,13 +188,13 @@ public class Player : MonoBehaviour
 			}
 		}
 
-		if (other.gameObject.CompareTag("Good Mode"))
+		else if (other.gameObject.CompareTag("Good Mode"))
 		{
 			other.gameObject.SetActive(false);
 			gameController.GodMode = true;
 		}
 
-		if (other.gameObject.CompareTag("Pick Up"))
+		else if (other.gameObject.CompareTag("Pick Up"))
 		{
 			if (!fullLife)
 			{
