@@ -5,6 +5,29 @@ public class UiMenuController : MonoBehaviour
 	public Player player;
 	public GameController gameController;
 
+	public Material ball1;
+	public Material ball2;
+	public Material ball3;
+	public Material ball4;
+	public Material ball5;
+	public Material ball6;
+	public Material ball7;
+	public Material ball8;
+	public Material ball9;
+	public Material ball10;
+
+	public GameObject ball1Check;
+	public GameObject ball2Check;
+	public GameObject ball3Check;
+	public GameObject ball4Check;
+	public GameObject ball5Check;
+	public GameObject ball6Check;
+	public GameObject ball7Check;
+	public GameObject ball8Check;
+	public GameObject ball9Check;
+	public GameObject ball10Check;
+
+
 	public void Menu()
 	{
 		player.gameObject.SetActive(false);
@@ -29,14 +52,14 @@ public class UiMenuController : MonoBehaviour
 	public void KlickOnShop()
 	{
 		gameController.menuCanvas.SetActive(false);
-		gameController.shopCanvas.SetActive(true);
+		gameController.shopBallCanvas.SetActive(true);
 	}
 
 	public void KlickOnBack()
 	{
 		gameController.menuCanvas.SetActive(true);
 		gameController.levelCanvas.SetActive(false);
-		gameController.shopCanvas.SetActive(false);
+		gameController.shopBallCanvas.SetActive(false);
 	}
 
 	public void KlickOnResume()
@@ -51,29 +74,19 @@ public class UiMenuController : MonoBehaviour
 		Time.timeScale = 0;
 	}
 
-	public Material ball1;
-	public Material ball2;
-	public Material ball3;
-	public Material ball4;
-	public Material ball5;
-	public Material ball6;
-	public Material ball7;
-	public Material ball8;
-	public Material ball9;
-	public Material ball10;
+	public void KlickOnGrounds()
+	{
+		gameController.shopGroundCanvas.SetActive(true);
+		gameController.shopBallCanvas.SetActive(false);
+	}
 
-	public GameObject ball1Check;
-	public GameObject ball2Check;
-	public GameObject ball3Check;
-	public GameObject ball4Check;
-	public GameObject ball5Check;
-	public GameObject ball6Check;
-	public GameObject ball7Check;
-	public GameObject ball8Check;
-	public GameObject ball9Check;
-	public GameObject ball10Check;
+	public void KlickOnBalls()
+	{
+		gameController.shopBallCanvas.SetActive(true);
+		gameController.shopGroundCanvas.SetActive(false);
+	}
 
-	public void UncheckAllCheckImages()
+	private void UncheckAllCheckImages()
 	{
 		ball1Check.SetActive(false);
 		ball2Check.SetActive(false);

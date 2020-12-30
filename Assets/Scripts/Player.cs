@@ -38,8 +38,6 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
-		Debug.Log(gameController.level);
-
 		if (health == 100)
 		{
 			fullLife = true;
@@ -186,6 +184,33 @@ public class Player : MonoBehaviour
 			{
 				rb.AddForce(0, 0.45f, 0, ForceMode.Impulse);
 			}
+
+			if (gameController.level1)
+			{
+				if (gameController.level == 5)
+				{
+					gameController.passedLevel = 1;
+					gameController.level1 = false;
+				}
+			}
+			else if (gameController.level2)
+			{
+				if (gameController.level == 11)
+				{
+					gameController.passedLevel = 2;
+					gameController.level2 = false;
+				}
+			}
+			else if (gameController.level3)
+			{
+				if (gameController.level == 17)
+				{
+					gameController.passedLevel = 3;
+					gameController.level3 = false;
+				}
+			}
+
+			gameController.PrintHighscore();
 		}
 
 		else if (other.gameObject.CompareTag("Good Mode"))

@@ -13,7 +13,8 @@ public class GameController : MonoBehaviour
 	public GameObject playCanvas;
 	public GameObject gameOverCanvas;
 	public GameObject menuCanvas;
-	public GameObject shopCanvas;
+	public GameObject shopBallCanvas;
+	public GameObject shopGroundCanvas;
 	public GameObject levelCanvas;
 	public GameObject pauseCanvas;
 	public GameObject skyboxController;
@@ -129,6 +130,34 @@ public class GameController : MonoBehaviour
 	//GameOver
 	public Text gameOverScoreText;
 	public Text gameOverCounterText;
+
+	//Level
+	private int highscoreLevel1;
+	private int highscoreLevel2;
+	private int highscoreLevel3;
+	private int highscoreLevel4;
+	private int highscoreLevel5;
+	private int highscoreLevel6;
+	private int highscoreLevel7;
+	private int highscoreLevel8;
+	private int highscoreLevel9;
+	private int highscoreLevel10;
+	public int passedLevel = 0;
+	public bool level1 = true;
+	public bool level2 = true;
+	public bool level3 = true;
+	/*public bool level4 = true; // Didi nicht löschen pls
+	public bool level5 = true;*/
+	public Text highscoreLevel1Text;
+	public Text highscoreLevel2Text;
+	public Text highscoreLevel3Text;
+	public Text highscoreLevel4Text;
+	public Text highscoreLevel5Text;
+	public Text highscoreLevel6Text;
+	public Text highscoreLevel7Text;
+	public Text highscoreLevel8Text;
+	public Text highscoreLevel9Text;
+	public Text highscoreLevel10Text;
 
 	//Timer
 	private bool startTimerWinText;
@@ -573,6 +602,15 @@ public class GameController : MonoBehaviour
 		}
 
 		level++;
+	}
+
+	public void PrintHighscore()
+	{
+		if (passedLevel == 1 && highscoreLevel1 <= score)
+		{
+			highscoreLevel1Text.text = "Highscore" + Environment.NewLine + score;
+			highscoreLevel1 = score;
+		}
 	}
 
 	public void SetGameOver()
