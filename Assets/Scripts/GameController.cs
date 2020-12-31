@@ -132,16 +132,16 @@ public class GameController : MonoBehaviour
 	public Text gameOverCounterText;
 
 	//Level
-	private int highscoreLevel1;
-	private int highscoreLevel2;
-	private int highscoreLevel3;
-	private int highscoreLevel4;
-	private int highscoreLevel5;
-	private int highscoreLevel6;
-	private int highscoreLevel7;
-	private int highscoreLevel8;
-	private int highscoreLevel9;
-	private int highscoreLevel10;
+	public int highscoreLevel1;
+	public int highscoreLevel2;
+	public int highscoreLevel3;
+	public int highscoreLevel4;
+	public int highscoreLevel5;
+	public int highscoreLevel6;
+	public int highscoreLevel7;
+	public int highscoreLevel8;
+	public int highscoreLevel9;
+	public int highscoreLevel10;
 	public int passedLevel = 0;
 	public bool level1 = true;
 	public bool level2 = true;
@@ -214,6 +214,40 @@ public class GameController : MonoBehaviour
 	public bool StartTimerGameOverExplosion { get; set; }
 
 	public float TimerGameOverExplosion { get; set; } = 2;
+
+
+	public void Start()
+	{
+		LoadGameControllerData();
+	}
+
+	public void OnApplicationQuit()
+	{
+		SaveGameControllerData();
+	}
+	public void LoadGameControllerData()
+	{
+		GameControllerData data = SaveSystem.loadGameController();
+
+		passedLevel = data.passedLevel;
+		highscoreLevel1 = data.highscoreLevel1;
+		highscoreLevel2 = data.highscoreLevel2;
+		highscoreLevel3 = data.highscoreLevel3;
+		highscoreLevel4 = data.highscoreLevel4;
+		highscoreLevel5 = data.highscoreLevel5;
+		highscoreLevel6 = data.highscoreLevel6;
+		highscoreLevel7 = data.highscoreLevel7;
+		highscoreLevel8 = data.highscoreLevel8;
+		highscoreLevel9 = data.highscoreLevel9;
+		highscoreLevel10 = data.highscoreLevel10;
+
+		SetHighscore();
+	}
+
+	public void SaveGameControllerData()
+	{
+		SaveSystem.SaveGameController(this);
+	}
 
 	public void StartGame() //TODO fix Timer + trigger + remove duplicateeees
 	{
@@ -312,6 +346,7 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
+		Debug.Log(passedLevel);
 		if (GodMode)
 		{
 			canTakeDamage = false;
@@ -611,6 +646,40 @@ public class GameController : MonoBehaviour
 			highscoreLevel1Text.text = "Highscore" + Environment.NewLine + score;
 			highscoreLevel1 = score;
 		}
+		else if (passedLevel == 2 && highscoreLevel2 <= score)
+		{
+			highscoreLevel2Text.text = "Highscore" + Environment.NewLine + score;
+			highscoreLevel2 = score;
+		}
+		else if (passedLevel == 3 && highscoreLevel3 <= score)
+		{
+			highscoreLevel3Text.text = "Highscore" + Environment.NewLine + score;
+			highscoreLevel3 = score;
+		}
+		else if (passedLevel == 4 && highscoreLevel4 <= score)
+		{
+			highscoreLevel4Text.text = "Highscore" + Environment.NewLine + score;
+			highscoreLevel4 = score;
+		}
+		else if (passedLevel == 5 && highscoreLevel5 <= score)
+		{
+			highscoreLevel5Text.text = "Highscore" + Environment.NewLine + score;
+			highscoreLevel5 = score;
+		}
+	}
+
+	public void SetHighscore()
+	{
+		highscoreLevel1Text.text = "Highscore" + Environment.NewLine + highscoreLevel1;
+		highscoreLevel2Text.text = "Highscore" + Environment.NewLine + highscoreLevel2;
+		highscoreLevel3Text.text = "Highscore" + Environment.NewLine + highscoreLevel3;
+		highscoreLevel4Text.text = "Highscore" + Environment.NewLine + highscoreLevel4;
+		highscoreLevel5Text.text = "Highscore" + Environment.NewLine + highscoreLevel5;
+		highscoreLevel6Text.text = "Highscore" + Environment.NewLine + highscoreLevel6;
+		highscoreLevel7Text.text = "Highscore" + Environment.NewLine + highscoreLevel7;
+		highscoreLevel8Text.text = "Highscore" + Environment.NewLine + highscoreLevel8;
+		highscoreLevel9Text.text = "Highscore" + Environment.NewLine + highscoreLevel9;
+		highscoreLevel10Text.text = "Highscore" + Environment.NewLine + highscoreLevel10;
 	}
 
 	public void SetGameOver()
