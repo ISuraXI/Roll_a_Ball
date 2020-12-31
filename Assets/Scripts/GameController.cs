@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 	public Player player;
 	public GameObject playerGameObject;
 	public Resetter resetter;
+	public UiMenuController uiMenuController;
 
 	//UI Canvas
 	public GameObject playCanvas;
@@ -159,6 +160,10 @@ public class GameController : MonoBehaviour
 	public Text highscoreLevel9Text;
 	public Text highscoreLevel10Text;
 
+	//Shop
+	public int groundStatus = 1;
+	public int ballStatus = 1;
+
 	//Timer
 	private bool startTimerWinText;
 	private float timerWinText = 2;
@@ -240,8 +245,13 @@ public class GameController : MonoBehaviour
 		highscoreLevel8 = data.highscoreLevel8;
 		highscoreLevel9 = data.highscoreLevel9;
 		highscoreLevel10 = data.highscoreLevel10;
+		groundStatus = data.groundStatus;
+		ballStatus = data.ballStatus;
 
 		SetHighscore();
+		uiMenuController.GroundSetter();
+		uiMenuController.BallSetter();
+
 	}
 
 	public void SaveGameControllerData()
@@ -347,6 +357,9 @@ public class GameController : MonoBehaviour
 	private void Update()
 	{
 		Debug.Log(passedLevel);
+
+		SaveGameControllerData();
+
 		if (GodMode)
 		{
 			canTakeDamage = false;
@@ -666,6 +679,9 @@ public class GameController : MonoBehaviour
 			highscoreLevel5Text.text = "Highscore" + Environment.NewLine + score;
 			highscoreLevel5 = score;
 		}
+
+		score = 0;
+		scoreText.text = "Score: " + score;
 	}
 
 	public void SetHighscore()

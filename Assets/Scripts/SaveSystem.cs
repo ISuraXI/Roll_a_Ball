@@ -27,7 +27,7 @@ public static class SaveSystem
 
 			GameControllerData data = formatter.Deserialize(stream) as GameControllerData;
 			stream.Close();
-
+			
 			return data;
 		}
 		else
