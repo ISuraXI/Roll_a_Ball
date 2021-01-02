@@ -5,6 +5,7 @@ public class UiMenuController : MonoBehaviour
 {
 	public Player player;
 	public GameController gameController;
+	public Resetter resetter;
 
 	public Material ball1Material;
 	public Material ball2Material;
@@ -49,60 +50,8 @@ public class UiMenuController : MonoBehaviour
 	public GameObject ground4Check;
 	public GameObject ground5Check;
 
-	public GameObject groundLevel1_1;
-	public GameObject groundLevel1_2;
-	public GameObject groundLevel1_3;
-	public GameObject groundLevel1_4;
-	public GameObject groundLevel1_5;
-	public GameObject groundLevelGoToLevel2;
-
-	public GameObject groundLevel2_0_1;
-	public GameObject groundLevel2_0_2;
-	public GameObject groundLevel2_1;
-	public GameObject groundLevel2_2_1;
-	public GameObject groundLevel2_2_2;
-	public GameObject groundLevel2_2_3;
-	public GameObject groundLevel2_2_4;
-	public GameObject groundLevel2_2_5;
-	public GameObject groundLevel2_2_6;
-	public GameObject groundLevel2_2_7;
-	public GameObject groundLevel2_2_8;
-	public GameObject groundLevel2_2_9;
-	public GameObject groundLevel2_3;
-	public GameObject groundLevel2_4_1;
-	public GameObject groundLevel2_4_2;
-	public GameObject groundLevel2_4_3;
-	public GameObject groundLevel2_4_4;
-	public GameObject groundLevel2_4_5;
-	public GameObject groundLevel2_5;
-	public GameObject groundLevelGoToLevel3;
-
-	public GameObject groundLevel3_0_1;
-	public GameObject groundLevel3_0_2;
-	public GameObject groundLevel3_1;
-	/*public GameObject groundLevel3_2;
-	public GameObject groundLevel3_3;
-	public GameObject groundLevel3_4;
-	public GameObject groundLevel3_5;
-	public GameObject groundLevelGoToLevel4;*/
-
-	/*public GameObject bridgeLevel1_1;
-	public GameObject bridgeLevel1_2;
-	public GameObject bridgeLevel1_3;
-	public GameObject bridgeLevel1_4_1;
-	public GameObject bridgeLevel1_4_2;
-	public GameObject bridgeLevel1_5;
-	public GameObject bridgeLevelGoToLevel2;
-
-	public GameObject bridgeLevel2_1;
-	public GameObject bridgeLevel2_2;
-	public GameObject bridgeLevel2_3;
-	public GameObject bridgeLevel2_4;
-	public GameObject bridgeLevel2_5;
-	public GameObject bridgeLevelGoToLevel3_1;
-	public GameObject bridgeLevelGoToLevel3_2;*/
-
-
+	public GameObject groundFill2;
+	public GameObject groundFill1;
 
 	public void Menu()
 	{
@@ -306,23 +255,23 @@ public class UiMenuController : MonoBehaviour
 	{
 		if (gameController.groundStatus == 1)
 		{
-			ShopGround1();
+			resetter.SetGround1();
 		}
 		else if (gameController.groundStatus == 2)
 		{
-			ShopGround2();
+			resetter.SetGround2();
 		}
 		else if (gameController.groundStatus == 3)
 		{
-			ShopGround3();
+			resetter.SetGround3();
 		}
 		else if (gameController.groundStatus == 4)
 		{
-			ShopGround4();
+			resetter.SetGround4();
 		}
 		else if (gameController.groundStatus == 5)
 		{
-			ShopGround5();
+			resetter.SetGround5();
 		}
 	}
 
@@ -339,283 +288,44 @@ public class UiMenuController : MonoBehaviour
 	{
 		UncheckAllGroundCheckImages();
 		ground1Check.SetActive(true);
+		groundFill1.GetComponent<MeshRenderer>().material = ground1Material;
+		groundFill2.GetComponent<MeshRenderer>().material = ground1Material;
 		gameController.groundStatus = 1;
-
-		groundLevel1_1.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel1_2.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel1_3.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel1_4.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel1_5.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevelGoToLevel2.GetComponent<MeshRenderer>().material = ground1Material;
-
-		groundLevel2_0_1.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel2_0_2.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel2_1.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel2_2_1.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel2_2_2.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel2_2_3.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel2_2_4.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel2_2_5.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel2_2_6.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel2_2_7.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel2_2_8.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel2_2_9.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel2_3.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel2_4_1.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel2_4_2.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel2_4_3.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel2_4_4.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel2_4_5.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel2_5.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevelGoToLevel3.GetComponent<MeshRenderer>().material = ground1Material;
-
-		groundLevel3_0_1.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel3_0_2.GetComponent<MeshRenderer>().material = ground1Material;
-		groundLevel3_1.GetComponent<MeshRenderer>().material = ground1Material;
-
-
-		/*bridgeLevel1_1.GetComponent<MeshRenderer>().material = ground1Material;
-		bridgeLevel1_2.GetComponent<MeshRenderer>().material = ground1Material;
-		bridgeLevel1_3.GetComponent<MeshRenderer>().material = ground1Material;
-		bridgeLevel1_4_1.GetComponent<MeshRenderer>().material = ground1Material;
-		bridgeLevel1_4_2.GetComponent<MeshRenderer>().material = ground1Material;
-		bridgeLevel1_5.GetComponent<MeshRenderer>().material = ground1Material;
-		bridgeLevelGoToLevel2.GetComponent<MeshRenderer>().material = ground1Material;
-
-		bridgeLevel2_1.GetComponent<MeshRenderer>().material = ground1Material;
-		bridgeLevel2_2.GetComponent<MeshRenderer>().material = ground1Material;
-		bridgeLevel2_3.GetComponent<MeshRenderer>().material = ground1Material;
-		bridgeLevel2_4.GetComponent<MeshRenderer>().material = ground1Material;
-		bridgeLevel2_5.GetComponent<MeshRenderer>().material = ground1Material;
-		bridgeLevelGoToLevel3_1.GetComponent<MeshRenderer>().material = ground1Material;
-		bridgeLevelGoToLevel3_2.GetComponent<MeshRenderer>().material = ground1Material;*/
 	}
 
 	public void ShopGround2()
 	{
 		UncheckAllGroundCheckImages();
 		ground2Check.SetActive(true);
+		groundFill1.GetComponent<MeshRenderer>().material = ground2_1Material;
+		groundFill2.GetComponent<MeshRenderer>().material = ground2_1Material;
 		gameController.groundStatus = 2;
-
-
-		groundLevel1_1.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevel1_2.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevel1_3.GetComponent<MeshRenderer>().material = ground2_1Material;
-		groundLevel1_4.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevel1_5.GetComponent<MeshRenderer>().material = ground2_1Material;
-		groundLevelGoToLevel2.GetComponent<MeshRenderer>().material = ground2Material;
-
-		groundLevel2_0_1.GetComponent<MeshRenderer>().material = ground2_1Material;
-		groundLevel2_0_2.GetComponent<MeshRenderer>().material = ground2_1Material;
-		groundLevel2_1.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevel2_2_1.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevel2_2_2.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevel2_2_3.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevel2_2_4.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevel2_2_5.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevel2_2_6.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevel2_2_7.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevel2_2_8.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevel2_2_9.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevel2_3.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevel2_4_1.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevel2_4_2.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevel2_4_3.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevel2_4_4.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevel2_4_5.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevel2_5.GetComponent<MeshRenderer>().material = ground2Material;
-		groundLevelGoToLevel3.GetComponent<MeshRenderer>().material = ground2Material;
-
-		groundLevel3_0_1.GetComponent<MeshRenderer>().material = ground2_1Material;
-		groundLevel3_0_2.GetComponent<MeshRenderer>().material = ground2_1Material;
-		groundLevel3_1.GetComponent<MeshRenderer>().material = ground2Material;
-
-
-		/*bridgeLevel1_1.GetComponent<MeshRenderer>().material = ground2Material;
-		bridgeLevel1_2.GetComponent<MeshRenderer>().material = ground2Material;
-		bridgeLevel1_3.GetComponent<MeshRenderer>().material = ground2Material;
-		bridgeLevel1_4_1.GetComponent<MeshRenderer>().material = ground2Material;
-		bridgeLevel1_4_2.GetComponent<MeshRenderer>().material = ground2Material;
-		bridgeLevel1_5.GetComponent<MeshRenderer>().material = ground2Material;
-		bridgeLevelGoToLevel2.GetComponent<MeshRenderer>().material = ground2Material;
-
-		bridgeLevel2_1.GetComponent<MeshRenderer>().material = ground2Material;
-		bridgeLevel2_2.GetComponent<MeshRenderer>().material = ground2Material;
-		bridgeLevel2_3.GetComponent<MeshRenderer>().material = ground2Material;
-		bridgeLevel2_4.GetComponent<MeshRenderer>().material = ground2Material;
-		bridgeLevel2_5.GetComponent<MeshRenderer>().material = ground2Material;
-		bridgeLevelGoToLevel3_1.GetComponent<MeshRenderer>().material = ground2Material;
-		bridgeLevelGoToLevel3_2.GetComponent<MeshRenderer>().material = ground2Material;*/
 	}
 
 	public void ShopGround3()
 	{
 		UncheckAllGroundCheckImages();
 		ground3Check.SetActive(true);
+		groundFill1.GetComponent<MeshRenderer>().material = ground3_1Material;
+		groundFill2.GetComponent<MeshRenderer>().material = ground3_1Material;
 		gameController.groundStatus = 3;
-
-
-		groundLevel1_1.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevel1_2.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevel1_3.GetComponent<MeshRenderer>().material = ground3_1Material;
-		groundLevel1_4.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevel1_5.GetComponent<MeshRenderer>().material = ground3_1Material;
-		groundLevelGoToLevel2.GetComponent<MeshRenderer>().material = ground3Material;
-
-		groundLevel2_0_1.GetComponent<MeshRenderer>().material = ground3_1Material;
-		groundLevel2_0_2.GetComponent<MeshRenderer>().material = ground3_1Material;
-		groundLevel2_1.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevel2_2_1.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevel2_2_2.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevel2_2_3.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevel2_2_4.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevel2_2_5.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevel2_2_6.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevel2_2_7.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevel2_2_8.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevel2_2_9.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevel2_3.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevel2_4_1.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevel2_4_2.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevel2_4_3.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevel2_4_4.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevel2_4_5.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevel2_5.GetComponent<MeshRenderer>().material = ground3Material;
-		groundLevelGoToLevel3.GetComponent<MeshRenderer>().material = ground3Material;
-
-		groundLevel3_0_1.GetComponent<MeshRenderer>().material = ground3_1Material;
-		groundLevel3_0_2.GetComponent<MeshRenderer>().material = ground3_1Material;
-		groundLevel3_1.GetComponent<MeshRenderer>().material = ground3Material;
-
-
-		/*bridgeLevel1_1.GetComponent<MeshRenderer>().material = ground3Material;
-		bridgeLevel1_2.GetComponent<MeshRenderer>().material = ground3Material;
-		bridgeLevel1_3.GetComponent<MeshRenderer>().material = ground3Material;
-		bridgeLevel1_4_1.GetComponent<MeshRenderer>().material = ground3Material;
-		bridgeLevel1_4_2.GetComponent<MeshRenderer>().material = ground3Material;
-		bridgeLevel1_5.GetComponent<MeshRenderer>().material = ground3Material;
-		bridgeLevelGoToLevel2.GetComponent<MeshRenderer>().material = ground3Material;
-
-		bridgeLevel2_1.GetComponent<MeshRenderer>().material = ground3Material;
-		bridgeLevel2_2.GetComponent<MeshRenderer>().material = ground3Material;
-		bridgeLevel2_3.GetComponent<MeshRenderer>().material = ground3Material;
-		bridgeLevel2_4.GetComponent<MeshRenderer>().material = ground3Material;
-		bridgeLevel2_5.GetComponent<MeshRenderer>().material = ground3Material;
-		bridgeLevelGoToLevel3_1.GetComponent<MeshRenderer>().material = ground3Material;
-		bridgeLevelGoToLevel3_2.GetComponent<MeshRenderer>().material = ground3Material;*/
 	}
 
 	public void ShopGround4()
 	{
 		UncheckAllGroundCheckImages();
 		ground4Check.SetActive(true);
+		groundFill1.GetComponent<MeshRenderer>().material = ground4_1Material;
+		groundFill2.GetComponent<MeshRenderer>().material = ground4_1Material;
 		gameController.groundStatus = 4;
-
-
-		groundLevel1_1.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevel1_2.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevel1_3.GetComponent<MeshRenderer>().material = ground4_1Material;
-		groundLevel1_4.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevel1_5.GetComponent<MeshRenderer>().material = ground4_1Material;
-		groundLevelGoToLevel2.GetComponent<MeshRenderer>().material = ground4Material;
-
-		groundLevel2_0_1.GetComponent<MeshRenderer>().material = ground4_1Material;
-		groundLevel2_0_2.GetComponent<MeshRenderer>().material = ground4_1Material;
-		groundLevel2_1.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevel2_2_1.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevel2_2_2.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevel2_2_3.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevel2_2_4.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevel2_2_5.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevel2_2_6.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevel2_2_7.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevel2_2_8.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevel2_2_9.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevel2_3.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevel2_4_1.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevel2_4_2.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevel2_4_3.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevel2_4_4.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevel2_4_5.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevel2_5.GetComponent<MeshRenderer>().material = ground4Material;
-		groundLevelGoToLevel3.GetComponent<MeshRenderer>().material = ground4Material;
-
-		groundLevel3_0_1.GetComponent<MeshRenderer>().material = ground4_1Material;
-		groundLevel3_0_2.GetComponent<MeshRenderer>().material = ground4_1Material;
-		groundLevel3_1.GetComponent<MeshRenderer>().material = ground4Material;
-
-
-		/*bridgeLevel1_1.GetComponent<MeshRenderer>().material = ground4Material;
-		bridgeLevel1_2.GetComponent<MeshRenderer>().material = ground4Material;
-		bridgeLevel1_3.GetComponent<MeshRenderer>().material = ground4Material;
-		bridgeLevel1_4_1.GetComponent<MeshRenderer>().material = ground4Material;
-		bridgeLevel1_4_2.GetComponent<MeshRenderer>().material = ground4Material;
-		bridgeLevel1_5.GetComponent<MeshRenderer>().material = ground4Material;
-		bridgeLevelGoToLevel2.GetComponent<MeshRenderer>().material = ground4Material;
-
-		bridgeLevel2_1.GetComponent<MeshRenderer>().material = ground4Material;
-		bridgeLevel2_2.GetComponent<MeshRenderer>().material = ground4Material;
-		bridgeLevel2_3.GetComponent<MeshRenderer>().material = ground4Material;
-		bridgeLevel2_4.GetComponent<MeshRenderer>().material = ground4Material;
-		bridgeLevel2_5.GetComponent<MeshRenderer>().material = ground4Material;
-		bridgeLevelGoToLevel3_1.GetComponent<MeshRenderer>().material = ground4Material;
-		bridgeLevelGoToLevel3_2.GetComponent<MeshRenderer>().material = ground4Material;*/
 	}
 
 	public void ShopGround5()
 	{
 		UncheckAllGroundCheckImages();
 		ground5Check.SetActive(true);
+		groundFill1.GetComponent<MeshRenderer>().material = ground5_1Material;
+		groundFill2.GetComponent<MeshRenderer>().material = ground5_1Material;
 		gameController.groundStatus = 5;
-
-
-		groundLevel1_1.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevel1_2.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevel1_3.GetComponent<MeshRenderer>().material = ground5_1Material;
-		groundLevel1_4.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevel1_5.GetComponent<MeshRenderer>().material = ground5_1Material;
-		groundLevelGoToLevel2.GetComponent<MeshRenderer>().material = ground5Material;
-
-		groundLevel2_0_1.GetComponent<MeshRenderer>().material = ground5_1Material;
-		groundLevel2_0_2.GetComponent<MeshRenderer>().material = ground5_1Material;
-		groundLevel2_1.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevel2_2_1.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevel2_2_2.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevel2_2_3.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevel2_2_4.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevel2_2_5.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevel2_2_6.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevel2_2_7.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevel2_2_8.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevel2_2_9.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevel2_3.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevel2_4_1.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevel2_4_2.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevel2_4_3.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevel2_4_4.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevel2_4_5.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevel2_5.GetComponent<MeshRenderer>().material = ground5Material;
-		groundLevelGoToLevel3.GetComponent<MeshRenderer>().material = ground5Material;
-
-		groundLevel3_0_1.GetComponent<MeshRenderer>().material = ground5_1Material;
-		groundLevel3_0_2.GetComponent<MeshRenderer>().material = ground5_1Material;
-		groundLevel3_1.GetComponent<MeshRenderer>().material = ground5Material;
-
-
-		/*bridgeLevel1_1.GetComponent<MeshRenderer>().material = ground5Material;
-		bridgeLevel1_2.GetComponent<MeshRenderer>().material = ground5Material;
-		bridgeLevel1_3.GetComponent<MeshRenderer>().material = ground5Material;
-		bridgeLevel1_4_1.GetComponent<MeshRenderer>().material = ground5Material;
-		bridgeLevel1_4_2.GetComponent<MeshRenderer>().material = ground5Material;
-		bridgeLevel1_5.GetComponent<MeshRenderer>().material = ground5Material;
-		bridgeLevelGoToLevel2.GetComponent<MeshRenderer>().material = ground5Material;
-
-		bridgeLevel2_1.GetComponent<MeshRenderer>().material = ground5Material;
-		bridgeLevel2_2.GetComponent<MeshRenderer>().material = ground5Material;
-		bridgeLevel2_3.GetComponent<MeshRenderer>().material = ground5Material;
-		bridgeLevel2_4.GetComponent<MeshRenderer>().material = ground5Material;
-		bridgeLevel2_5.GetComponent<MeshRenderer>().material = ground5Material;
-		bridgeLevelGoToLevel3_1.GetComponent<MeshRenderer>().material = ground5Material;
-		bridgeLevelGoToLevel3_2.GetComponent<MeshRenderer>().material = ground5Material;*/
 	}
 }
