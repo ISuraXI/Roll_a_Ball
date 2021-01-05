@@ -261,6 +261,7 @@ public class GameController : MonoBehaviour
 
 	public void StartGame() //TODO fix Timer + trigger + remove duplicateeees
 	{
+		uiMenuController.GroundSetter();
 		GameStartLevelStatus();
 		level = 0;
 		counter = 0f;
