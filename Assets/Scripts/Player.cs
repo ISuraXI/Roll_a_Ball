@@ -95,7 +95,7 @@ public class Player : MonoBehaviour
 		}
 
 
-		if (!gameController.menuCanvas.activeSelf)
+		if (!gameController.menuCanvas.activeSelf && !gameController.pauseCanvas.activeSelf)
 		{
 			if (Input.GetKeyDown(KeyCode.Space) && contactWithGround)
 			{
@@ -104,7 +104,8 @@ public class Player : MonoBehaviour
 
 			foreach (var touch in Input.touches)
 			{
-				if (touch.phase == TouchPhase.Began && contactWithGround)
+				Vector3 touchPos = Camera.main.ScreenToViewportPoint(touch.position);
+				if (touch.phase == TouchPhase.Began && contactWithGround && touchPos.y < 0.75f)
 				{
 					rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
 				}

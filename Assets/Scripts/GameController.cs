@@ -357,8 +357,6 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
-		Debug.Log(passedLevel);
-
 		SaveGameControllerData();
 
 		if (GodMode)
