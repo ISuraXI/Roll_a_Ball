@@ -813,7 +813,7 @@ public class GameController : MonoBehaviour
 		bridge1_5.SetActive(false);
 		level1_5.SetActive(false);
 		rotateObject.GetComponent<RotationLevel5>().enabled = false;
-
+		rotateObject.transform.eulerAngles = new Vector3(90, 0, -90);
 
 		openWall1_5.SetActive(true);
 		goToLevel2Bridge.SetActive(false);
@@ -841,8 +841,8 @@ public class GameController : MonoBehaviour
 		mover2.GetComponent<PathMover>().enabled = false;
 		mover1.GetComponent<PathMover>().Test();
 		mover2.GetComponent<PathMover>().Test();
-		mover1.transform.position = new Vector3(-7.926678f, 41.77216f, 204.5818f);
-		mover2.transform.position = new Vector3(8.513323f, 41.77216f, 193.5818f);
+		mover1.transform.position = new Vector3(-7.926678f, 41.77216f, 207.1318f);
+		mover2.transform.position = new Vector3(8.513323f, 41.77216f, 191.0318f);
 		DamageCylinderLevel2_5.GetComponent<PathMover>().enabled = false;
 
 		openWall2_4.SetActive(true);
