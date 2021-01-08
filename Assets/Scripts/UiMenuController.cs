@@ -82,10 +82,18 @@ public class UiMenuController : MonoBehaviour
 
 	public void KlickOnBack()
 	{
-		gameController.menuCanvas.SetActive(true);
+		if (gameController.pauseCanvas.activeSelf)
+		{
+			gameController.menuCanvas.SetActive(false);
+		}
+		else
+		{
+			gameController.menuCanvas.SetActive(true);
+		}
 		gameController.levelCanvas.SetActive(false);
 		gameController.shopBallCanvas.SetActive(false);
 		gameController.shopGroundCanvas.SetActive(false);
+		gameController.settingsCanvas.SetActive(false);
 	}
 
 	public void KlickOnResume()
@@ -98,6 +106,11 @@ public class UiMenuController : MonoBehaviour
 	{
 		gameController.pauseCanvas.SetActive(true);
 		Time.timeScale = 0;
+	}
+
+	public void KlickOnSettings()
+	{
+		gameController.settingsCanvas.SetActive(true);
 	}
 
 	public void KlickOnGrounds()

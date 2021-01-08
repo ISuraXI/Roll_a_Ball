@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
 	public GameObject playerGameObject;
 	public Resetter resetter;
 	public UiMenuController uiMenuController;
+	//public SoundManger soundManger;
 
 	//UI Canvas
 	public GameObject playCanvas;
@@ -18,6 +19,7 @@ public class GameController : MonoBehaviour
 	public GameObject shopGroundCanvas;
 	public GameObject levelCanvas;
 	public GameObject pauseCanvas;
+	public GameObject settingsCanvas;
 	public GameObject skyboxController;
 	public GameObject CounterUI;
 
@@ -37,6 +39,11 @@ public class GameController : MonoBehaviour
 	//Damage
 	public Transform greenHealthBar;
 	public Transform redHealthBar;
+
+	//Sound
+	public float volume = 0.2f;
+	public GameObject volumeSlider;
+	public GameObject soundMangaer;
 
 	//Level
 	public GameObject level1_1;
@@ -247,6 +254,7 @@ public class GameController : MonoBehaviour
 		highscoreLevel10 = data.highscoreLevel10;
 		groundStatus = data.groundStatus;
 		ballStatus = data.ballStatus;
+		volume = data.volume;
 
 		SetHighscore();
 		uiMenuController.GroundSetter();
@@ -257,6 +265,11 @@ public class GameController : MonoBehaviour
 	public void SaveGameControllerData()
 	{
 		SaveSystem.SaveGameController(this);
+	}
+
+	public void AdjustVolume(float newVolume)
+	{
+		volume = newVolume;
 	}
 
 	public void StartGame() //TODO fix Timer + trigger + remove duplicateeees
@@ -358,6 +371,9 @@ public class GameController : MonoBehaviour
 	private void Update()
 	{
 		SaveGameControllerData();
+
+		soundMangaer.GetComponent<AudioSource>().volume = volume;
+		volumeSlider.GetComponent<Slider>().value = volume;
 
 		if (GodMode)
 		{

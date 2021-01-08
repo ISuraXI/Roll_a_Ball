@@ -18,6 +18,7 @@ public class GameControllerData
 	public int highscoreLevel10;
 	public int groundStatus;
 	public int ballStatus;
+	public float volume = 0.2f;
 
 	public GameControllerData(GameController gameController)
 	{
@@ -34,6 +35,7 @@ public class GameControllerData
 		highscoreLevel10 = gameController.highscoreLevel10;
 		groundStatus = gameController.groundStatus;
 		ballStatus = gameController.ballStatus;
+		volume = gameController.volume;
 	}
 
 }
