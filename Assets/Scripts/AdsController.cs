@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,7 @@ public class AdsController : MonoBehaviour, IUnityAdsListener
     /*public void DisplayInterstitialAd()
     {
 	    Advertisement.Show();
-    }*/
+    }#1#
 
     public void DisplayVideoAD()
     {
@@ -63,3 +64,4 @@ public class AdsController : MonoBehaviour, IUnityAdsListener
 	    Advertisement.RemoveListener(this);
     }
 }
+*/
