@@ -22,7 +22,7 @@ public class PathMover : MonoBehaviour
         }
     }
 
-    public void Test()
+    public void SetCurrentToZero()
     {
 	    current = 0;
     }

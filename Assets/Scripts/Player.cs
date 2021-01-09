@@ -163,6 +163,14 @@ public class Player : MonoBehaviour
 	{
 		if (other.gameObject.CompareTag("GroundTrigger"))
 		{
+			gameObject.GetComponent<Rigidbody>().isKinematic = false;
+			gameObject.GetComponent<Teleport1>().enabled = false;
+			gameObject.GetComponent<Teleport1>().SetCurrentToZero();
+			gameObject.GetComponent<Teleport2>().enabled = false;
+			gameObject.GetComponent<Teleport2>().SetCurrentToZero();
+			gameObject.GetComponent<Teleport3>().enabled = false;
+			gameObject.GetComponent<Teleport3>().SetCurrentToZero();
+
 			switch (gameController.level)
 			{
 				case 5:
@@ -181,15 +189,31 @@ public class Player : MonoBehaviour
 
 		else if (other.gameObject.CompareTag("Transporter"))
 		{
-			for (var i = 0; i < 50; i++)
+			/*for (var i = 0; i < 50; i++)
 			{
 				rb.AddForce(0, 0.45f, 0, ForceMode.Impulse);
+			}*/
+
+			gameObject.GetComponent<Rigidbody>().isKinematic = true;
+
+			switch (gameController.level)
+			{
+				case 5:
+					gameObject.GetComponent<Teleport1>().enabled = true;
+					break;
+				case 11:
+					gameObject.GetComponent<Teleport2>().enabled = true;
+					break;
+				case 17:
+					gameObject.GetComponent<Teleport3>().enabled = true;
+					break;
 			}
 
 			if (gameController.level1)
 			{
 				if (gameController.level == 5)
 				{
+					gameObject.GetComponent<Teleport1>().enabled = true;
 					gameController.passedLevel = 1;
 					gameController.level1 = false;
 				}
@@ -198,6 +222,7 @@ public class Player : MonoBehaviour
 			{
 				if (gameController.level == 11)
 				{
+					gameObject.GetComponent<Teleport2>().enabled = true;
 					gameController.passedLevel = 2;
 					gameController.level2 = false;
 				}
@@ -206,6 +231,7 @@ public class Player : MonoBehaviour
 			{
 				if (gameController.level == 17)
 				{
+					gameObject.GetComponent<Teleport3>().enabled = true;
 					gameController.passedLevel = 3;
 					gameController.level3 = false;
 				}

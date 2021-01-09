@@ -855,8 +855,8 @@ public class GameController : MonoBehaviour
 		level2_4.SetActive(false);
 		mover1.GetComponent<PathMover>().enabled = false;
 		mover2.GetComponent<PathMover>().enabled = false;
-		mover1.GetComponent<PathMover>().Test();
-		mover2.GetComponent<PathMover>().Test();
+		mover1.GetComponent<PathMover>().SetCurrentToZero();
+		mover2.GetComponent<PathMover>().SetCurrentToZero();
 		mover1.transform.position = new Vector3(-7.926678f, 41.77216f, 207.1318f);
 		mover2.transform.position = new Vector3(8.513323f, 41.77216f, 191.0318f);
 		DamageCylinderLevel2_5.GetComponent<PathMover>().enabled = false;
