@@ -694,9 +694,6 @@ public class GameController : MonoBehaviour
 			highscoreLevel5Text.text = "Highscore" + Environment.NewLine + score;
 			highscoreLevel5 = score;
 		}
-
-		score = 0;
-		scoreText.text = "Score: " + score;
 	}
 
 	public void SetHighscore()
@@ -722,6 +719,12 @@ public class GameController : MonoBehaviour
 		//Set GameOver texts
 		gameOverScoreText.text = "Score: " + score;
 		gameOverCounterText.text = timePlayingStr;
+	}
+
+	public void SetScoreToZero()
+	{
+		score = 0;
+		scoreText.text = "Score: " + score;
 	}
 
 	public void StartLevel1() //TODO use int which represents level

@@ -185,6 +185,7 @@ public class Player : MonoBehaviour
 					break;
 			}
 
+			gameController.SetScoreToZero();
 		}
 
 		else if (other.gameObject.CompareTag("Transporter"))
