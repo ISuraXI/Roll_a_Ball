@@ -7,6 +7,7 @@ public class UiMenuController : MonoBehaviour
 	public GameController gameController;
 	public Resetter resetter;
 
+
 	public GameObject BuyBallCanvas2;
 	public GameObject BuyBallCanvas3;
 	public GameObject BuyBallCanvas4;
@@ -14,8 +15,6 @@ public class UiMenuController : MonoBehaviour
 	public GameObject BuyBallCanvas6;
 	public GameObject BuyBallCanvas7;
 	public GameObject BuyBallCanvas8;
-	public GameObject BuyBallCanvas9;
-	public GameObject BuyBallCanvas10;
 
 	public Material ball1Material;
 	public Material ball2Material;
@@ -25,8 +24,6 @@ public class UiMenuController : MonoBehaviour
 	public Material ball6Material;
 	public Material ball7Material;
 	public Material ball8Material;
-	public Material ball9Material;
-	public Material ball10Material;
 
 	public GameObject ball1Check;
 	public GameObject ball2Check;
@@ -36,8 +33,6 @@ public class UiMenuController : MonoBehaviour
 	public GameObject ball6Check;
 	public GameObject ball7Check;
 	public GameObject ball8Check;
-	public GameObject ball9Check;
-	public GameObject ball10Check;
 
 	public GameObject ball2Lock;
 	public GameObject ball3Lock;
@@ -46,17 +41,12 @@ public class UiMenuController : MonoBehaviour
 	public GameObject ball6Lock;
 	public GameObject ball7Lock;
 	public GameObject ball8Lock;
-	public GameObject ball9Lock;
-	public GameObject ball10Lock;
-
-
 
 
 	public GameObject BuyGroundCanvas2;
 	public GameObject BuyGroundCanvas3;
 	public GameObject BuyGroundCanvas4;
 	public GameObject BuyGroundCanvas5;
-
 
 	public Material ground1Material;
 	public Material ground2Material;
@@ -67,7 +57,6 @@ public class UiMenuController : MonoBehaviour
 	public Material ground4_1Material;
 	public Material ground5Material;
 	public Material ground5_1Material;
-
 
 	public GameObject ground1Check;
 	public GameObject ground2Check;
@@ -190,14 +179,6 @@ public class UiMenuController : MonoBehaviour
 		{
 			ShopBall8();
 		}
-		else if (gameController.ballStatus == 9)
-		{
-			ShopBall9();
-		}
-		else if (gameController.ballStatus == 10)
-		{
-			ShopBall10();
-		}
 	}
 
 	public void CloseBuyCanvas()
@@ -209,8 +190,6 @@ public class UiMenuController : MonoBehaviour
 		BuyBallCanvas6.SetActive(false);
 		BuyBallCanvas7.SetActive(false);
 		BuyBallCanvas8.SetActive(false);
-		BuyBallCanvas9.SetActive(false);
-		BuyBallCanvas10.SetActive(false);
 
 		BuyGroundCanvas2.SetActive(false);
 		BuyGroundCanvas3.SetActive(false);
@@ -228,8 +207,6 @@ public class UiMenuController : MonoBehaviour
 		ball6Check.SetActive(false);
 		ball7Check.SetActive(false);
 		ball8Check.SetActive(false);
-		ball9Check.SetActive(false);
-		ball10Check.SetActive(false);
 	}
 
 	public void ShopBall1()
@@ -352,6 +329,29 @@ public class UiMenuController : MonoBehaviour
 		ball4Lock.SetActive(false);
 	}
 
+
+	public void ClickOnBall5()
+	{
+		if (ball5Lock.activeSelf)
+		{
+			BuyBallCanvas5.SetActive(true);
+		}
+		else
+		{
+			ShopBall5();
+		}
+	}
+
+	public void ClickOnBuyBall5()
+	{
+		if (gameController.coins >= 100)
+		{
+			gameController.coins = gameController.coins - 100;
+			ShopBall5();
+			BuyBallCanvas5.SetActive(false);
+		}
+	}
+
 	public void ShopBall5()
 	{
 		gameController.ballStatus = 5;
@@ -359,6 +359,11 @@ public class UiMenuController : MonoBehaviour
 		UncheckAllCheckImages();
 		ball5Lock.SetActive(false);
 		ball5Check.SetActive(true);
+	}
+
+	public void UnlockBall5()
+	{
+		ball5Lock.SetActive(false);
 	}
 
 	public void ClickOnBall6()
@@ -471,53 +476,6 @@ public class UiMenuController : MonoBehaviour
 	{
 		ball8Lock.SetActive(false);
 	}
-
-	public void ClickOnBall9()
-	{
-		if (ball9Lock.activeSelf)
-		{
-			BuyBallCanvas9.SetActive(true);
-		}
-		else
-		{
-			ShopBall9();
-		}
-	}
-
-	public void ClickOnBuyBall9()
-	{
-		if (gameController.coins >= 100)
-		{
-			gameController.coins = gameController.coins - 100;
-			ShopBall9();
-			BuyBallCanvas9.SetActive(false);
-		}
-	}
-
-	public void ShopBall9()
-	{
-		gameController.ballStatus = 9;
-		gameController.playerGameObject.GetComponent<MeshRenderer>().material = ball9Material;
-		UncheckAllCheckImages();
-		ball9Check.SetActive(true);
-		ball9Lock.SetActive(false);
-		gameController.ball9Unlocked = true;
-	}
-
-	public void UnlockBall9()
-	{
-		ball9Lock.SetActive(false);
-	}
-
-	public void ShopBall10()
-	{
-		gameController.ballStatus = 10;
-		gameController.playerGameObject.GetComponent<MeshRenderer>().material = ball10Material;
-		UncheckAllCheckImages();
-		ball10Lock.SetActive(false);
-		ball10Check.SetActive(true);
-	}
-
 
 	public void GroundSetter()
 	{
@@ -711,5 +669,35 @@ public class UiMenuController : MonoBehaviour
 	public void UnlockGround5()
 	{
 		ground5Lock.SetActive(false);
+	}
+
+
+
+
+	public void LockAll()
+	{
+		ball2Lock.SetActive(true);
+		ball3Lock.SetActive(true);
+		ball4Lock.SetActive(true);
+		ball5Lock.SetActive(true);
+		ball6Lock.SetActive(true);
+		ball7Lock.SetActive(true);
+		ball8Lock.SetActive(true);
+		gameController.ball2Unlocked = false;
+		gameController.ball3Unlocked = false;
+		gameController.ball4Unlocked = false;
+		gameController.ball5Unlocked = false;
+		gameController.ball6Unlocked = false;
+		gameController.ball7Unlocked = false;
+		gameController.ball8Unlocked = false;
+
+		ground2Lock.SetActive(true);
+		ground3Lock.SetActive(true);
+		ground4Lock.SetActive(true);
+		ground5Lock.SetActive(true);
+		gameController.ground2Unlocked = false;
+		gameController.ground3Unlocked = false;
+		gameController.ground4Unlocked = false;
+		gameController.ground5Unlocked = false;
 	}
 }

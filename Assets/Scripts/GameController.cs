@@ -9,7 +9,6 @@ public class GameController : MonoBehaviour
 	public GameObject playerGameObject;
 	public Resetter resetter;
 	public UiMenuController uiMenuController;
-	//public SoundManger soundManger;
 
 	//UI Canvas
 	public GameObject playCanvas;
@@ -177,10 +176,10 @@ public class GameController : MonoBehaviour
 	public bool ball2Unlocked;
 	public bool ball3Unlocked;
 	public bool ball4Unlocked;
+	public bool ball5Unlocked;
 	public bool ball6Unlocked;
 	public bool ball7Unlocked;
 	public bool ball8Unlocked;
-	public bool ball9Unlocked;
 
 	public bool ground2Unlocked;
 	public bool ground3Unlocked;
@@ -275,10 +274,10 @@ public class GameController : MonoBehaviour
 		ball2Unlocked = data.ball2Unlocked;
 		ball3Unlocked = data.ball3Unlocked;
 		ball4Unlocked = data.ball4Unlocked;
+		ball5Unlocked = data.ball5Unlocked;
 		ball6Unlocked = data.ball6Unlocked;
 		ball7Unlocked = data.ball7Unlocked;
 		ball8Unlocked = data.ball8Unlocked;
-		ball9Unlocked = data.ball9Unlocked;
 
 		ground2Unlocked = data.ground2Unlocked;
 		ground3Unlocked = data.ground3Unlocked;
@@ -768,6 +767,10 @@ public class GameController : MonoBehaviour
 		{
 			uiMenuController.UnlockBall4();
 		}
+		if (ball5Unlocked)
+		{
+			uiMenuController.UnlockBall5();
+		}
 		if (ball6Unlocked)
 		{
 			uiMenuController.UnlockBall6();
@@ -779,10 +782,6 @@ public class GameController : MonoBehaviour
 		if (ball8Unlocked)
 		{
 			uiMenuController.UnlockBall8();
-		}
-		if (ball9Unlocked)
-		{
-			uiMenuController.UnlockBall9();
 		}
 	}
 
