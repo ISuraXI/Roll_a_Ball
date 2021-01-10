@@ -269,6 +269,12 @@ public class UiMenuController : MonoBehaviour
 		UncheckAllCheckImages();
 		ball2Lock.SetActive(false);
 		ball2Check.SetActive(true);
+		gameController.ball2Unlocked = true;
+	}
+
+	public void UnlockBall2()
+	{
+		ball2Lock.SetActive(false);
 	}
 
 	public void ClickOnBall3()
@@ -299,6 +305,12 @@ public class UiMenuController : MonoBehaviour
 		gameController.playerGameObject.GetComponent<MeshRenderer>().material = ball3Material;
 		UncheckAllCheckImages();
 		ball3Check.SetActive(true);
+		ball3Lock.SetActive(false);
+		gameController.ball3Unlocked = true;
+	}
+
+	public void UnlockBall3()
+	{
 		ball3Lock.SetActive(false);
 	}
 
@@ -331,6 +343,12 @@ public class UiMenuController : MonoBehaviour
 		gameController.playerGameObject.GetComponent<MeshRenderer>().material = ball4Material;
 		UncheckAllCheckImages();
 		ball4Check.SetActive(true);
+		ball4Lock.SetActive(false);
+		gameController.ball4Unlocked = true;
+	}
+
+	public void UnlockBall4()
+	{
 		ball4Lock.SetActive(false);
 	}
 
@@ -372,6 +390,12 @@ public class UiMenuController : MonoBehaviour
 		UncheckAllCheckImages();
 		ball6Check.SetActive(true);
 		ball6Lock.SetActive(false);
+		gameController.ball6Unlocked = true;
+	}
+
+	public void UnlockBall6()
+	{
+		ball6Lock.SetActive(false);
 	}
 
 	public void ClickOnBall7()
@@ -402,6 +426,12 @@ public class UiMenuController : MonoBehaviour
 		gameController.playerGameObject.GetComponent<MeshRenderer>().material = ball7Material;
 		UncheckAllCheckImages();
 		ball7Check.SetActive(true);
+		ball7Lock.SetActive(false);
+		gameController.ball7Unlocked = true;
+	}
+
+	public void UnlockBall7()
+	{
 		ball7Lock.SetActive(false);
 	}
 
@@ -434,6 +464,12 @@ public class UiMenuController : MonoBehaviour
 		UncheckAllCheckImages();
 		ball8Check.SetActive(true);
 		ball8Lock.SetActive(false);
+		gameController.ball8Unlocked = true;
+	}
+
+	public void UnlockBall8()
+	{
+		ball8Lock.SetActive(false);
 	}
 
 	public void ClickOnBall9()
@@ -464,6 +500,12 @@ public class UiMenuController : MonoBehaviour
 		gameController.playerGameObject.GetComponent<MeshRenderer>().material = ball9Material;
 		UncheckAllCheckImages();
 		ball9Check.SetActive(true);
+		ball9Lock.SetActive(false);
+		gameController.ball9Unlocked = true;
+	}
+
+	public void UnlockBall9()
+	{
 		ball9Lock.SetActive(false);
 	}
 
@@ -549,6 +591,12 @@ public class UiMenuController : MonoBehaviour
 		groundFill2.GetComponent<MeshRenderer>().material = ground2_1Material;
 		gameController.groundStatus = 2;
 		ground2Lock.SetActive(false);
+		gameController.ground2Unlocked = true;
+	}
+
+	public void UnlockGround2()
+	{
+		ground2Lock.SetActive(false);
 	}
 
 	public void ClickOnGround3()
@@ -580,6 +628,12 @@ public class UiMenuController : MonoBehaviour
 		groundFill1.GetComponent<MeshRenderer>().material = ground3_1Material;
 		groundFill2.GetComponent<MeshRenderer>().material = ground3_1Material;
 		gameController.groundStatus = 3;
+		ground3Lock.SetActive(false);
+		gameController.ground3Unlocked = true;
+	}
+
+	public void UnlockGround3()
+	{
 		ground3Lock.SetActive(false);
 	}
 
@@ -613,6 +667,12 @@ public class UiMenuController : MonoBehaviour
 		groundFill2.GetComponent<MeshRenderer>().material = ground4_1Material;
 		gameController.groundStatus = 4;
 		ground4Lock.SetActive(false);
+		gameController.ground4Unlocked = true;
+	}
+
+	public void UnlockGround4()
+	{
+		ground4Lock.SetActive(false);
 	}
 
 	public void ClickOnGround5()
@@ -644,6 +704,12 @@ public class UiMenuController : MonoBehaviour
 		groundFill1.GetComponent<MeshRenderer>().material = ground5_1Material;
 		groundFill2.GetComponent<MeshRenderer>().material = ground5_1Material;
 		gameController.groundStatus = 5;
+		ground5Lock.SetActive(false);
+		gameController.ground5Unlocked = true;
+	}
+
+	public void UnlockGround5()
+	{
 		ground5Lock.SetActive(false);
 	}
 }

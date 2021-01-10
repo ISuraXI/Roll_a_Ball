@@ -174,6 +174,19 @@ public class GameController : MonoBehaviour
 	public Text highscoreLevel10Text;
 
 	//Shop
+	public bool ball2Unlocked;
+	public bool ball3Unlocked;
+	public bool ball4Unlocked;
+	public bool ball6Unlocked;
+	public bool ball7Unlocked;
+	public bool ball8Unlocked;
+	public bool ball9Unlocked;
+
+	public bool ground2Unlocked;
+	public bool ground3Unlocked;
+	public bool ground4Unlocked;
+	public bool ground5Unlocked;
+
 	public int groundStatus = 1;
 	public int ballStatus = 1;
 
@@ -258,11 +271,27 @@ public class GameController : MonoBehaviour
 		highscoreLevel8 = data.highscoreLevel8;
 		highscoreLevel9 = data.highscoreLevel9;
 		highscoreLevel10 = data.highscoreLevel10;
+
+		ball2Unlocked = data.ball2Unlocked;
+		ball3Unlocked = data.ball3Unlocked;
+		ball4Unlocked = data.ball4Unlocked;
+		ball6Unlocked = data.ball6Unlocked;
+		ball7Unlocked = data.ball7Unlocked;
+		ball8Unlocked = data.ball8Unlocked;
+		ball9Unlocked = data.ball9Unlocked;
+
+		ground2Unlocked = data.ground2Unlocked;
+		ground3Unlocked = data.ground3Unlocked;
+		ground4Unlocked = data.ground4Unlocked;
+		ground5Unlocked = data.ground5Unlocked;
+
 		groundStatus = data.groundStatus;
 		ballStatus = data.ballStatus;
 		volume = data.volume;
 		coins = data.coins;
 
+		UnlockedGrounds();
+		UnlockedBalls();
 		SetHighscore();
 		uiMenuController.GroundSetter();
 		uiMenuController.BallSetter();
@@ -723,6 +752,58 @@ public class GameController : MonoBehaviour
 		coinsBallsText.text = "Coins: " + coins;
 		coinsGroundsText.text = "Coins: " + coins;
 		coinsPauseText.text = "Coins: " + coins;
+	}
+
+	public void UnlockedBalls()
+	{
+		if (ball2Unlocked)
+		{
+			uiMenuController.UnlockBall2();
+		}
+		if (ball3Unlocked)
+		{
+			uiMenuController.UnlockBall3();
+		}
+		if (ball4Unlocked)
+		{
+			uiMenuController.UnlockBall4();
+		}
+		if (ball6Unlocked)
+		{
+			uiMenuController.UnlockBall6();
+		}
+		if (ball7Unlocked)
+		{
+			uiMenuController.UnlockBall7();
+		}
+		if (ball8Unlocked)
+		{
+			uiMenuController.UnlockBall8();
+		}
+		if (ball9Unlocked)
+		{
+			uiMenuController.UnlockBall9();
+		}
+	}
+
+	public void UnlockedGrounds()
+	{
+		if (ground2Unlocked)
+		{
+			uiMenuController.UnlockGround2();
+		}
+		if (ground3Unlocked)
+		{
+			uiMenuController.UnlockGround3();
+		}
+		if (ground4Unlocked)
+		{
+			uiMenuController.UnlockGround4();
+		}
+		if (ground5Unlocked)
+		{
+			uiMenuController.UnlockGround5();
+		}
 	}
 
 	public void SetGameOver()
