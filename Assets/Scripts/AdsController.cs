@@ -12,7 +12,7 @@ public class AdsController : MonoBehaviour, IUnityAdsListener
 	string myPlacementId = "rewardedVideo";
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
 	    Advertisement.AddListener(this);
 		Advertisement.Initialize(GooglePlay_ID, TestMode);

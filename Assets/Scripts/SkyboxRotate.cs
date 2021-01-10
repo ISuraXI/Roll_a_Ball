@@ -4,10 +4,6 @@ public class SkyboxRotate : MonoBehaviour
 {
 	public float Skyboxspeed;
 
-	void Start()
-	{
-	}
-
 	// Update is called once per frame
 	void Update()
 	{
