@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Player : MonoBehaviour
 {
@@ -52,11 +53,11 @@ public class Player : MonoBehaviour
 		{
 			if (gameController.level == 5)
 			{
-				gameController.levelCompleteText.text = "Level 1 complete";
+				gameController.levelCompleteText.text = "Level 1 complete" + Environment.NewLine + "+10 Coins";
 			}
 			else if (gameController.level == 11)
 			{
-				gameController.levelCompleteText.text = "Level 2 complete";
+				gameController.levelCompleteText.text = "Level 2 complete" + Environment.NewLine + "+10 Coins";
 			}
 
 			timeTest -= Time.deltaTime;
@@ -174,13 +175,25 @@ public class Player : MonoBehaviour
 			switch (gameController.level)
 			{
 				case 5:
+					Debug.Log("aAAAAAAAAAAAAAAAAAAAAAaaaaaaaaaaaaaaaa");
 					gameController.timelineLevel2_1.SetActive(true);
 					gameController.groundFillLevel2.SetActive(true);
+
+					//Get Coins for passed the Level
+					gameController.coins = gameController.coins + 10;
+					gameController.groundTrigger2.SetActive(false);
+
 					test = true;
 					break;
 				case 11:
+					Debug.Log("aAAAAAAAAAAAAAAAAAAAAAaaaaaaaaaaaaaaaa");
 					gameController.groundFillLevel3.SetActive(true);
 					gameController.goToLevel3.SetActive(false);
+
+					//Get Coins for passed the Level
+					gameController.coins = gameController.coins + 10;
+					gameController.groundTrigger3.SetActive(false);
+
 					test = true;
 					break;
 			}

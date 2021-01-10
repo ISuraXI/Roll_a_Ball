@@ -19,6 +19,7 @@ public class GameControllerData
 	public int groundStatus;
 	public int ballStatus;
 	public float volume = 0.2f;
+	public int coins = 0;
 
 	public GameControllerData(GameController gameController)
 	{
@@ -36,6 +37,7 @@ public class GameControllerData
 		groundStatus = gameController.groundStatus;
 		ballStatus = gameController.ballStatus;
 		volume = gameController.volume;
+		coins = gameController.coins;
 	}
 
 }

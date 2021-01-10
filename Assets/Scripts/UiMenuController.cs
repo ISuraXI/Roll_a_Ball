@@ -7,6 +7,16 @@ public class UiMenuController : MonoBehaviour
 	public GameController gameController;
 	public Resetter resetter;
 
+	public GameObject BuyBallCanvas2;
+	public GameObject BuyBallCanvas3;
+	public GameObject BuyBallCanvas4;
+	public GameObject BuyBallCanvas5;
+	public GameObject BuyBallCanvas6;
+	public GameObject BuyBallCanvas7;
+	public GameObject BuyBallCanvas8;
+	public GameObject BuyBallCanvas9;
+	public GameObject BuyBallCanvas10;
+
 	public Material ball1Material;
 	public Material ball2Material;
 	public Material ball3Material;
@@ -29,17 +39,32 @@ public class UiMenuController : MonoBehaviour
 	public GameObject ball9Check;
 	public GameObject ball10Check;
 
-	public Material ground1Material;
+	public GameObject ball2Lock;
+	public GameObject ball3Lock;
+	public GameObject ball4Lock;
+	public GameObject ball5Lock;
+	public GameObject ball6Lock;
+	public GameObject ball7Lock;
+	public GameObject ball8Lock;
+	public GameObject ball9Lock;
+	public GameObject ball10Lock;
 
+
+
+
+	public GameObject BuyGroundCanvas2;
+	public GameObject BuyGroundCanvas3;
+	public GameObject BuyGroundCanvas4;
+	public GameObject BuyGroundCanvas5;
+
+
+	public Material ground1Material;
 	public Material ground2Material;
 	public Material ground2_1Material;
-
 	public Material ground3Material;
 	public Material ground3_1Material;
-
 	public Material ground4Material;
 	public Material ground4_1Material;
-
 	public Material ground5Material;
 	public Material ground5_1Material;
 
@@ -49,6 +74,12 @@ public class UiMenuController : MonoBehaviour
 	public GameObject ground3Check;
 	public GameObject ground4Check;
 	public GameObject ground5Check;
+
+	public GameObject ground2Lock;
+	public GameObject ground3Lock;
+	public GameObject ground4Lock;
+	public GameObject ground5Lock;
+
 
 	public GameObject groundFill2;
 	public GameObject groundFill1;
@@ -169,6 +200,24 @@ public class UiMenuController : MonoBehaviour
 		}
 	}
 
+	public void CloseBuyCanvas()
+	{
+		BuyBallCanvas2.SetActive(false);
+		BuyBallCanvas3.SetActive(false);
+		BuyBallCanvas4.SetActive(false);
+		BuyBallCanvas5.SetActive(false);
+		BuyBallCanvas6.SetActive(false);
+		BuyBallCanvas7.SetActive(false);
+		BuyBallCanvas8.SetActive(false);
+		BuyBallCanvas9.SetActive(false);
+		BuyBallCanvas10.SetActive(false);
+
+		BuyGroundCanvas2.SetActive(false);
+		BuyGroundCanvas3.SetActive(false);
+		BuyGroundCanvas4.SetActive(false);
+		BuyGroundCanvas5.SetActive(false);
+	}
+
 	private void UncheckAllCheckImages()
 	{
 		ball1Check.SetActive(false);
@@ -191,12 +240,57 @@ public class UiMenuController : MonoBehaviour
 		ball1Check.SetActive(true);
 	}
 
+	public void ClickOnBall2()
+	{
+		if (ball2Lock.activeSelf)
+		{
+			BuyBallCanvas2.SetActive(true);
+		}
+		else
+		{
+			ShopBall2();
+		}
+	}
+
+	public void ClickOnBuyBall2()
+	{
+		if (gameController.coins >= 20)
+		{
+			gameController.coins = gameController.coins - 20;
+			ShopBall2();
+			BuyBallCanvas2.SetActive(false);
+		}
+	}
+
 	public void ShopBall2()
 	{
 		gameController.ballStatus = 2;
 		gameController.playerGameObject.GetComponent<MeshRenderer>().material = ball2Material;
 		UncheckAllCheckImages();
+		ball2Lock.SetActive(false);
 		ball2Check.SetActive(true);
+	}
+
+	public void ClickOnBall3()
+	{
+		if (ball3Lock.activeSelf)
+		{
+			BuyBallCanvas3.SetActive(true);
+		}
+		else
+		{
+			ShopBall3();
+		}
+	}
+
+	public void ClickOnBuyBall3()
+	{
+		if (gameController.coins >= 20)
+		{
+			gameController.coins = gameController.coins - 20;
+			ShopBall3();
+			BuyBallCanvas3.SetActive(false);
+		}
 	}
 
 	public void ShopBall3()
@@ -205,6 +299,30 @@ public class UiMenuController : MonoBehaviour
 		gameController.playerGameObject.GetComponent<MeshRenderer>().material = ball3Material;
 		UncheckAllCheckImages();
 		ball3Check.SetActive(true);
+		ball3Lock.SetActive(false);
+	}
+
+	public void ClickOnBall4()
+	{
+		if (ball4Lock.activeSelf)
+		{
+			BuyBallCanvas4.SetActive(true);
+		}
+		else
+		{
+			ShopBall4();
+		}
+	}
+
+	public void ClickOnBuyBall4()
+	{
+		if (gameController.coins >= 20)
+		{
+			gameController.coins = gameController.coins - 20;
+
+			ShopBall4();
+			BuyBallCanvas4.SetActive(false);
+		}
 	}
 
 	public void ShopBall4()
@@ -213,6 +331,7 @@ public class UiMenuController : MonoBehaviour
 		gameController.playerGameObject.GetComponent<MeshRenderer>().material = ball4Material;
 		UncheckAllCheckImages();
 		ball4Check.SetActive(true);
+		ball4Lock.SetActive(false);
 	}
 
 	public void ShopBall5()
@@ -220,7 +339,30 @@ public class UiMenuController : MonoBehaviour
 		gameController.ballStatus = 5;
 		gameController.playerGameObject.GetComponent<MeshRenderer>().material = ball5Material;
 		UncheckAllCheckImages();
+		ball5Lock.SetActive(false);
 		ball5Check.SetActive(true);
+	}
+
+	public void ClickOnBall6()
+	{
+		if (ball6Lock.activeSelf)
+		{
+			BuyBallCanvas6.SetActive(true);
+		}
+		else
+		{
+			ShopBall6();
+		}
+	}
+
+	public void ClickOnBuyBall6()
+	{
+		if (gameController.coins >= 100)
+		{
+			gameController.coins = gameController.coins - 100;
+			ShopBall6();
+			BuyBallCanvas6.SetActive(false);
+		}
 	}
 
 	public void ShopBall6()
@@ -229,6 +371,29 @@ public class UiMenuController : MonoBehaviour
 		gameController.playerGameObject.GetComponent<MeshRenderer>().material = ball6Material;
 		UncheckAllCheckImages();
 		ball6Check.SetActive(true);
+		ball6Lock.SetActive(false);
+	}
+
+	public void ClickOnBall7()
+	{
+		if (ball7Lock.activeSelf)
+		{
+			BuyBallCanvas7.SetActive(true);
+		}
+		else
+		{
+			ShopBall7();
+		}
+	}
+
+	public void ClickOnBuyBall7()
+	{
+		if (gameController.coins >= 100)
+		{
+			gameController.coins = gameController.coins - 100;
+			ShopBall7();
+			BuyBallCanvas7.SetActive(false);
+		}
 	}
 
 	public void ShopBall7()
@@ -237,6 +402,29 @@ public class UiMenuController : MonoBehaviour
 		gameController.playerGameObject.GetComponent<MeshRenderer>().material = ball7Material;
 		UncheckAllCheckImages();
 		ball7Check.SetActive(true);
+		ball7Lock.SetActive(false);
+	}
+
+	public void ClickOnBall8()
+	{
+		if (ball8Lock.activeSelf)
+		{
+			BuyBallCanvas8.SetActive(true);
+		}
+		else
+		{
+			ShopBall8();
+		}
+	}
+
+	public void ClickOnBuyBall8()
+	{
+		if (gameController.coins >= 100)
+		{
+			gameController.coins = gameController.coins - 100;
+			ShopBall8();
+			BuyBallCanvas8.SetActive(false);
+		}
 	}
 
 	public void ShopBall8()
@@ -245,6 +433,29 @@ public class UiMenuController : MonoBehaviour
 		gameController.playerGameObject.GetComponent<MeshRenderer>().material = ball8Material;
 		UncheckAllCheckImages();
 		ball8Check.SetActive(true);
+		ball8Lock.SetActive(false);
+	}
+
+	public void ClickOnBall9()
+	{
+		if (ball9Lock.activeSelf)
+		{
+			BuyBallCanvas9.SetActive(true);
+		}
+		else
+		{
+			ShopBall9();
+		}
+	}
+
+	public void ClickOnBuyBall9()
+	{
+		if (gameController.coins >= 100)
+		{
+			gameController.coins = gameController.coins - 100;
+			ShopBall9();
+			BuyBallCanvas9.SetActive(false);
+		}
 	}
 
 	public void ShopBall9()
@@ -253,6 +464,7 @@ public class UiMenuController : MonoBehaviour
 		gameController.playerGameObject.GetComponent<MeshRenderer>().material = ball9Material;
 		UncheckAllCheckImages();
 		ball9Check.SetActive(true);
+		ball9Lock.SetActive(false);
 	}
 
 	public void ShopBall10()
@@ -260,6 +472,7 @@ public class UiMenuController : MonoBehaviour
 		gameController.ballStatus = 10;
 		gameController.playerGameObject.GetComponent<MeshRenderer>().material = ball10Material;
 		UncheckAllCheckImages();
+		ball10Lock.SetActive(false);
 		ball10Check.SetActive(true);
 	}
 
@@ -306,6 +519,28 @@ public class UiMenuController : MonoBehaviour
 		gameController.groundStatus = 1;
 	}
 
+	public void ClickOnGround2()
+	{
+		if (ground2Lock.activeSelf)
+		{
+			BuyGroundCanvas2.SetActive(true);
+		}
+		else
+		{
+			resetter.SetGround2();
+		}
+	}
+
+	public void ClickOnBuyGround2()
+	{
+		if (gameController.coins >= 50)
+		{
+			gameController.coins = gameController.coins - 50;
+			resetter.SetGround2();
+			BuyGroundCanvas2.SetActive(false);
+		}
+	}
+
 	public void ShopGround2()
 	{
 		UncheckAllGroundCheckImages();
@@ -313,6 +548,29 @@ public class UiMenuController : MonoBehaviour
 		groundFill1.GetComponent<MeshRenderer>().material = ground2_1Material;
 		groundFill2.GetComponent<MeshRenderer>().material = ground2_1Material;
 		gameController.groundStatus = 2;
+		ground2Lock.SetActive(false);
+	}
+
+	public void ClickOnGround3()
+	{
+		if (ground3Lock.activeSelf)
+		{
+			BuyGroundCanvas3.SetActive(true);
+		}
+		else
+		{
+			resetter.SetGround3();
+		}
+	}
+
+	public void ClickOnBuyGround3()
+	{
+		if (gameController.coins >= 100)
+		{
+			gameController.coins = gameController.coins - 100;
+			resetter.SetGround3();
+			BuyGroundCanvas3.SetActive(false);
+		}
 	}
 
 	public void ShopGround3()
@@ -322,6 +580,29 @@ public class UiMenuController : MonoBehaviour
 		groundFill1.GetComponent<MeshRenderer>().material = ground3_1Material;
 		groundFill2.GetComponent<MeshRenderer>().material = ground3_1Material;
 		gameController.groundStatus = 3;
+		ground3Lock.SetActive(false);
+	}
+
+	public void ClickOnGround4()
+	{
+		if (ground4Lock.activeSelf)
+		{
+			BuyGroundCanvas4.SetActive(true);
+		}
+		else
+		{
+			resetter.SetGround4();
+		}
+	}
+
+	public void ClickOnBuyGround4()
+	{
+		if (gameController.coins >= 150)
+		{
+			gameController.coins = gameController.coins - 150;
+			resetter.SetGround4();
+			BuyGroundCanvas4.SetActive(false);
+		}
 	}
 
 	public void ShopGround4()
@@ -331,6 +612,29 @@ public class UiMenuController : MonoBehaviour
 		groundFill1.GetComponent<MeshRenderer>().material = ground4_1Material;
 		groundFill2.GetComponent<MeshRenderer>().material = ground4_1Material;
 		gameController.groundStatus = 4;
+		ground4Lock.SetActive(false);
+	}
+
+	public void ClickOnGround5()
+	{
+		if (ground5Lock.activeSelf)
+		{
+			BuyGroundCanvas5.SetActive(true);
+		}
+		else
+		{
+			resetter.SetGround5();
+		}
+	}
+
+	public void ClickOnBuyGround5()
+	{
+		if (gameController.coins >= 200)
+		{
+			gameController.coins = gameController.coins - 200;
+			resetter.SetGround5();
+			BuyGroundCanvas5.SetActive(false);
+		}
 	}
 
 	public void ShopGround5()
@@ -340,5 +644,6 @@ public class UiMenuController : MonoBehaviour
 		groundFill1.GetComponent<MeshRenderer>().material = ground5_1Material;
 		groundFill2.GetComponent<MeshRenderer>().material = ground5_1Material;
 		gameController.groundStatus = 5;
+		ground5Lock.SetActive(false);
 	}
 }

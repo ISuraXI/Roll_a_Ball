@@ -6,8 +6,9 @@ using UnityEngine.Advertisements;
 
 public class AdsController : MonoBehaviour, IUnityAdsListener
 {
+	public GameController gameController;
 	private String GooglePlay_ID = "3967929";
-	private bool TestMode = false;
+	private bool TestMode = true;
 	string myPlacementId = "rewardedVideo";
 
     // Start is called before the first frame update
@@ -31,8 +32,11 @@ public class AdsController : MonoBehaviour, IUnityAdsListener
     // Implement IUnityAdsListener interface methods:
     public void OnUnityAdsDidFinish (string placementId, ShowResult showResult) {
 	    // Define conditional logic for each ad completion status:
-	    if (showResult == ShowResult.Finished) {
-		    Debug.Log("Ehre.");
+	    if (showResult == ShowResult.Finished)
+	    {
+		    gameController.coins += 100;
+		    gameController.SetCoins();
+		    //Debug.Log("Ehre.");
 		    // Reward the user for watching the ad to completion.
 	    } else if (showResult == ShowResult.Skipped) {
 		    Debug.Log("Unehre.");

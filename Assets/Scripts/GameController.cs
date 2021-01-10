@@ -35,6 +35,12 @@ public class GameController : MonoBehaviour
 	public Text scorePointsForTimeBonusText;
 	public Text levelCompleteText;
 	public Text godModeText;
+	public Text coinsBallsText;
+	public Text coinsGroundsText;
+	public Text coinsPauseText;
+
+	//Coins
+	public int coins;
 
 	//Damage
 	public Transform greenHealthBar;
@@ -255,11 +261,12 @@ public class GameController : MonoBehaviour
 		groundStatus = data.groundStatus;
 		ballStatus = data.ballStatus;
 		volume = data.volume;
+		coins = data.coins;
 
 		SetHighscore();
 		uiMenuController.GroundSetter();
 		uiMenuController.BallSetter();
-
+		SetCoins();
 	}
 
 	public void SaveGameControllerData()
@@ -371,6 +378,7 @@ public class GameController : MonoBehaviour
 	private void Update()
 	{
 		SaveGameControllerData();
+		SetCoins();
 
 		soundMangaer.GetComponent<AudioSource>().volume = volume;
 		volumeSlider.GetComponent<Slider>().value = volume;
@@ -708,6 +716,13 @@ public class GameController : MonoBehaviour
 		highscoreLevel8Text.text = "Highscore" + Environment.NewLine + highscoreLevel8;
 		highscoreLevel9Text.text = "Highscore" + Environment.NewLine + highscoreLevel9;
 		highscoreLevel10Text.text = "Highscore" + Environment.NewLine + highscoreLevel10;
+	}
+
+	public void SetCoins()
+	{
+		coinsBallsText.text = "Coins: " + coins;
+		coinsGroundsText.text = "Coins: " + coins;
+		coinsPauseText.text = "Coins: " + coins;
 	}
 
 	public void SetGameOver()
