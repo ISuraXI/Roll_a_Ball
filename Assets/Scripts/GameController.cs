@@ -748,9 +748,9 @@ public class GameController : MonoBehaviour
 
 	public void SetCoins()
 	{
-		coinsBallsText.text = "Coins: " + coins;
-		coinsGroundsText.text = "Coins: " + coins;
-		coinsPauseText.text = "Coins: " + coins;
+		coinsBallsText.text = "" + coins;
+		coinsGroundsText.text = "" + coins;
+		coinsPauseText.text = "" + coins;
 	}
 
 	public void UnlockedBalls()
