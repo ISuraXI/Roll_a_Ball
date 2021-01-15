@@ -753,6 +753,7 @@ public class GameController : MonoBehaviour
 		coinsPauseText.text = "" + coins;
 	}
 
+
 	public void UnlockedBalls()
 	{
 		if (ball2Unlocked)
