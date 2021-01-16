@@ -73,6 +73,9 @@ public class UiMenuController : MonoBehaviour
 	public GameObject groundFill2;
 	public GameObject groundFill1;
 
+	public GameObject musicOn;
+	public GameObject musicOff;
+
 	public void Menu()
 	{
 		player.gameObject.SetActive(false);
@@ -131,6 +134,20 @@ public class UiMenuController : MonoBehaviour
 	public void KlickOnSettings()
 	{
 		gameController.settingsCanvas.SetActive(true);
+	}
+
+	public void KlickOnSoundMute()
+	{
+		musicOff.SetActive(true);
+		musicOn.SetActive(false);
+		gameController.volumeOff();
+	}
+
+	public void KlickOnSoundLoud()
+	{
+		musicOn.SetActive(true);
+		musicOff.SetActive(false);
+		gameController.volumeOn();
 	}
 
 	public void KlickOnGrounds()

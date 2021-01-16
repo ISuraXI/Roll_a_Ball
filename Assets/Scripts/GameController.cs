@@ -295,6 +295,15 @@ public class GameController : MonoBehaviour
 		uiMenuController.GroundSetter();
 		uiMenuController.BallSetter();
 		SetCoins();
+
+		if (volume == 0)
+		{
+			uiMenuController.KlickOnSoundMute();
+		}
+		else
+		{
+			uiMenuController.KlickOnSoundLoud();
+		}
 	}
 
 	public void SaveGameControllerData()
@@ -302,10 +311,20 @@ public class GameController : MonoBehaviour
 		SaveSystem.SaveGameController(this);
 	}
 
-	public void AdjustVolume(float newVolume)
+	public void volumeOff()
+	{
+		volume = 0;
+	}
+
+	public void volumeOn()
+	{
+		volume = 0.2f;
+	}
+
+	/*public void AdjustVolume(float newVolume)
 	{
 		volume = newVolume;
-	}
+	}*/
 
 	public void StartGame() //TODO fix Timer + trigger + remove duplicateeees
 	{
