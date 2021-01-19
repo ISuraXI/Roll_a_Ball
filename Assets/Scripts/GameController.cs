@@ -231,6 +231,11 @@ public class GameController : MonoBehaviour
 	//Health bar
 	private RectTransform greenHealthBarRect;
 	private RectTransform redHealthBarRect;
+	public RectTransform blueHealthBarRect;
+	public GameObject greenHealthBarGameObject;
+	public GameObject redHealthBarGameObject;
+	public GameObject blueHealthBarGameObject;
+	public Text lifeText;
 
 
 	public RectTransform GreenHealthBarRect => greenHealthBarRect;
@@ -432,8 +437,13 @@ public class GameController : MonoBehaviour
 
 		if (GodMode)
 		{
+			greenHealthBarGameObject.SetActive(false);
+			redHealthBarGameObject.SetActive(false);
 			canTakeDamage = false;
 			timerGodMode -= Time.deltaTime;
+			blueHealthBarGameObject.SetActive(true);
+			blueHealthBarRect.sizeDelta = new Vector2(((timerGodMode / 3) *10 ) * 8, 40);
+				lifeText.text = "Safe Mode";
 			var timeGodModeFinal = TimeSpan.FromSeconds(timerGodMode);
 			var timeGodModeFinalStr = "God Mode: " + timeGodModeFinal.ToString("ss");
 			godModeText.text = timeGodModeFinalStr;
@@ -443,11 +453,15 @@ public class GameController : MonoBehaviour
 			godModeLevel2_4.SetActive(true);
 			if (timerGodMode <= 0f)
 			{
+				greenHealthBarGameObject.SetActive(true);
+				redHealthBarGameObject.SetActive(true);
 				godModeText.text = "";
 				godModePlayer.SetActive(false);
 				godModeLevel1_3.SetActive(false);
 				godModeLevel2_2.SetActive(false);
 				godModeLevel2_4.SetActive(false);
+				blueHealthBarGameObject.SetActive(false);
+				lifeText.text = "Life";
 				canTakeDamage = true;
 				timerGodMode = 30f;
 				GodMode = false;
