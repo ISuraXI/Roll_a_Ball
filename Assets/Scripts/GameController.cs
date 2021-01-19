@@ -355,7 +355,7 @@ public class GameController : MonoBehaviour
 		score = 0;
 		scoreText.text = "Score: " + score;
 		collectedPickUps = 0;
-		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
+		pickUpsText.text = "Items: " + collectedPickUps + "/" + activePickUps;
 		counterText.text = "";
 		levelText.text = "";
 		levelCompleteText.text = "";
@@ -521,7 +521,7 @@ public class GameController : MonoBehaviour
 	public void PickUpCollected()
 	{
 		collectedPickUps++;
-		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
+		pickUpsText.text = "Items: " + collectedPickUps + "/" + activePickUps;
 	}
 
 	public void UnlockNextLevel()
@@ -651,7 +651,7 @@ public class GameController : MonoBehaviour
 		CalculateActivePickUpCount();
 		CounterUI.SetActive(true);
 		collectedPickUps = 0;
-		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
+		pickUpsText.text = "Items: " + collectedPickUps + "/" + activePickUps;
 		counter = 0;
 
 		switch (level)
@@ -895,7 +895,7 @@ public class GameController : MonoBehaviour
 		level2_0.SetActive(true);
 
 		CalculateActivePickUpCount(); // is there because to calculate the activePickups on spawn platform and there it is 0
-		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
+		pickUpsText.text = "Items: " + collectedPickUps + "/" + activePickUps;
 
 		level2_1.SetActive(true);
 		groundFillLevel2.SetActive(true);
@@ -922,7 +922,7 @@ public class GameController : MonoBehaviour
 		groundFillLevel3.SetActive(true);
 
 		CalculateActivePickUpCount(); // is there because to calculate the activePickups on spawn platform and there it is 0
-		pickUpsText.text = "Pick-ups: " + collectedPickUps + "/" + activePickUps;
+		pickUpsText.text = "Items: " + collectedPickUps + "/" + activePickUps;
 
 		level3_1.SetActive(true);
 		groundTrigger3.SetActive(false);

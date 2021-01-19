@@ -136,6 +136,7 @@ public class Player : MonoBehaviour
 		if (collision.gameObject.CompareTag("Damage"))
 		{
 			TakeDamage(collision.gameObject.GetComponent<DamageDealer>().Damage);
+			Handheld.Vibrate();
 
 			//Adjust health bar
 			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 8), 40);
