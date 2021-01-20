@@ -34,8 +34,8 @@ public class Player : MonoBehaviour
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 	}
 
-	public bool test;
-	public float timeTest = 2f;
+	public bool levelCompleteBool;
+	public float timeLevelComplete = 2f;
 
 	private void Update()
 	{
@@ -49,23 +49,26 @@ public class Player : MonoBehaviour
 		}
 
 
-		if (test)
+		if (levelCompleteBool)
 		{
 			if (gameController.level == 5)
 			{
-				gameController.levelCompleteText.text = "Level 1 complete" + Environment.NewLine + "+10 Coins";
+				gameController.LevelCompletePanal.SetActive(true);
+				gameController.levelCompleteText.text = "Level 1";
 			}
 			else if (gameController.level == 11)
 			{
-				gameController.levelCompleteText.text = "Level 2 complete" + Environment.NewLine + "+10 Coins";
+				gameController.LevelCompletePanal.SetActive(true);
+				gameController.levelCompleteText.text = "Level 2";
 			}
 
-			timeTest -= Time.deltaTime;
-			if (timeTest <= 0f)
+			timeLevelComplete -= Time.deltaTime;
+			if (timeLevelComplete <= 0f)
 			{
+				gameController.LevelCompletePanal.SetActive(false);
 				gameController.levelCompleteText.text = "";
-				timeTest = 2f;
-				test = false;
+				timeLevelComplete = 2f;
+				levelCompleteBool = false;
 			}
 		}
 
@@ -184,7 +187,7 @@ public class Player : MonoBehaviour
 					gameController.coins = gameController.coins + 10;
 					gameController.groundTrigger2.SetActive(false);
 
-					test = true;
+					levelCompleteBool = true;
 					break;
 				case 11:
 					Debug.Log("aAAAAAAAAAAAAAAAAAAAAAaaaaaaaaaaaaaaaa");
@@ -195,7 +198,7 @@ public class Player : MonoBehaviour
 					gameController.coins = gameController.coins + 10;
 					gameController.groundTrigger3.SetActive(false);
 
-					test = true;
+					levelCompleteBool = true;
 					break;
 			}
 

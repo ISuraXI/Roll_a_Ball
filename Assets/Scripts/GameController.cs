@@ -31,8 +31,11 @@ public class GameController : MonoBehaviour
 	public Text levelText;
 	public Text counterText;
 	public Text scorePointsForLevelText;
+	public GameObject scorePointsForLevel;
 	public Text scorePointsForTimeBonusText;
+	public GameObject scorePointsForTimeBonus;
 	public Text levelCompleteText;
+	public GameObject LevelCompletePanal;
 	public Text godModeText;
 	public Text coinsBallsText;
 	public Text coinsGroundsText;
@@ -365,6 +368,8 @@ public class GameController : MonoBehaviour
 		levelText.text = "";
 		levelCompleteText.text = "";
 		godModeText.text = "";
+		scorePointsForLevel.SetActive(false);
+		scorePointsForTimeBonus.SetActive(false);
 		scorePointsForLevelText.text = "";
 		scorePointsForTimeBonusText.text = "";
 
@@ -484,6 +489,8 @@ public class GameController : MonoBehaviour
 			timerScoreAdd -= Time.deltaTime;
 			if (timerScoreAdd <= 0f)
 			{
+				scorePointsForLevel.SetActive(false);
+				scorePointsForTimeBonus.SetActive(false);
 				scorePointsForLevelText.text = "";
 				scorePointsForTimeBonusText.text = "";
 				timerScoreAdd = 2;
@@ -562,7 +569,7 @@ public class GameController : MonoBehaviour
 					openWall1_1.SetActive(false);
 					level1_2.SetActive(true);
 					levelOutTrigger1_1.SetActive(true);
-					levelText.text = "Stage 1";
+					//levelText.text = "Stage 1";
 					startTimerWinText = true;
 					break;
 				case 1:
@@ -570,7 +577,7 @@ public class GameController : MonoBehaviour
 					bridge1_3.SetActive(true);
 					level1_3.SetActive(true);
 					levelOutTrigger1_2.SetActive(true);
-					levelText.text = "Stage 2";
+					//levelText.text = "Stage 2";
 					startTimerWinText = true;
 					break;
 				case 2:
@@ -578,7 +585,7 @@ public class GameController : MonoBehaviour
 					bridge1_4.SetActive(true);
 					level1_4.SetActive(true);
 					levelOutTrigger1_3.SetActive(true);
-					levelText.text = "Stage 3";
+					//levelText.text = "Stage 3";
 					startTimerWinText = true;
 					break;
 				case 3:
@@ -586,7 +593,7 @@ public class GameController : MonoBehaviour
 					bridge1_5.SetActive(true);
 					level1_5.SetActive(true);
 					levelOutTrigger1_4.SetActive(true);
-					levelText.text = "Stage 4";
+					//levelText.text = "Stage 4";
 					startTimerWinText = true;
 					break;
 				case 4:
@@ -596,7 +603,7 @@ public class GameController : MonoBehaviour
 					levelOutTrigger1_5.SetActive(true);
 					level2_0.SetActive(true);
 					level2_1.SetActive(true);
-					levelText.text = "Stage 5";
+					//levelText.text = "Stage 5";
 					startTimerWinText = true;
 					break;
 				case 6 :
@@ -604,7 +611,7 @@ public class GameController : MonoBehaviour
 					bridge2_1.SetActive(true);
 					level2_2.SetActive(true);
 					levelOutTrigger2_1.SetActive(true);
-					levelText.text = "Stage 1";
+					//levelText.text = "Stage 1";
 					startTimerWinText = true;
 					break;
 				case 7 :
@@ -612,7 +619,7 @@ public class GameController : MonoBehaviour
 					bridge2_2.SetActive(true);
 					level2_3.SetActive(true);
 					levelOutTrigger2_2.SetActive(true);
-					levelText.text = "Stage 2";
+					//levelText.text = "Stage 2";
 					startTimerWinText = true;
 					break;
 				case 8 :
@@ -620,7 +627,7 @@ public class GameController : MonoBehaviour
 					bridge2_3.SetActive(true);
 					level2_4.SetActive(true);
 					levelOutTrigger2_3.SetActive(true);
-					levelText.text = "Stage 3";
+					//levelText.text = "Stage 3";
 					startTimerWinText = true;
 					break;
 				case 9 :
@@ -628,7 +635,7 @@ public class GameController : MonoBehaviour
 					bridge2_4.SetActive(true);
 					level2_5.SetActive(true);
 					levelOutTrigger2_4.SetActive(true);
-					levelText.text = "Stage 4";
+					//levelText.text = "Stage 4";
 					startTimerWinText = true;
 					DamageCylinderLevel2_5.GetComponent<PathMover>().enabled = true;
 					break;
@@ -639,7 +646,7 @@ public class GameController : MonoBehaviour
 					levelOutTrigger2_5.SetActive(true);
 					level3_0.SetActive(true);
 					level3_1.SetActive(true);
-					levelText.text = "Stage 5";
+					//levelText.text = "Stage 5";
 					startTimerWinText = true;
 					break;
 			}
@@ -652,8 +659,10 @@ public class GameController : MonoBehaviour
 		scoreText.text = "Score: " + score;
 		startScorePointAdd = true;
 		CounterUI.SetActive(false);
-		scorePointsForLevelText.text = "+ Level done: " + BaseScore;
-		scorePointsForTimeBonusText.text = "+ Time Bonus: " + (CalculateLevelScore() - BaseScore);
+		scorePointsForLevel.SetActive(true);
+		scorePointsForTimeBonus.SetActive(true);
+		scorePointsForLevelText.text = "Stage done + " + BaseScore;
+		scorePointsForTimeBonusText.text = "Time Bonus  + " + (CalculateLevelScore() - BaseScore);
 		if (level == 8)
 		{
 			level2_3Enemy.SetActive(false);
