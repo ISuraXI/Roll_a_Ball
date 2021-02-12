@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
 		if (gameController.player.gameObject.transform.localScale == new Vector3(3.26f, 3.26f, 3.26f))
 		{
 			gameController.player.gameObject.SetActive(false);
-			gameController.player.gameObject.transform.localScale = new Vector3(1,1,1);
+			gameController.player.gameObject.transform.localScale = new Vector3(0.76f,0.76f,0.76f);
 			gameController.SetGameOver();
 
 		}
