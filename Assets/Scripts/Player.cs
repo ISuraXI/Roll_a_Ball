@@ -39,6 +39,8 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
+		Debug.Log(gameController.level);
+
 		if (health == 100)
 		{
 			fullLife = true;
@@ -48,6 +50,13 @@ public class Player : MonoBehaviour
 			fullLife = false;
 		}
 
+		if (gameController.player.gameObject.transform.localScale == new Vector3(3.26f, 3.26f, 3.26f))
+		{
+			gameController.player.gameObject.SetActive(false);
+			gameController.player.gameObject.transform.localScale = new Vector3(1,1,1);
+			gameController.SetGameOver();
+
+		}
 
 		if (levelCompleteBool)
 		{
@@ -149,6 +158,12 @@ public class Player : MonoBehaviour
 		{
 			contactWithGround = true;
 		}
+		else if (collision.gameObject.CompareTag("BackTeleport"))
+		{
+			gameController.player.GetComponent<Rigidbody>().isKinematic = true;
+			GetComponent<Level3_2Teleport>().enabled = true;
+			gameController.trigger3_2.SetActive(true);
+		}
 	}
 
 	private void OnCollisionExit(Collision collision)
@@ -166,7 +181,16 @@ public class Player : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.CompareTag("GroundTrigger"))
+
+		if (other.gameObject.CompareTag("test"))
+		{
+			gameController.trigger3_2.SetActive(false);
+			GetComponent<Level3_2Teleport>().enabled = false;
+			gameController.player.GetComponent<Rigidbody>().isKinematic = false;
+			gameController.player.GetComponent<Rigidbody>().isKinematic = true;
+			gameController.player.GetComponent<Rigidbody>().isKinematic = false;
+		}
+		else if (other.gameObject.CompareTag("GroundTrigger"))
 		{
 			gameObject.GetComponent<Rigidbody>().isKinematic = false;
 			gameObject.GetComponent<Teleport1>().enabled = false;
@@ -179,7 +203,6 @@ public class Player : MonoBehaviour
 			switch (gameController.level)
 			{
 				case 5:
-					Debug.Log("aAAAAAAAAAAAAAAAAAAAAAaaaaaaaaaaaaaaaa");
 					gameController.timelineLevel2_1.SetActive(true);
 					gameController.groundFillLevel2.SetActive(true);
 
@@ -190,7 +213,6 @@ public class Player : MonoBehaviour
 					levelCompleteBool = true;
 					break;
 				case 11:
-					Debug.Log("aAAAAAAAAAAAAAAAAAAAAAaaaaaaaaaaaaaaaa");
 					gameController.groundFillLevel3.SetActive(true);
 					gameController.goToLevel3.SetActive(false);
 
@@ -281,6 +303,12 @@ public class Player : MonoBehaviour
 			//Update score
 			gameController.PickUpCollected();
 			gameController.UnlockNextLevel();
+		}
+		else if (other.gameObject.CompareTag("PlusSize"))
+		{
+			var plus = new Vector3(gameController.player.transform.localScale.x + 0.5f, gameController.player.transform.localScale.y + 0.5f, gameController.player.transform.localScale.z + 0.5f);
+			gameController.player.transform.localScale = plus;
+			other.gameObject.SetActive(false);
 		}
 		else if (other.gameObject.CompareTag("LevelTrigger"))
 		{

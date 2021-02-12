@@ -17,6 +17,9 @@ TagManager:
   - GroundTrigger
   - test
   - Good Mode
+  - BackTeleport
+  - Level3_2
+  - PlusSize
   layers:
   - Default
   - TransparentFX

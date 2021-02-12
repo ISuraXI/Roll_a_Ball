@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
 	public GameObject playerGameObject;
 	public Resetter resetter;
 	public UiMenuController uiMenuController;
+	public SlidingNumber slidingNumber;
 
 	//UI Canvas
 	public GameObject playCanvas;
@@ -138,10 +139,23 @@ public class GameController : MonoBehaviour
 	public GameObject groundTrigger3;
 
 	public GameObject level3_1;
-	//public GameObject bridge3_1;
+	public GameObject bridge3_1;
 	public GameObject closeWall3_1;
 	public GameObject openWall3_1;
 	public GameObject levelOutTrigger3_1;
+
+	public GameObject level3_2;
+	public GameObject bridge3_2;
+	public GameObject closeWall3_2;
+	public GameObject openWall3_2;
+	public GameObject levelOutTrigger3_2;
+	public GameObject trigger3_2;
+
+	public GameObject level3_3;
+	public GameObject bridge3_3;
+	public GameObject closeWall3_3;
+	public GameObject openWall3_3;
+	public GameObject levelOutTrigger3_3;
 
 	//GameOver
 	public Text gameOverScoreText;
@@ -649,6 +663,17 @@ public class GameController : MonoBehaviour
 					//levelText.text = "Stage 5";
 					startTimerWinText = true;
 					break;
+				case 12 :
+					openWall3_1.SetActive(false);
+					bridge3_1.SetActive(true);
+					level3_2.SetActive(true);
+					levelOutTrigger3_1.SetActive(true);
+					level3_2.SetActive(true);
+					startTimerWinText = true;
+					break;
+				case 13 :
+					//da keine Pickups in level3_2
+					break;
 			}
 		}
 	}
@@ -656,7 +681,8 @@ public class GameController : MonoBehaviour
 	public void CompleteStage()
 	{
 		score += CalculateLevelScore();
-		scoreText.text = "Score: " + score;
+		slidingNumber.SetNumber(score);
+		//scoreText.text = "Score: " + score;
 		startScorePointAdd = true;
 		CounterUI.SetActive(false);
 		scorePointsForLevel.SetActive(true);
@@ -740,7 +766,22 @@ public class GameController : MonoBehaviour
 				closeWall3_1.SetActive(true);
 				level3_0.SetActive(false);
 				break;
+			case 12 :
+				closeWall3_2.SetActive(true);
+				level3_1.SetActive(false);
+				openWall3_2.SetActive(false);
+				bridge3_2.SetActive(true);
+				levelOutTrigger3_2.SetActive(true);
+				level3_3.SetActive(true);
+				level3_3.SetActive(true);
+				startTimerWinText = true;
+				break;
+			case 13 :
+				closeWall3_3.SetActive(true);
+				level3_2.SetActive(false);
+				break;
 		}
+
 
 		level++;
 	}
@@ -1014,10 +1055,25 @@ public class GameController : MonoBehaviour
 		groundFillLevel3.SetActive(false);
 
 		level3_1.SetActive(false);
-		//bridge3_1.SetActive(false);
+		bridge3_1.SetActive(false);
+		closeWall3_1.SetActive(false);
+		openWall3_1.SetActive(true);
 
-		/*level3_2.SetActive(false);
-		bridge3_2.SetActive(false);*/
+		level3_2.SetActive(false);
+		//bridge3_2.SetActive(false);
+		closeWall3_2.SetActive(false);
+		openWall3_2.SetActive(true);
+
+		level3_3.SetActive(false);
+		bridge3_3.SetActive(false);
+		closeWall3_3.SetActive(false);
+		openWall3_3.SetActive(true);
+
+
+		/*level3_4.SetActive(false);
+		bridge3_4.SetActive(false);
+		closeWall3_4.SetActive(false);
+		openWall3_4.SetActive(true);*/
 	}
 
 	public void LevelOutTriggerTurnOff()
@@ -1033,6 +1089,8 @@ public class GameController : MonoBehaviour
 		levelOutTrigger2_4.SetActive(false);
 		levelOutTrigger2_5.SetActive(false);
 		levelOutTrigger3_1.SetActive(false);
+		levelOutTrigger3_2.SetActive(false);
+		levelOutTrigger3_3.SetActive(false);
 	}
 	public void HackAllLevel()
 	{
