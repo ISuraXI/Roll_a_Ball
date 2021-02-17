@@ -12,6 +12,7 @@ public class Resetter : MonoBehaviour
 	private readonly List<GodModePickUp> godModePickUps = new List<GodModePickUp>();
 	private readonly List<Ground> grounds = new List<Ground>();
 	private readonly List<GroundPb> groundPbs = new List<GroundPb>();
+	private readonly List<Upsizer> upsizers = new List<Upsizer>();
 
 	public void AddGameObject(PickUp pickUp)
 	{
@@ -43,6 +44,12 @@ public class Resetter : MonoBehaviour
 		groundPbs.Add(groundPb);
 	}
 
+	public void AddGameObject(Upsizer upsizer)
+	{
+		upsizers.Add(upsizer);
+	}
+
+
 	public void ResetAll()
 	{
 		foreach (var pickUp in pickUps)
@@ -63,6 +70,11 @@ public class Resetter : MonoBehaviour
 		foreach (var openWall in openWalls)
 		{
 			openWall.gameObject.SetActive(false);
+		}
+
+		foreach (var upsizer in upsizers)
+		{
+			upsizer.gameObject.SetActive(true);
 		}
 
 	}

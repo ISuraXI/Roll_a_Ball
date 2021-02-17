@@ -130,6 +130,7 @@ public class GameController : MonoBehaviour
 	public GameObject openWall2_5;
 	public GameObject levelOutTrigger2_5;
 	public GameObject DamageCylinderLevel2_5;
+	public GameObject DamageCylinder2Level2_5;
 
 	public GameObject goToLevel3;
 	public GameObject goToLevel3CloseWall;
@@ -652,6 +653,7 @@ public class GameController : MonoBehaviour
 					//levelText.text = "Stage 4";
 					startTimerWinText = true;
 					DamageCylinderLevel2_5.GetComponent<PathMover>().enabled = true;
+					DamageCylinder2Level2_5.GetComponent<PathMover>().enabled = true;
 					break;
 				case 10 :
 					openWall2_5.SetActive(false);
@@ -994,6 +996,11 @@ public class GameController : MonoBehaviour
 
 	private void GameStartLevelStatus()
 	{
+		//TODO: Player gehört hier nicht hin
+		var plus = new Vector3(0.76f,0.76f,0.76f);
+		player.transform.localScale = plus;
+
+
 		level1_1.SetActive(true);
 		openWall1_1.SetActive(true);
 		level1_2.SetActive(false);
@@ -1042,11 +1049,13 @@ public class GameController : MonoBehaviour
 		mover1.transform.position = new Vector3(-7.926678f, 41.77216f, 207.1318f);
 		mover2.transform.position = new Vector3(8.513323f, 41.77216f, 191.0318f);
 		DamageCylinderLevel2_5.GetComponent<PathMover>().enabled = false;
+		DamageCylinder2Level2_5.GetComponent<PathMover>().enabled = false;
 
 		openWall2_4.SetActive(true);
 		bridge2_5.SetActive(false);
 		level2_5.SetActive(false);
-		DamageCylinderLevel2_5.GetComponent<PathMover>().enabled = false;
+		/*DamageCylinderLevel2_5.GetComponent<PathMover>().enabled = false;
+		DamageCylinder2Level2_5.GetComponent<PathMover>().enabled = false;*/
 
 		openWall2_5.SetActive(true);
 		bridge2_5.SetActive(false);
