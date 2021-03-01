@@ -41,6 +41,11 @@ public class GameController : MonoBehaviour
 	public Text coinsBallsText;
 	public Text coinsGroundsText;
 	public Text coinsPauseText;
+	public Text fpsCounter;
+
+	//FPS counter
+	public float fpsRefreshRate = 1f;
+	private float _timer;
 
 	//Coins
 	public int coins;
@@ -55,124 +60,133 @@ public class GameController : MonoBehaviour
 	public GameObject soundMangaer;
 
 	//Level
-	public GameObject level1_1;
-	public GameObject closeWall1_1;
-	public GameObject openWall1_1;
-	public GameObject levelOutTrigger1_1;
+	public GameObject
+		level1_1,
+		closeWall1_1,
+		openWall1_1,
+		levelOutTrigger1_1,
 
-	public GameObject level1_2;
-	public GameObject bridge1_2;
-	public GameObject closeWall1_2;
-	public GameObject openWall1_2;
-	public GameObject levelOutTrigger1_2;
+		level1_2,
+		bridge1_2,
+		closeWall1_2,
+		openWall1_2,
+		levelOutTrigger1_2,
 
-	public GameObject level1_3;
-	public GameObject bridge1_3;
-	public GameObject closeWall1_3;
-	public GameObject openWall1_3;
-	public GameObject levelOutTrigger1_3;
-	public GameObject godModeLevel1_3;
+		level1_3,
+		bridge1_3,
+		closeWall1_3,
+		openWall1_3,
+		levelOutTrigger1_3,
+		godModeLevel1_3,
 
-	public GameObject level1_4;
-	public GameObject bridge1_4;
-	public GameObject closeWall1_4;
-	public GameObject openWall1_4;
-	public GameObject levelOutTrigger1_4;
+		level1_4,
+		bridge1_4,
+		closeWall1_4,
+		openWall1_4,
+		levelOutTrigger1_4,
 
-	public GameObject level1_5;
-	public GameObject bridge1_5;
-	public GameObject closeWall1_5;
-	public GameObject openWall1_5;
-	public GameObject rotateObject;
-	public GameObject levelOutTrigger1_5;
+		level1_5,
+		bridge1_5,
+		closeWall1_5,
+		openWall1_5,
+		rotateObject,
+		levelOutTrigger1_5,
 
-	public GameObject goToLevel2;
-	public GameObject goToLevel2Bridge;
-	public GameObject goToLevel2CloseWall;
+		goToLevel2,
+		goToLevel2Bridge,
+		goToLevel2CloseWall,
 
-	public GameObject level2_0;
-	public GameObject groundFillLevel2;
-	public GameObject groundTrigger2;
+		level2_0,
+		groundFillLevel2,
+		groundTrigger2,
 
-	public GameObject level2_1;
-	public GameObject bridge2_1;
-	public GameObject closeWall2_1;
-	public GameObject openWall2_1;
-	public GameObject timelineLevel2_1;
-	public GameObject levelOutTrigger2_1;
+		level2_1,
+		bridge2_1,
+		closeWall2_1,
+		openWall2_1,
+		timelineLevel2_1,
+		levelOutTrigger2_1,
 
-	public GameObject level2_2;
-	public GameObject bridge2_2;
-	public GameObject closeWall2_2;
-	public GameObject openWall2_2;
-	public GameObject levelOutTrigger2_2;
-	public GameObject godModeLevel2_2;
+		level2_2,
+		bridge2_2,
+		closeWall2_2,
+		openWall2_2,
+		levelOutTrigger2_2,
+		godModeLevel2_2,
 
-	public GameObject level2_3;
-	public GameObject bridge2_3;
-	public GameObject closeWall2_3;
-	public GameObject openWall2_3;
-	public GameObject levelOutTrigger2_3;
-	public GameObject level2_3Enemy;
+		level2_3,
+		bridge2_3,
+		closeWall2_3,
+		openWall2_3,
+		levelOutTrigger2_3,
+		level2_3Enemy,
 
-	public GameObject level2_4;
-	public GameObject bridge2_4;
-	public GameObject closeWall2_4;
-	public GameObject openWall2_4;
-	public GameObject levelOutTrigger2_4;
-	public GameObject mover1;
-	public GameObject mover2;
-	public GameObject godModeLevel2_4;
+		level2_4,
+		bridge2_4,
+		closeWall2_4,
+		openWall2_4,
+		levelOutTrigger2_4,
+		mover1,
+		mover2,
+		godModeLevel2_4,
 
-	public GameObject level2_5;
-	public GameObject bridge2_5;
-	public GameObject closeWall2_5;
-	public GameObject openWall2_5;
-	public GameObject levelOutTrigger2_5;
-	public GameObject DamageCylinderLevel2_5;
-	public GameObject DamageCylinder2Level2_5;
+		level2_5,
+		bridge2_5,
+		closeWall2_5,
+		openWall2_5,
+		levelOutTrigger2_5,
+		DamageCylinderLevel2_5,
+		DamageCylinder2Level2_5,
 
-	public GameObject goToLevel3;
-	public GameObject goToLevel3CloseWall;
+		goToLevel3,
+		goToLevel3CloseWall,
 
-	public GameObject level3_0;
-	public GameObject groundFillLevel3;
-	public GameObject groundTrigger3;
+		level3_0,
+		groundFillLevel3,
+		groundTrigger3,
 
-	public GameObject level3_1;
-	public GameObject bridge3_1;
-	public GameObject closeWall3_1;
-	public GameObject openWall3_1;
-	public GameObject levelOutTrigger3_1;
+		level3_1,
+		bridge3_1,
+		closeWall3_1,
+		openWall3_1,
+		levelOutTrigger3_1,
 
-	public GameObject level3_2;
-	public GameObject bridge3_2;
-	public GameObject closeWall3_2;
-	public GameObject openWall3_2;
-	public GameObject levelOutTrigger3_2;
-	public GameObject trigger3_2;
+		level3_2,
+		bridge3_2,
+		closeWall3_2,
+		openWall3_2,
+		levelOutTrigger3_2,
+		trigger3_2,
 
-	public GameObject level3_3;
-	public GameObject bridge3_3;
-	public GameObject closeWall3_3;
-	public GameObject openWall3_3;
-	public GameObject levelOutTrigger3_3;
+		level3_3,
+		bridge3_3,
+		closeWall3_3,
+		openWall3_3,
+		levelOutTrigger3_3,
+
+		level3_4,
+		bridge3_4,
+		closeWall3_4,
+		openWall3_4,
+		levelOutTrigger3_4;
 
 	//GameOver
 	public Text gameOverScoreText;
 	public Text gameOverCounterText;
 
 	//Level
-	public int highscoreLevel1;
-	public int highscoreLevel2;
-	public int highscoreLevel3;
-	public int highscoreLevel4;
-	public int highscoreLevel5;
-	public int highscoreLevel6;
-	public int highscoreLevel7;
-	public int highscoreLevel8;
-	public int highscoreLevel9;
-	public int highscoreLevel10;
+	[HideInInspector]
+	public int
+		highscoreLevel1,
+		highscoreLevel2,
+		highscoreLevel3,
+		highscoreLevel4,
+		highscoreLevel5,
+		highscoreLevel6,
+		highscoreLevel7,
+		highscoreLevel8,
+		highscoreLevel9,
+		highscoreLevel10;
 	public int passedLevel = 0;
 	public bool level1 = true;
 	public bool level2 = true;
@@ -488,6 +502,13 @@ public class GameController : MonoBehaviour
 			}
 		}
 
+		if (Time.unscaledTime > _timer)
+		{
+			int fps = (int)(1f / Time.unscaledDeltaTime);
+			fpsCounter.text = "FPS: " + fps;
+			_timer = Time.unscaledTime + fpsRefreshRate;
+		}
+
 		if (startTimerWinText)
 		{
 			timerWinText -= Time.deltaTime;
@@ -674,7 +695,14 @@ public class GameController : MonoBehaviour
 					startTimerWinText = true;
 					break;
 				case 13 :
+					Debug.Log("AAAAAAAAAAAAAAAAAAA");
 					//da keine Pickups in level3_2
+					break;
+				case 14 :
+					Debug.Log("BBBBBBBBBBBBBBBBBBB");
+					break;
+				case 15 :
+
 					break;
 			}
 		}
@@ -771,7 +799,7 @@ public class GameController : MonoBehaviour
 			case 12 :
 				closeWall3_2.SetActive(true);
 				level3_1.SetActive(false);
-				openWall3_2.SetActive(false);
+				//.SetActive(false);
 				bridge3_2.SetActive(true);
 				levelOutTrigger3_2.SetActive(true);
 				level3_3.SetActive(true);
@@ -779,9 +807,22 @@ public class GameController : MonoBehaviour
 				startTimerWinText = true;
 				break;
 			case 13 :
+				Debug.Log("CCCCCCCCCCCCCCCC");
+				//player.GetComponent<Level3_3Teleport>().enabled = true;
 				closeWall3_3.SetActive(true);
 				level3_2.SetActive(false);
 				break;
+			case 14 :
+				Debug.Log("DDDDDDDDDDDDDDD");
+				closeWall3_4.SetActive(true);
+				player.transform.GetComponent<Rigidbody>().isKinematic = false;
+				player.transform.GetComponent<Level3_3Teleport>().enabled = false;
+				level3_3.SetActive(false);
+				break;
+			/*case 15 :
+					closeWall3_5.SetActive(true);
+					level3_4.SetActive(false);
+				break;*/
 		}
 
 
@@ -1071,7 +1112,7 @@ public class GameController : MonoBehaviour
 		level3_2.SetActive(false);
 		//bridge3_2.SetActive(false);
 		closeWall3_2.SetActive(false);
-		openWall3_2.SetActive(true);
+		//openWall3_2.SetActive(true);
 
 		level3_3.SetActive(false);
 		bridge3_3.SetActive(false);
@@ -1079,10 +1120,15 @@ public class GameController : MonoBehaviour
 		openWall3_3.SetActive(true);
 
 
-		/*level3_4.SetActive(false);
+		level3_4.SetActive(false);
 		bridge3_4.SetActive(false);
 		closeWall3_4.SetActive(false);
-		openWall3_4.SetActive(true);*/
+		openWall3_4.SetActive(true);
+
+		/*level3_5.SetActive(false);
+		bridge3_5.SetActive(false);
+		closeWall3_5.SetActive(false);
+		openWall3_5.SetActive(true);*/
 	}
 
 	public void LevelOutTriggerTurnOff()
@@ -1100,6 +1146,8 @@ public class GameController : MonoBehaviour
 		levelOutTrigger3_1.SetActive(false);
 		levelOutTrigger3_2.SetActive(false);
 		levelOutTrigger3_3.SetActive(false);
+		levelOutTrigger3_4.SetActive(false);
+		// levelOutTrigger3_5.SetActive(false);
 	}
 	public void HackAllLevel()
 	{

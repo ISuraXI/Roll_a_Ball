@@ -14,10 +14,10 @@ public class Level3_3Teleport : MonoBehaviour
 
 	void Update()
 	{
-		if (Time.time > nextActionTime) {
-			nextActionTime = Time.time + (1/sampleRate);
+		// if (Time.time > nextActionTime) {
+		// 	nextActionTime = Time.time + (1/sampleRate);
 			Move();
-		}
+		/*}*/
 	}
 
 	public void Move()
@@ -30,8 +30,8 @@ public class Level3_3Teleport : MonoBehaviour
 		else current = (current + 1) % target.Length;
 	}
 
-	public void SetCurrentToZero()
+	/*public void SetCurrentToZero()
 	{
 		current = 0;
-	}
+	}*/
 }

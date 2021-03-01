@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
 			fullLife = false;
 		}
 
-		if (gameController.player.gameObject.transform.localScale == new Vector3(3.26f, 3.26f, 3.26f))
+		if (gameController.player.gameObject.transform.localScale.x >= 3.26f) //Bug fixed by Ehren Felix
 		{
 			gameController.player.gameObject.SetActive(false);
 			gameController.player.gameObject.transform.localScale = new Vector3(0.76f,0.76f,0.76f);
@@ -318,6 +318,21 @@ public class Player : MonoBehaviour
 		else if (other.gameObject.CompareTag("LevelOutTrigger"))
 		{
 			gameController.CompleteStage();
+			other.gameObject.SetActive(false);
+		}
+		else if (other.gameObject.CompareTag("Level3_3OutTrigger"))
+		{
+			gameController.player.GetComponent<Rigidbody>().isKinematic = true;
+			gameController.player.GetComponent<Level3_3Teleport>().enabled = true;
+			gameController.CompleteStage();
+			other.gameObject.SetActive(false);
+			gameController.level3_4.SetActive(true);
+		}
+		else if (other.gameObject.CompareTag("LevelTriggerKinematicToZero"))
+		{
+			gameController.IncreaseLevel();
+			gameController.player.transform.GetComponent<Rigidbody>().isKinematic = true;
+			gameController.player.transform.GetComponent<Rigidbody>().isKinematic = false;
 			other.gameObject.SetActive(false);
 		}
 	}

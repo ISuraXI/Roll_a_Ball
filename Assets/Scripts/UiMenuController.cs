@@ -73,8 +73,11 @@ public class UiMenuController : MonoBehaviour
 	public GameObject groundFill2;
 	public GameObject groundFill1;
 
-	public GameObject musicOn;
-	public GameObject musicOff;
+	public GameObject musicMenuOn;
+	public GameObject musicMenuOff;
+
+	public GameObject musicPauseOn;
+	public GameObject musicPauseOff;
 
 	public void Menu()
 	{
@@ -138,15 +141,19 @@ public class UiMenuController : MonoBehaviour
 
 	public void KlickOnSoundMute()
 	{
-		musicOff.SetActive(true);
-		musicOn.SetActive(false);
+		musicMenuOff.SetActive(true);
+		musicMenuOn.SetActive(false);
+		musicPauseOff.SetActive(true);
+		musicPauseOn.SetActive(false);
 		gameController.volumeOff();
 	}
 
 	public void KlickOnSoundLoud()
 	{
-		musicOn.SetActive(true);
-		musicOff.SetActive(false);
+		musicMenuOn.SetActive(true);
+		musicMenuOff.SetActive(false);
+		musicPauseOn.SetActive(true);
+		musicPauseOff.SetActive(false);
 		gameController.volumeOn();
 	}
 
