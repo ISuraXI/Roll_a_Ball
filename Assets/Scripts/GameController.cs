@@ -60,6 +60,18 @@ public class GameController : MonoBehaviour
 	public GameObject volumeSlider;
 	public GameObject soundMangaer;
 
+	//Sound Effects
+	public GameObject dingSound;
+	public GameObject urghSound;
+	[HideInInspector]
+	public bool soundDingBool;
+	[HideInInspector]
+	public float soundDingTime = 0.5f;
+	[HideInInspector]
+	public bool soundUrghBool;
+	[HideInInspector]
+	public float soundUrghTime = 0.5f;
+
 	//Level
 	public GameObject
 		level1_1,
@@ -442,11 +454,11 @@ public class GameController : MonoBehaviour
 
 		skyboxController.SetActive(false);
 
-		if (level2OnGo || levelStartSafe == 2)
+		if (level2OnGo /*|| levelStartSafe == 2*/)
 		{
 			StartGameLevel2();
 		}
-		else if (level3OnGo || levelStartSafe == 3)
+		else if (level3OnGo /*|| levelStartSafe == 3*/)
 		{
 			StartGameLevel3();
 		}
@@ -493,6 +505,9 @@ public class GameController : MonoBehaviour
 	private void Update()
 	{
 		Debug.Log(level);
+		Debug.Log("levelOnGo:  " + level2OnGo);
+		Debug.Log("levlStartSafe:  " + levelStartSafe);
+
 
 		SaveGameControllerData();
 		SetCoins();
@@ -1001,6 +1016,30 @@ public class GameController : MonoBehaviour
 		scoreText.text = "Score: " + score;
 	}
 
+	public void SetStartLevel() //TODO use int which represents level
+	{
+		if (levelStartSafe == 2)
+		{
+			level2OnGo = true;
+			level3OnGo = false;
+		}
+		else if (levelStartSafe == 3)
+		{
+			level2OnGo = false;
+			level3OnGo = true;
+		}
+		else
+		{
+			level2OnGo = false;
+			level3OnGo = false;
+			/*level4OnGo = false;
+			level5OnGo = false;*/
+		}
+
+		StartGame();
+	}
+
+
 	public void StartLevel1() //TODO use int which represents level
 	{
 		level2OnGo = false;
@@ -1021,6 +1060,23 @@ public class GameController : MonoBehaviour
 			StartGame();
 		}
 	}
+
+
+
+
+
+	/*public void StartLevel2()
+	{
+		if (level2Bool)
+		{
+			level2OnGo = true;
+			level3OnGo = false;
+			/*level4OnGo = false;
+			level5OnGo = false;#1#
+
+			StartGame();
+		}
+	}*/
 
 	public void StartLevel3()
 	{

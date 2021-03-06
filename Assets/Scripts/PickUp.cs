@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PickUp : MonoBehaviour
 	{
 		healthRegeneration = 10;
 		Resetter.AddGameObject(this);
+
 	}
 
 	private void Update()

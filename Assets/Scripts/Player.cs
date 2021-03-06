@@ -39,6 +39,29 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
+		if (gameController.soundDingBool)
+		{
+			gameController.soundDingTime = gameController.soundDingTime - Time.deltaTime;
+			if (gameController.soundDingTime <= 0f)
+			{
+				gameController.dingSound.GetComponent<AudioSource>().enabled = false;
+				gameController.soundDingTime = 0.5f;
+				gameController.soundDingBool = false;
+			}
+		}
+
+		if (gameController.soundUrghBool)
+		{
+			gameController.soundUrghTime = gameController.soundUrghTime - Time.deltaTime;
+			if (gameController.soundUrghTime <= 0f)
+			{
+				gameController.urghSound.GetComponent<AudioSource>().enabled = false;
+				gameController.soundUrghTime = 0.5f;
+				gameController.soundUrghBool = false;
+			}
+		}
+
+
 		if (health == 100)
 		{
 			fullLife = true;
@@ -145,6 +168,8 @@ public class Player : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Damage"))
 		{
+			gameController.urghSound.GetComponent<AudioSource>().enabled = true;
+			gameController.soundUrghBool = true;
 			TakeDamage(collision.gameObject.GetComponent<DamageDealer>().Damage);
 			Handheld.Vibrate();
 
@@ -286,6 +311,8 @@ public class Player : MonoBehaviour
 
 		else if (other.gameObject.CompareTag("Pick Up"))
 		{
+			gameController.dingSound.GetComponent<AudioSource>().enabled = true;
+			gameController.soundDingBool = true;
 			if (!fullLife)
 			{
 				healthParticle.SetActive(false);
@@ -301,6 +328,7 @@ public class Player : MonoBehaviour
 			//Update score
 			gameController.PickUpCollected();
 			gameController.UnlockNextLevel();
+
 		}
 		else if (other.gameObject.CompareTag("PlusSize"))
 		{
