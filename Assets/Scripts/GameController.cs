@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
@@ -203,6 +204,11 @@ public class GameController : MonoBehaviour
 	public bool level3 = true;
 	/*public bool level4 = true; // Didi nicht löschen pls
 	public bool level5 = true;*/
+
+	public GameObject level2CanvasLock;
+	public GameObject level3CanvasLock;
+
+
 	public Text highscoreLevel1Text;
 	public Text highscoreLevel2Text;
 	public Text highscoreLevel3Text;
@@ -335,6 +341,7 @@ public class GameController : MonoBehaviour
 		ballStatus = data.ballStatus;
 		volume = data.volume;
 		coins = data.coins;
+
 		levelStartSafe = data.levelStartSafe;
 		level2Bool = data.level2Bool;
 		level3Bool = data.level3Bool;
@@ -353,6 +360,15 @@ public class GameController : MonoBehaviour
 		else
 		{
 			uiMenuController.KlickOnSoundLoud();
+		}
+
+		if (level2Bool)
+		{
+			level2CanvasLock.SetActive(false);
+		}
+		else if (level3Bool)
+		{
+			level3CanvasLock.SetActive(false);
 		}
 	}
 
@@ -490,6 +506,7 @@ public class GameController : MonoBehaviour
 			{
 				levelStartSafe = 2;
 				level2Bool = true;
+				level2CanvasLock.SetActive(false);
 			}
 		}
 		else if (level >= 11 && !level3Bool)
@@ -498,6 +515,7 @@ public class GameController : MonoBehaviour
 			{
 				levelStartSafe = 3;
 				level3Bool = true;
+				level3CanvasLock.SetActive(false);
 			}
 		}
 
@@ -993,18 +1011,28 @@ public class GameController : MonoBehaviour
 
 	public void StartLevel2()
 	{
-		level2OnGo = true;
-		level3OnGo = false;
-		/*level4OnGo = false;
-		level5OnGo = false;*/
+		if (level2Bool)
+		{
+			level2OnGo = true;
+			level3OnGo = false;
+			/*level4OnGo = false;
+			level5OnGo = false;*/
+
+			StartGame();
+		}
 	}
 
 	public void StartLevel3()
 	{
-		level2OnGo = false;
-		level3OnGo = true;
-		/*level4OnGo = false;
-		level5OnGo = false;*/
+		if (level3Bool)
+		{
+			level2OnGo = false;
+			level3OnGo = true;
+			/*level4OnGo = false;
+			level5OnGo = false;*/
+
+			StartGame();
+		}
 	}
 
 
@@ -1208,5 +1236,16 @@ public class GameController : MonoBehaviour
 		level2_1.SetActive(true);
 		openWall1_2.SetActive(false);
 		openWall2_1.SetActive(false);
+	}
+
+	public void LockLevel()
+	{
+		levelStartSafe = 0;
+		level2Bool = false;
+		level3Bool = false;
+		level2OnGo = false;
+		level3OnGo = false;
+		level2CanvasLock.SetActive(true);
+		level2CanvasLock.SetActive(true);
 	}
 }

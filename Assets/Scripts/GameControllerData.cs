@@ -6,16 +6,16 @@ using UnityEngine;
 public class GameControllerData
 {
 	public int passedLevel;
-	public int highscoreLevel1;
-	public int highscoreLevel2;
-	public int highscoreLevel3;
-	public int highscoreLevel4;
-	public int highscoreLevel5;
-	public int highscoreLevel6;
-	public int highscoreLevel7;
-	public int highscoreLevel8;
-	public int highscoreLevel9;
-	public int highscoreLevel10;
+	public int highscoreLevel1 = 0;
+	public int highscoreLevel2 = 0;
+	public int highscoreLevel3 = 0;
+	public int highscoreLevel4 = 0;
+	public int highscoreLevel5 = 0;
+	public int highscoreLevel6 = 0;
+	public int highscoreLevel7 = 0;
+	public int highscoreLevel8 = 0;
+	public int highscoreLevel9 = 0;
+	public int highscoreLevel10 = 0;
 
 	public bool ball2Unlocked;
 	public bool ball3Unlocked;
