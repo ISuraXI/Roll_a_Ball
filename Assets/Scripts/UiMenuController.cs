@@ -51,12 +51,16 @@ public class UiMenuController : MonoBehaviour
 	public Material ground1Material;
 	public Material ground2Material;
 	public Material ground2_1Material;
+	public Material ground2_2Material;
 	public Material ground3Material;
 	public Material ground3_1Material;
+	public Material ground3_2Material;
 	public Material ground4Material;
 	public Material ground4_1Material;
+	public Material ground4_2Material;
 	public Material ground5Material;
 	public Material ground5_1Material;
+	public Material ground5_2Material;
 
 	public GameObject ground1Check;
 	public GameObject ground2Check;

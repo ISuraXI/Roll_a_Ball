@@ -170,6 +170,12 @@ public class GameController : MonoBehaviour
 		openWall3_4,
 		levelOutTrigger3_4;
 
+		/*level3_5,
+		bridge3_5,
+		closeWall3_5,
+		openWall3_5,
+		levelOutTrigger3_5;*/
+
 	//GameOver
 	public Text gameOverScoreText;
 	public Text gameOverCounterText;
@@ -186,7 +192,11 @@ public class GameController : MonoBehaviour
 		highscoreLevel7,
 		highscoreLevel8,
 		highscoreLevel9,
-		highscoreLevel10;
+		highscoreLevel10,
+		levelStartSafe;
+
+	public bool level2Bool;
+	public bool level3Bool;
 	public int passedLevel = 0;
 	public bool level1 = true;
 	public bool level2 = true;
@@ -280,7 +290,7 @@ public class GameController : MonoBehaviour
 
 	public bool StartTimerGameOverExplosion { get; set; }
 
-	public float TimerGameOverExplosion { get; set; } = 2;
+	public float TimerGameOverExplosion { get; set; } = 1;
 
 
 	public void Start()
@@ -325,6 +335,9 @@ public class GameController : MonoBehaviour
 		ballStatus = data.ballStatus;
 		volume = data.volume;
 		coins = data.coins;
+		levelStartSafe = data.levelStartSafe;
+		level2Bool = data.level2Bool;
+		level3Bool = data.level3Bool;
 
 		UnlockedGrounds();
 		UnlockedBalls();
@@ -413,11 +426,11 @@ public class GameController : MonoBehaviour
 
 		skyboxController.SetActive(false);
 
-		if (level2OnGo)
+		if (level2OnGo || levelStartSafe == 2)
 		{
 			StartGameLevel2();
 		}
-		else if (level3OnGo)
+		else if (level3OnGo || levelStartSafe == 3)
 		{
 			StartGameLevel3();
 		}
@@ -449,7 +462,7 @@ public class GameController : MonoBehaviour
 	{
 		mainCam.transform.Rotate(-45, 0 , 0);
 
-		if (level >= 5 && level <= 11)
+		if (level >= 5 && level < 11)
 		{
 			level2OnGo = true;
 		}
@@ -463,11 +476,30 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
+		Debug.Log(level);
+
 		SaveGameControllerData();
 		SetCoins();
 
 		soundMangaer.GetComponent<AudioSource>().volume = volume;
 		volumeSlider.GetComponent<Slider>().value = volume;
+
+		if (level >= 5 && level < 11 && !level2Bool)
+		{
+			if (!level2Bool)
+			{
+				levelStartSafe = 2;
+				level2Bool = true;
+			}
+		}
+		else if (level >= 11 && !level3Bool)
+		{
+			if (!level3Bool)
+			{
+				levelStartSafe = 3;
+				level3Bool = true;
+			}
+		}
 
 		if (GodMode)
 		{
@@ -701,9 +733,11 @@ public class GameController : MonoBehaviour
 				case 14 :
 					Debug.Log("BBBBBBBBBBBBBBBBBBB");
 					break;
-				case 15 :
-
-					break;
+				/*case 15 :
+					level3_5.SetActive(true);
+					bridge3_4.SetActive(true);
+					openWall3_5.SetActive(false);
+					break;*/
 			}
 		}
 	}

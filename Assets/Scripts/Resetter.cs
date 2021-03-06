@@ -12,6 +12,7 @@ public class Resetter : MonoBehaviour
 	private readonly List<GodModePickUp> godModePickUps = new List<GodModePickUp>();
 	private readonly List<Ground> grounds = new List<Ground>();
 	private readonly List<GroundPb> groundPbs = new List<GroundPb>();
+	private readonly List<GroundRound> groundRounds = new List<GroundRound>();
 	private readonly List<Upsizer> upsizers = new List<Upsizer>();
 
 	public void AddGameObject(PickUp pickUp)
@@ -42,6 +43,11 @@ public class Resetter : MonoBehaviour
 	public void AddGameObject(GroundPb groundPb)
 	{
 		groundPbs.Add(groundPb);
+	}
+
+	public void AddGameObject(GroundRound groundRound)
+	{
+		groundRounds.Add(groundRound);
 	}
 
 	public void AddGameObject(Upsizer upsizer)
@@ -101,6 +107,11 @@ public class Resetter : MonoBehaviour
 			groundPb.gameObject.GetComponent<MeshRenderer>().material = uiMenuController.ground2_1Material;
 		}
 
+		foreach (var groundRound in groundRounds)
+		{
+			groundRound.gameObject.GetComponent<MeshRenderer>().material = uiMenuController.ground2_2Material;
+		}
+
 		uiMenuController.ShopGround2();
 	}
 
@@ -114,6 +125,11 @@ public class Resetter : MonoBehaviour
 		foreach (var groundPb in groundPbs)
 		{
 			groundPb.gameObject.GetComponent<MeshRenderer>().material = uiMenuController.ground3_1Material;
+		}
+
+		foreach (var groundRound in groundRounds)
+		{
+			groundRound.gameObject.GetComponent<MeshRenderer>().material = uiMenuController.ground3_2Material;
 		}
 
 		uiMenuController.ShopGround3();
@@ -131,6 +147,11 @@ public class Resetter : MonoBehaviour
 			groundPb.gameObject.GetComponent<MeshRenderer>().material = uiMenuController.ground4_1Material;
 		}
 
+		foreach (var groundRound in groundRounds)
+		{
+			groundRound.gameObject.GetComponent<MeshRenderer>().material = uiMenuController.ground4_2Material;
+		}
+
 		uiMenuController.ShopGround4();
 	}
 
@@ -144,6 +165,11 @@ public class Resetter : MonoBehaviour
 		foreach (var groundPb in groundPbs)
 		{
 			groundPb.gameObject.GetComponent<MeshRenderer>().material = uiMenuController.ground5_1Material;
+		}
+
+		foreach (var groundRound in groundRounds)
+		{
+			groundRound.gameObject.GetComponent<MeshRenderer>().material = uiMenuController.ground5_2Material;
 		}
 
 		uiMenuController.ShopGround5();

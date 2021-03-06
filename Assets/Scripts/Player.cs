@@ -39,8 +39,6 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
-		Debug.Log(gameController.level);
-
 		if (health == 100)
 		{
 			fullLife = true;
@@ -50,7 +48,7 @@ public class Player : MonoBehaviour
 			fullLife = false;
 		}
 
-		if (gameController.player.gameObject.transform.localScale.x >= 3.26f) //Bug fixed by Ehren Felix
+		if (gameController.player.gameObject.transform.localScale.x >= 2.76f) //Bug fixed by Ehren Felix
 		{
 			gameController.player.gameObject.SetActive(false);
 			gameController.player.gameObject.transform.localScale = new Vector3(0.76f,0.76f,0.76f);
@@ -90,7 +88,7 @@ public class Player : MonoBehaviour
 				if (gameController.TimerGameOverExplosion <= 0f)
 				{
 					gameController.SetGameOver();
-					gameController.TimerGameOverExplosion = 2;
+					gameController.TimerGameOverExplosion = 1;
 					gameController.StartTimerGameOverExplosion = false;
 				}
 		}
@@ -322,6 +320,7 @@ public class Player : MonoBehaviour
 		}
 		else if (other.gameObject.CompareTag("Level3_3OutTrigger"))
 		{
+			gameController.player.transform.localScale = new Vector3(0.76f,0.76f,0.76f);
 			gameController.player.GetComponent<Rigidbody>().isKinematic = true;
 			gameController.player.GetComponent<Level3_3Teleport>().enabled = true;
 			gameController.CompleteStage();
