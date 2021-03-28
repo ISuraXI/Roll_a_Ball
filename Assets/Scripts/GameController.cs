@@ -399,10 +399,6 @@ public class GameController : MonoBehaviour
 		volume = 0.2f;
 	}
 
-	/*public void AdjustVolume(float newVolume)
-	{
-		volume = newVolume;
-	}*/
 
 	public void StartGame() //TODO fix Timer + trigger + remove duplicateeees
 	{
@@ -513,7 +509,9 @@ public class GameController : MonoBehaviour
 		SetCoins();
 
 		soundMangaer.GetComponent<AudioSource>().volume = volume;
-		volumeSlider.GetComponent<Slider>().value = volume;
+		dingSound.GetComponent<AudioSource>().volume = volume * 5;
+		urghSound.GetComponent<AudioSource>().volume = volume * 5;
+		//volumeSlider.GetComponent<Slider>().value = volume;
 
 		if (level >= 5 && level < 11 && !level2Bool)
 		{
