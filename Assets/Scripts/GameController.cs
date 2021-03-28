@@ -181,13 +181,13 @@ public class GameController : MonoBehaviour
 		bridge3_4,
 		closeWall3_4,
 		openWall3_4,
-		levelOutTrigger3_4;
+		levelOutTrigger3_4,
 
-		/*level3_5,
+		level3_5,
 		bridge3_5,
 		closeWall3_5,
 		openWall3_5,
-		levelOutTrigger3_5;*/
+		levelOutTrigger3_5;
 
 	//GameOver
 	public Text gameOverScoreText;
@@ -766,11 +766,11 @@ public class GameController : MonoBehaviour
 				case 14 :
 					Debug.Log("BBBBBBBBBBBBBBBBBBB");
 					break;
-				/*case 15 :
+				case 15 :
 					level3_5.SetActive(true);
 					bridge3_4.SetActive(true);
-					openWall3_5.SetActive(false);
-					break;*/
+					openWall3_4.SetActive(false);
+					break;
 			}
 		}
 	}
@@ -886,10 +886,10 @@ public class GameController : MonoBehaviour
 				player.transform.GetComponent<Level3_3Teleport>().enabled = false;
 				level3_3.SetActive(false);
 				break;
-			/*case 15 :
+			case 15 :
 					closeWall3_5.SetActive(true);
 					level3_4.SetActive(false);
-				break;*/
+				break;
 		}
 
 
@@ -1205,8 +1205,8 @@ public class GameController : MonoBehaviour
 		mover2.GetComponent<PathMover>().enabled = false;
 		mover1.GetComponent<PathMover>().SetCurrentToZero();
 		mover2.GetComponent<PathMover>().SetCurrentToZero();
-		mover1.transform.position = new Vector3(-7.926678f, 41.77216f, 207.1318f);
-		mover2.transform.position = new Vector3(8.513323f, 41.77216f, 191.0318f);
+		mover1.transform.position = new Vector3(-7.831676f, 41.77216f, 207.1768f);
+		mover2.transform.position = new Vector3(8.358322f, 41.77216f, 190.9868f);
 		DamageCylinderLevel2_5.GetComponent<PathMover>().enabled = false;
 		DamageCylinder2Level2_5.GetComponent<PathMover>().enabled = false;
 
@@ -1303,5 +1303,16 @@ public class GameController : MonoBehaviour
 		level3OnGo = false;
 		level2CanvasLock.SetActive(true);
 		level2CanvasLock.SetActive(true);
+	}
+
+	public void UnlockLevel()
+	{
+		levelStartSafe = 2;
+		level2Bool = true;
+		level3Bool = true;
+		/*level2OnGo = false;
+		level3OnGo = false;*/
+		level2CanvasLock.SetActive(false);
+		level2CanvasLock.SetActive(false);
 	}
 }
