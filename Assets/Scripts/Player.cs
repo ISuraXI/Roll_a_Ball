@@ -169,7 +169,6 @@ public class Player : MonoBehaviour
 		if (other.gameObject.CompareTag("Ground"))
 		{
 			contactWithGround = true;
-			Debug.Log("true");
 		}
 	}
 

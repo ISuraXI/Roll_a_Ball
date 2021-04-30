@@ -500,9 +500,9 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
-		Debug.Log(level);
+		/*Debug.Log("Level: " + level);
 		Debug.Log("levelOnGo:  " + level2OnGo);
-		Debug.Log("levlStartSafe:  " + levelStartSafe);
+		Debug.Log("levlStartSafe:  " + levelStartSafe);*/
 
 
 		SaveGameControllerData();
@@ -1016,15 +1016,16 @@ public class GameController : MonoBehaviour
 
 	public void SetStartLevel() //TODO use int which represents level
 	{
-		if (levelStartSafe == 2)
-		{
-			level2OnGo = true;
-			level3OnGo = false;
-		}
-		else if (levelStartSafe == 3)
+
+		if (levelStartSafe == 3)
 		{
 			level2OnGo = false;
 			level3OnGo = true;
+		}
+		else if (levelStartSafe == 2)
+		{
+			level2OnGo = true;
+			level3OnGo = false;
 		}
 		else
 		{
@@ -1204,7 +1205,7 @@ public class GameController : MonoBehaviour
 		mover1.GetComponent<PathMover>().SetCurrentToZero();
 		mover2.GetComponent<PathMover>().SetCurrentToZero();
 		mover1.transform.position = new Vector3(-7.831676f, 41.77216f, 207.1768f);
-		mover2.transform.position = new Vector3(8.358322f, 41.77216f, 190.9868f);
+		mover2.transform.position = new Vector3(8.358324f, 41.77216f, 190.9868f);
 		DamageCylinderLevel2_5.GetComponent<PathMover>().enabled = false;
 		DamageCylinder2Level2_5.GetComponent<PathMover>().enabled = false;
 
