@@ -164,6 +164,15 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	private void OnCollisionStay(Collision other)
+	{
+		if (other.gameObject.CompareTag("Ground"))
+		{
+			contactWithGround = true;
+			Debug.Log("true");
+		}
+	}
+
 	private void OnCollisionEnter(Collision collision)
 	{
 		if (collision.gameObject.CompareTag("Damage"))
@@ -176,10 +185,6 @@ public class Player : MonoBehaviour
 			//Adjust health bar
 			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 8), 40);
 			gameController.StartTimerRedHealth = true;
-		}
-		else if (collision.gameObject.CompareTag("Ground"))
-		{
-			contactWithGround = true;
 		}
 		else if (collision.gameObject.CompareTag("BackTeleport"))
 		{
