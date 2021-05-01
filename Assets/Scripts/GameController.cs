@@ -515,21 +515,15 @@ public class GameController : MonoBehaviour
 
 		if (level >= 5 && level < 11 && !level2Bool)
 		{
-			if (!level2Bool)
-			{
-				levelStartSafe = 2;
-				level2Bool = true;
-				level2CanvasLock.SetActive(false);
-			}
+			levelStartSafe = 2;
+			level2Bool = true;
+			level2CanvasLock.SetActive(false);
 		}
 		else if (level >= 11 && !level3Bool)
 		{
-			if (!level3Bool)
-			{
-				levelStartSafe = 3;
-				level3Bool = true;
-				level3CanvasLock.SetActive(false);
-			}
+			levelStartSafe = 3;
+			level3Bool = true;
+			level3CanvasLock.SetActive(false);
 		}
 
 		if (GodMode)
