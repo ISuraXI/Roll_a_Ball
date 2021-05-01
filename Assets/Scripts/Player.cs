@@ -179,7 +179,10 @@ public class Player : MonoBehaviour
 			gameController.urghSound.GetComponent<AudioSource>().enabled = true;
 			gameController.soundUrghBool = true;
 			TakeDamage(collision.gameObject.GetComponent<DamageDealer>().Damage);
-			Handheld.Vibrate();
+			if (!gameController.GodMode)
+			{
+				Handheld.Vibrate();
+			}
 
 			//Adjust health bar
 			gameController.GreenHealthBarRect.sizeDelta = new Vector2((health * 8), 40);
