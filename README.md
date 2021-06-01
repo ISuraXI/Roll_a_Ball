@@ -1,8 +1,9 @@
 # Roll a Ball
 Nice mobile game
-
+<br><br><br>
 Befor deploy 
-lock all level
-lock all items 
-set levelIntroOnGo to true
-Money to Zero
+<br><br>
+lock all level <br>
+lock all items <br>
+set levelIntroOnGo to true <br>
+Money to Zero<br>
