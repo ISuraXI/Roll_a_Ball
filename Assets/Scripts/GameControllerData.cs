@@ -37,6 +37,8 @@ public class GameControllerData
 	public int levelStartSafe = 0;
 	public bool level2Bool = false;
 	public bool level3Bool = false;
+	public bool levelIntroOnGo;
+
 
 	public GameControllerData(GameController gameController)
 	{
@@ -72,6 +74,7 @@ public class GameControllerData
 		levelStartSafe = gameController.levelStartSafe;
 		level2Bool = gameController.level2Bool;
 		level3Bool = gameController.level3Bool;
+		levelIntroOnGo = gameController.levelIntroOnGO;
 	}
 
 }

@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Scenes/RollABall.unity
+    path: Assets/_Scenes/Space Ball.unity
     guid: a1c8ac52530f44d47afd3a511b17d019
   m_configObjects: {}

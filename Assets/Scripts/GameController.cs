@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.UI;
@@ -23,6 +24,7 @@ public class GameController : MonoBehaviour
 	public GameObject settingsCanvas;
 	public GameObject skyboxController;
 	public GameObject CounterUI;
+	public GameObject UIAssistant;
 
 	//Cam
 	public GameObject mainCam;
@@ -43,6 +45,8 @@ public class GameController : MonoBehaviour
 	public Text coinsGroundsText;
 	public Text coinsPauseText;
 	public Text fpsCounter;
+	public GameObject lifeIntro;
+	public GameObject scoreIntro;
 
 	//FPS counter
 	public float fpsRefreshRate = 1f;
@@ -63,77 +67,72 @@ public class GameController : MonoBehaviour
 	//Sound Effects
 	public GameObject dingSound;
 	public GameObject urghSound;
-	[HideInInspector]
-	public bool soundDingBool;
-	[HideInInspector]
-	public float soundDingTime = 0.5f;
-	[HideInInspector]
-	public bool soundUrghBool;
-	[HideInInspector]
-	public float soundUrghTime = 0.5f;
+	[HideInInspector] public bool soundDingBool;
+	[HideInInspector] public float soundDingTime = 0.5f;
+	[HideInInspector] public bool soundUrghBool;
+	[HideInInspector] public float soundUrghTime = 0.5f;
+
+	//Intro Skip
+	public GameObject lifeErklärungSound;
+	public GameObject scoreErklärungSound;
+	/*//Touches Counter
+	private int touches1 = 0;
+	private int touches2 = 0;*/
 
 	//Level
 	public GameObject
+		levelIntro,
+		introPhone,
 		level1_1,
 		closeWall1_1,
 		openWall1_1,
 		levelOutTrigger1_1,
-
 		level1_2,
 		bridge1_2,
 		closeWall1_2,
 		openWall1_2,
 		levelOutTrigger1_2,
-
 		level1_3,
 		bridge1_3,
 		closeWall1_3,
 		openWall1_3,
 		levelOutTrigger1_3,
 		godModeLevel1_3,
-
 		level1_4,
 		bridge1_4,
 		closeWall1_4,
 		openWall1_4,
 		levelOutTrigger1_4,
-
 		level1_5,
 		bridge1_5,
 		closeWall1_5,
 		openWall1_5,
 		rotateObject,
 		levelOutTrigger1_5,
-
 		goToLevel2,
 		goToLevel2Bridge,
 		goToLevel2CloseWall,
-
 		level2_0,
 		groundFillLevel2,
 		groundTrigger2,
-
 		level2_1,
 		bridge2_1,
 		closeWall2_1,
 		openWall2_1,
 		timelineLevel2_1,
 		levelOutTrigger2_1,
-
 		level2_2,
 		bridge2_2,
 		closeWall2_2,
 		openWall2_2,
 		levelOutTrigger2_2,
 		godModeLevel2_2,
-
 		level2_3,
 		bridge2_3,
 		closeWall2_3,
 		openWall2_3,
 		levelOutTrigger2_3,
 		level2_3Enemy,
-
 		level2_4,
 		bridge2_4,
 		closeWall2_4,
@@ -142,7 +141,6 @@ public class GameController : MonoBehaviour
 		mover1,
 		mover2,
 		godModeLevel2_4,
-
 		level2_5,
 		bridge2_5,
 		closeWall2_5,
@@ -150,39 +148,32 @@ public class GameController : MonoBehaviour
 		levelOutTrigger2_5,
 		DamageCylinderLevel2_5,
 		DamageCylinder2Level2_5,
-
 		goToLevel3,
 		goToLevel3CloseWall,
-
 		level3_0,
 		groundFillLevel3,
 		groundTrigger3,
-
 		level3_1,
 		bridge3_1,
 		closeWall3_1,
 		openWall3_1,
 		levelOutTrigger3_1,
-
 		level3_2,
 		bridge3_2,
 		closeWall3_2,
 		openWall3_2,
 		levelOutTrigger3_2,
 		trigger3_2,
-
 		level3_3,
 		bridge3_3,
 		closeWall3_3,
 		openWall3_3,
 		levelOutTrigger3_3,
-
 		level3_4,
 		bridge3_4,
 		closeWall3_4,
 		openWall3_4,
 		levelOutTrigger3_4,
-
 		level3_5,
 		bridge3_5,
 		closeWall3_5,
@@ -194,8 +185,7 @@ public class GameController : MonoBehaviour
 	public Text gameOverCounterText;
 
 	//Level
-	[HideInInspector]
-	public int
+	[HideInInspector] public int
 		highscoreLevel1,
 		highscoreLevel2,
 		highscoreLevel3,
@@ -213,6 +203,7 @@ public class GameController : MonoBehaviour
 	public int passedLevel = 0;
 	public bool level1 = true;
 	public bool level2 = true;
+
 	public bool level3 = true;
 	/*public bool level4 = true; // Didi nicht löschen pls
 	public bool level5 = true;*/
@@ -249,6 +240,10 @@ public class GameController : MonoBehaviour
 	public int groundStatus = 1;
 	public int ballStatus = 1;
 
+	//Intro
+	private bool introLevel1;
+	private bool introLevel2;
+
 	//Timer
 	private bool startTimerWinText;
 	private float timerWinText = 2;
@@ -269,6 +264,10 @@ public class GameController : MonoBehaviour
 	public int level;
 
 	//Level Spawn
+	public bool levelIntroOnGO = true;
+	/*private static readonly Vector3 levelIntroBallSpawn = new Vector3(-174.7467f, 0.55f, 0.6818314f);
+	private readonly Vector3 levelIntroCamSpawn = levelIntroBallSpawn + new Vector3(0f, 10, -10);*/
+
 	private readonly Vector3 level1BallSpawn = new Vector3(0, 0.55f, 0);
 	private readonly Vector3 level1CamSpawn = new Vector3(0, 10, -10);
 
@@ -320,6 +319,7 @@ public class GameController : MonoBehaviour
 	{
 		SaveGameControllerData();
 	}
+
 	public void LoadGameControllerData()
 	{
 		GameControllerData data = SaveSystem.loadGameController();
@@ -357,6 +357,7 @@ public class GameController : MonoBehaviour
 		levelStartSafe = data.levelStartSafe;
 		level2Bool = data.level2Bool;
 		level3Bool = data.level3Bool;
+		levelIntroOnGO = data.levelIntroOnGo;
 
 		UnlockedGrounds();
 		UnlockedBalls();
@@ -445,11 +446,16 @@ public class GameController : MonoBehaviour
 		levelCanvas.SetActive(false);
 		player.healthParticle.GetComponent<ParticleSystem>().playOnAwake = true;
 
-		mainCam.transform.Rotate(45, 0 , 0);
+		mainCam.transform.Rotate(45, 0, 0);
 		mainCam.GetComponent<CameraController>().enabled = true;
 
 		skyboxController.SetActive(false);
 
+		if (levelIntroOnGO)
+		{
+			Debug.Log("levelIntroOnGoaaaaaaaaaaaaaaaa");
+			StartGameIntro();
+		}
 		if (level2OnGo /*|| levelStartSafe == 2*/)
 		{
 			StartGameLevel2();
@@ -464,6 +470,21 @@ public class GameController : MonoBehaviour
 			playerGameObject.transform.position = level1BallSpawn;
 			mainCam.transform.position = level1CamSpawn;
 		}
+	}
+
+	private void StartGameIntro()
+	{
+		playerGameObject.GetComponent<Rigidbody>().isKinematic = true;
+		player.healthParticle.GetComponent<ParticleSystem>().playOnAwake = false;
+		playerGameObject.SetActive(false);
+		/*
+		LevelIntroLevelStates();
+		*/
+		/*playerGameObject.transform.position = levelIntroBallSpawn;
+		mainCam.transform.position = levelIntroCamSpawn;*/
+		lifeIntro.SetActive(true);
+		UIAssistant.SetActive(true);
+		introLevel1 = true;
 	}
 
 	private void StartGameLevel2()
@@ -484,7 +505,7 @@ public class GameController : MonoBehaviour
 
 	public void RestartGame()
 	{
-		mainCam.transform.Rotate(-45, 0 , 0);
+		mainCam.transform.Rotate(-45, 0, 0);
 
 		if (level >= 5 && level < 11)
 		{
@@ -494,14 +515,19 @@ public class GameController : MonoBehaviour
 		{
 			level3OnGo = true;
 		}
+
 		StartGame();
 	}
 
 	// Update is called once per frame
 	private void Update()
 	{
-		/*Debug.Log("Level: " + level);
-		Debug.Log("levelOnGo:  " + level2OnGo);
+
+		Debug.Log("introLevel1: " + introLevel1);
+		Debug.Log("lifeErklärungSound: " + lifeErklärungSound);
+		/*Debug.Log(introLevel2);
+		Debug.Log("Level: " + level);*/
+		/*Debug.Log("levelOnGo:  " + level2OnGo);
 		Debug.Log("levlStartSafe:  " + levelStartSafe);*/
 
 
@@ -512,6 +538,7 @@ public class GameController : MonoBehaviour
 		dingSound.GetComponent<AudioSource>().volume = volume * 5;
 		urghSound.GetComponent<AudioSource>().volume = volume * 5;
 		//volumeSlider.GetComponent<Slider>().value = volume;
+
 
 		if (level >= 5 && level < 11 && !level2Bool)
 		{
@@ -533,8 +560,8 @@ public class GameController : MonoBehaviour
 			canTakeDamage = false;
 			timerGodMode -= Time.deltaTime;
 			blueHealthBarGameObject.SetActive(true);
-			blueHealthBarRect.sizeDelta = new Vector2(((timerGodMode / 3) *10 ) * 8, 40);
-				lifeText.text = "Safe Mode";
+			blueHealthBarRect.sizeDelta = new Vector2(((timerGodMode / 3) * 10) * 8, 40);
+			lifeText.text = "Safe Mode";
 			var timeGodModeFinal = TimeSpan.FromSeconds(timerGodMode);
 			var timeGodModeFinalStr = "God Mode: " + timeGodModeFinal.ToString("ss");
 			godModeText.text = timeGodModeFinalStr;
@@ -561,7 +588,7 @@ public class GameController : MonoBehaviour
 
 		if (Time.unscaledTime > _timer)
 		{
-			int fps = (int)(1f / Time.unscaledDeltaTime);
+			int fps = (int) (1f / Time.unscaledDeltaTime);
 			fpsCounter.text = "FPS: " + fps;
 			_timer = Time.unscaledTime + fpsRefreshRate;
 		}
@@ -588,6 +615,71 @@ public class GameController : MonoBehaviour
 				scorePointsForTimeBonusText.text = "";
 				timerScoreAdd = 2;
 				startScorePointAdd = false;
+			}
+		}
+
+		if (introLevel1)
+		{
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				if (!lifeErklärungSound.activeSelf)
+				{
+					lifeIntro.SetActive(false);
+					scoreIntro.SetActive(true);
+					Debug.Log("aaaaaaaaaaaaaaaaaaa");
+					introLevel2 = true;
+					introLevel1 = false;
+				}
+			}
+
+			foreach (var touch in Input.touches)
+			{
+				if (!lifeErklärungSound.activeSelf)
+				{
+					Vector3 touchPos = Camera.main.ScreenToViewportPoint(touch.position);
+					if (touch.phase == TouchPhase.Began && touchPos.y < 0.75f)
+					{
+						lifeIntro.SetActive(false);
+						scoreIntro.SetActive(true);
+						introLevel2 = true;
+						introLevel1 = false;
+					}
+				}
+			}
+		}
+
+		if (introLevel2)
+		{
+			if (Input.GetKeyDown(KeyCode.E))
+			{
+				scoreIntro.SetActive(false);
+				playerGameObject.SetActive(true);
+				introPhone.SetActive(true);
+				introPhone.GetComponent<PhoneRotator>().enabled = true;
+				player.healthParticle.GetComponent<ParticleSystem>().playOnAwake = true;
+				UIAssistant.SetActive(false);
+				levelIntroOnGO = false;
+
+				introLevel2 = false;
+			}
+
+			foreach (var touch in Input.touches)
+			{
+				if (!scoreErklärungSound.activeSelf)
+				{
+					Vector3 touchPos = Camera.main.ScreenToViewportPoint(touch.position);
+					if (touch.phase == TouchPhase.Began && touchPos.y < 0.75f)
+					{
+						scoreIntro.SetActive(false);
+						playerGameObject.SetActive(true);
+						introPhone.SetActive(true);
+						introPhone.GetComponent<PhoneRotator>().enabled = true;
+						player.healthParticle.GetComponent<ParticleSystem>().playOnAwake = true;
+						UIAssistant.SetActive(false);
+						levelIntroOnGO = false;
+						introLevel2 = false;
+					}
+				}
 			}
 		}
 
@@ -699,7 +791,7 @@ public class GameController : MonoBehaviour
 					//levelText.text = "Stage 5";
 					startTimerWinText = true;
 					break;
-				case 6 :
+				case 6:
 					openWall2_1.SetActive(false);
 					bridge2_1.SetActive(true);
 					level2_2.SetActive(true);
@@ -707,7 +799,7 @@ public class GameController : MonoBehaviour
 					//levelText.text = "Stage 1";
 					startTimerWinText = true;
 					break;
-				case 7 :
+				case 7:
 					openWall2_2.SetActive(false);
 					bridge2_2.SetActive(true);
 					level2_3.SetActive(true);
@@ -715,7 +807,7 @@ public class GameController : MonoBehaviour
 					//levelText.text = "Stage 2";
 					startTimerWinText = true;
 					break;
-				case 8 :
+				case 8:
 					openWall2_3.SetActive(false);
 					bridge2_3.SetActive(true);
 					level2_4.SetActive(true);
@@ -723,7 +815,7 @@ public class GameController : MonoBehaviour
 					//levelText.text = "Stage 3";
 					startTimerWinText = true;
 					break;
-				case 9 :
+				case 9:
 					openWall2_4.SetActive(false);
 					bridge2_4.SetActive(true);
 					level2_5.SetActive(true);
@@ -733,7 +825,7 @@ public class GameController : MonoBehaviour
 					DamageCylinderLevel2_5.GetComponent<PathMover>().enabled = true;
 					DamageCylinder2Level2_5.GetComponent<PathMover>().enabled = true;
 					break;
-				case 10 :
+				case 10:
 					openWall2_5.SetActive(false);
 					bridge2_5.SetActive(true);
 					goToLevel3.SetActive(true);
@@ -743,7 +835,7 @@ public class GameController : MonoBehaviour
 					//levelText.text = "Stage 5";
 					startTimerWinText = true;
 					break;
-				case 12 :
+				case 12:
 					openWall3_1.SetActive(false);
 					bridge3_1.SetActive(true);
 					level3_2.SetActive(true);
@@ -751,14 +843,12 @@ public class GameController : MonoBehaviour
 					level3_2.SetActive(true);
 					startTimerWinText = true;
 					break;
-				case 13 :
-					Debug.Log("AAAAAAAAAAAAAAAAAAA");
+				case 13:
 					//da keine Pickups in level3_2
 					break;
-				case 14 :
-					Debug.Log("BBBBBBBBBBBBBBBBBBB");
+				case 14:
 					break;
-				case 15 :
+				case 15:
 					level3_5.SetActive(true);
 					bridge3_4.SetActive(true);
 					openWall3_4.SetActive(false);
@@ -855,7 +945,7 @@ public class GameController : MonoBehaviour
 				closeWall3_1.SetActive(true);
 				level3_0.SetActive(false);
 				break;
-			case 12 :
+			case 12:
 				closeWall3_2.SetActive(true);
 				level3_1.SetActive(false);
 				//.SetActive(false);
@@ -865,22 +955,20 @@ public class GameController : MonoBehaviour
 				level3_3.SetActive(true);
 				startTimerWinText = true;
 				break;
-			case 13 :
-				Debug.Log("CCCCCCCCCCCCCCCC");
+			case 13:
 				//player.GetComponent<Level3_3Teleport>().enabled = true;
 				closeWall3_3.SetActive(true);
 				level3_2.SetActive(false);
 				break;
-			case 14 :
-				Debug.Log("DDDDDDDDDDDDDDD");
+			case 14:
 				closeWall3_4.SetActive(true);
 				player.transform.GetComponent<Rigidbody>().isKinematic = false;
 				player.transform.GetComponent<Level3_3Teleport>().enabled = false;
 				level3_3.SetActive(false);
 				break;
-			case 15 :
-					closeWall3_5.SetActive(true);
-					level3_4.SetActive(false);
+			case 15:
+				closeWall3_5.SetActive(true);
+				level3_4.SetActive(false);
 				break;
 		}
 
@@ -945,26 +1033,32 @@ public class GameController : MonoBehaviour
 		{
 			uiMenuController.UnlockBall2();
 		}
+
 		if (ball3Unlocked)
 		{
 			uiMenuController.UnlockBall3();
 		}
+
 		if (ball4Unlocked)
 		{
 			uiMenuController.UnlockBall4();
 		}
+
 		if (ball5Unlocked)
 		{
 			uiMenuController.UnlockBall5();
 		}
+
 		if (ball6Unlocked)
 		{
 			uiMenuController.UnlockBall6();
 		}
+
 		if (ball7Unlocked)
 		{
 			uiMenuController.UnlockBall7();
 		}
+
 		if (ball8Unlocked)
 		{
 			uiMenuController.UnlockBall8();
@@ -977,14 +1071,17 @@ public class GameController : MonoBehaviour
 		{
 			uiMenuController.UnlockGround2();
 		}
+
 		if (ground3Unlocked)
 		{
 			uiMenuController.UnlockGround3();
 		}
+
 		if (ground4Unlocked)
 		{
 			uiMenuController.UnlockGround4();
 		}
+
 		if (ground5Unlocked)
 		{
 			uiMenuController.UnlockGround5();
@@ -1010,7 +1107,6 @@ public class GameController : MonoBehaviour
 
 	public void SetStartLevel() //TODO use int which represents level
 	{
-
 		if (levelStartSafe == 3)
 		{
 			level2OnGo = false;
@@ -1023,8 +1119,11 @@ public class GameController : MonoBehaviour
 		}
 		else
 		{
-			level2OnGo = false;
-			level3OnGo = false;
+			//Für IntroLevel
+			/*level2OnGo = false;
+			level3OnGo = false;*/
+
+
 			/*level4OnGo = false;
 			level5OnGo = false;*/
 		}
@@ -1054,23 +1153,6 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-
-
-
-
-	/*public void StartLevel2()
-	{
-		if (level2Bool)
-		{
-			level2OnGo = true;
-			level3OnGo = false;
-			/*level4OnGo = false;
-			level5OnGo = false;#1#
-
-			StartGame();
-		}
-	}*/
-
 	public void StartLevel3()
 	{
 		if (level3Bool)
@@ -1084,7 +1166,11 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-
+	/*private void LevelIntroLevelStates()
+	{
+		levelIntro.SetActive(true);
+		level1_1.SetActive(false);
+	}*/
 
 	private void Level1LevelStates()
 	{
@@ -1149,11 +1235,12 @@ public class GameController : MonoBehaviour
 	private void GameStartLevelStatus()
 	{
 		//TODO: Player gehört hier nicht hin
-		var plus = new Vector3(0.76f,0.76f,0.76f);
+		var plus = new Vector3(0.76f, 0.76f, 0.76f);
 		player.transform.localScale = plus;
 
 
-		level1_1.SetActive(true);
+		// for IntroLevel
+		//level1_1.SetActive(true);
 		openWall1_1.SetActive(true);
 		level1_2.SetActive(false);
 		bridge1_2.SetActive(true);
@@ -1206,8 +1293,6 @@ public class GameController : MonoBehaviour
 		openWall2_4.SetActive(true);
 		bridge2_5.SetActive(false);
 		level2_5.SetActive(false);
-		/*DamageCylinderLevel2_5.GetComponent<PathMover>().enabled = false;
-		DamageCylinder2Level2_5.GetComponent<PathMover>().enabled = false;*/
 
 		openWall2_5.SetActive(true);
 		bridge2_5.SetActive(false);
@@ -1236,10 +1321,10 @@ public class GameController : MonoBehaviour
 		closeWall3_4.SetActive(false);
 		openWall3_4.SetActive(true);
 
-		/*level3_5.SetActive(false);
+		level3_5.SetActive(false);
 		bridge3_5.SetActive(false);
 		closeWall3_5.SetActive(false);
-		openWall3_5.SetActive(true);*/
+		openWall3_5.SetActive(true);
 	}
 
 	public void LevelOutTriggerTurnOff()
@@ -1258,8 +1343,9 @@ public class GameController : MonoBehaviour
 		levelOutTrigger3_2.SetActive(false);
 		levelOutTrigger3_3.SetActive(false);
 		levelOutTrigger3_4.SetActive(false);
-		// levelOutTrigger3_5.SetActive(false);
+		levelOutTrigger3_5.SetActive(false);
 	}
+
 	public void HackAllLevel()
 	{
 		openWall1_1.SetActive(false);
@@ -1295,7 +1381,7 @@ public class GameController : MonoBehaviour
 		level2OnGo = false;
 		level3OnGo = false;
 		level2CanvasLock.SetActive(true);
-		level2CanvasLock.SetActive(true);
+		level3CanvasLock.SetActive(true);
 	}
 
 	public void UnlockLevel()
@@ -1306,6 +1392,11 @@ public class GameController : MonoBehaviour
 		/*level2OnGo = false;
 		level3OnGo = false;*/
 		level2CanvasLock.SetActive(false);
-		level2CanvasLock.SetActive(false);
+		level3CanvasLock.SetActive(false);
+	}
+
+	public void SetLevelToZero()
+	{
+		levelIntroOnGO = true;
 	}
 }
