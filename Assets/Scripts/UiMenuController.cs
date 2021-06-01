@@ -728,4 +728,31 @@ public class UiMenuController : MonoBehaviour
 		gameController.ground4Unlocked = false;
 		gameController.ground5Unlocked = false;
 	}
+
+	public void UnlockAll()
+	{
+		ball2Lock.SetActive(false);
+		ball3Lock.SetActive(false);
+		ball4Lock.SetActive(false);
+		ball5Lock.SetActive(false);
+		ball6Lock.SetActive(false);
+		ball7Lock.SetActive(false);
+		ball8Lock.SetActive(false);
+		gameController.ball2Unlocked = true;
+		gameController.ball3Unlocked = true;
+		gameController.ball4Unlocked = true;
+		gameController.ball5Unlocked = true;
+		gameController.ball6Unlocked = true;
+		gameController.ball7Unlocked = true;
+		gameController.ball8Unlocked = true;
+
+		ground2Lock.SetActive(false);
+		ground3Lock.SetActive(false);
+		ground4Lock.SetActive(false);
+		ground5Lock.SetActive(false);
+		gameController.ground2Unlocked = true;
+		gameController.ground3Unlocked = true;
+		gameController.ground4Unlocked = true;
+		gameController.ground5Unlocked = true;
+	}
 }

@@ -1399,4 +1399,44 @@ public class GameController : MonoBehaviour
 	{
 		levelIntroOnGO = true;
 	}
+
+	public void LockAll()
+	{
+		levelStartSafe = 0;
+		level2Bool = false;
+		level3Bool = false;
+		level2OnGo = false;
+		level3OnGo = false;
+		level2CanvasLock.SetActive(true);
+		level3CanvasLock.SetActive(true);
+
+		levelIntroOnGO = true;
+
+		uiMenuController.LockAll();
+
+		coins = 0;
+		SetCoins();
+		SetCoins();
+	}
+
+	public void UnlockAll()
+	{
+		levelStartSafe = 2;
+		level2Bool = true;
+		level3Bool = true;
+		/*level2OnGo = false;
+		level3OnGo = false;*/
+		level2CanvasLock.SetActive(false);
+		level3CanvasLock.SetActive(false);
+
+		levelIntroOnGO = false;
+
+		uiMenuController.UnlockAll();
+
+		UnlockedGrounds();
+		UnlockedBalls();
+
+		coins = 99999;
+		SetCoins();
+	}
 }
