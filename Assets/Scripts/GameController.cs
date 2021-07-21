@@ -453,7 +453,6 @@ public class GameController : MonoBehaviour
 
 		if (levelIntroOnGO)
 		{
-			Debug.Log("levelIntroOnGoaaaaaaaaaaaaaaaa");
 			StartGameIntro();
 		}
 		if (level2OnGo /*|| levelStartSafe == 2*/)
@@ -522,15 +521,6 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
-
-		Debug.Log("introLevel1: " + introLevel1);
-		Debug.Log("lifeErklärungSound: " + lifeErklärungSound);
-		/*Debug.Log(introLevel2);
-		Debug.Log("Level: " + level);*/
-		/*Debug.Log("levelOnGo:  " + level2OnGo);
-		Debug.Log("levlStartSafe:  " + levelStartSafe);*/
-
-
 		SaveGameControllerData();
 		SetCoins();
 
@@ -626,7 +616,6 @@ public class GameController : MonoBehaviour
 				{
 					lifeIntro.SetActive(false);
 					scoreIntro.SetActive(true);
-					Debug.Log("aaaaaaaaaaaaaaaaaaa");
 					introLevel2 = true;
 					introLevel1 = false;
 				}

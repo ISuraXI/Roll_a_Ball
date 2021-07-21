@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-public class AdsController : MonoBehaviour, IUnityAdsListener
+public class AdsController : MonoBehaviour/*, IUnityAdsListener*/
 {
-	public GameController gameController;
-	private String GooglePlay_ID = "3967929";
+	/*public GameController gameController;
+	private String GooglePlay_ID = "4226011";
 	private bool TestMode = true;
 	string myPlacementId = "rewardedVideo";
 
@@ -22,7 +22,7 @@ public class AdsController : MonoBehaviour, IUnityAdsListener
     /*public void DisplayInterstitialAd()
     {
 	    Advertisement.Show();
-    }*/
+    }#1#
 
     public void DisplayVideoAD()
     {
@@ -65,5 +65,5 @@ public class AdsController : MonoBehaviour, IUnityAdsListener
     // When the object that subscribes to ad events is destroyed, remove the listener:
     public void OnDestroy() {
 	    Advertisement.RemoveListener(this);
-    }
+    }*/
 }
